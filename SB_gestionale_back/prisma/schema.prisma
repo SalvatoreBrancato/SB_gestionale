@@ -11,17 +11,88 @@ datasource db {
 }
 
 model Clienti {
-  id             Int      @id @default(autoincrement())
-  ragioneSociale String?  @db.VarChar(100)
+  id             Int              @id @default(autoincrement())
+  ragioneSociale String?          @db.VarChar(100)
   nome           String?
   cognome        String?
   partitaIva     Int?
   indirizzo      String
   telefono       String?
   email          String
-  note           String?  @db.Text
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  note           String?          @db.Text
+  fattureVendita FattureVendita[]
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
 }
 
+//(one-to-many): Ogni Fattura di vendita deve avere un cliente associato, e una cliente può avere più fatture vendita associate.
+model FattureVendita {
+  id        Int      @id @default(autoincrement())
+  numero Int
+  data      DateTime
+  pezzi     Int
+  iva       Int
+  listino   Float
+  sconto    Float?
+  totale    Float
+  note      String?  @db.Text
+  clienti   Clienti? @relation(fields: [clientiId], references: [id])
+  clientiId Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Fornitori {
+  id              Int               @id @default(autoincrement())
+  ragioneSociale  String?           @db.VarChar(100)
+  nome            String?
+  cognome         String?
+  partitaIva      Int?
+  indirizzo       String
+  scontoFornitore Float?
+  telefono        String?
+  email           String
+  note            String?           @db.Text
+  fattureAcquisti FattureAcquisti[]
+  prodotto Prodotti[]
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+}
+
+model FattureAcquisti {
+  id          Int        @id @default(autoincrement())
+  numero   Int
+  data        DateTime
+  pezzi       Int
+  iva         Int
+  listino     Float
+  sconto      Float?
+  totale      Float
+  note        String?    @db.Text
+  fornitori   Fornitori? @relation(fields: [fornitoriId], references: [id])
+  fornitoriId Int?
+  pagamento   Pagamento? @relation(fields: [pagamentoId], references: [id])
+  pagamentoId Int?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+//(many to many)
+model Prodotti{
+  id Int @id @default(autoincrement())
+  nome String
+  descrizione String? @db.Text
+  pezzi Int
+  prezzoVendita Float
+  prezzoAcquisto Float
+  listino Float?
+  note String? @db.Text
+  fornitore Fornitori[]
+}
+
+model Pagamento {
+  id Int @id @default(autoincrement())
+  scadenza String
+  note String? @db.Text
+  fattureAcquisti FattureAcquisti[]
+}
 
