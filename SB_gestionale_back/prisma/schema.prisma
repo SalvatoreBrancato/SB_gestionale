@@ -15,7 +15,7 @@ model Clienti {
   ragioneSociale String?          @db.VarChar(100)
   nome           String?
   cognome        String?
-  partitaIva     Int?
+  partitaIva     String? 
   indirizzo      String
   telefono       String?
   email          String
@@ -28,7 +28,7 @@ model Clienti {
 //(one-to-many): Ogni Fattura di vendita deve avere un cliente associato, e una cliente può avere più fatture vendita associate.
 model FattureVendita {
   id        Int      @id @default(autoincrement())
-  numero Int
+  numero    Int
   data      DateTime
   pezzi     Int
   iva       Int
