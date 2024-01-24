@@ -15,7 +15,7 @@ model Clienti {
   ragioneSociale String?          @db.VarChar(100)
   nome           String?
   cognome        String?
-  partitaIva     String? 
+  partitaIva     String?
   indirizzo      String
   telefono       String?
   email          String
@@ -27,7 +27,7 @@ model Clienti {
 
 //(one-to-many): Ogni Fattura di vendita deve avere un cliente associato, e una cliente può avere più fatture vendita associate.
 model FattureVendita {
-  id        Int      @id @default(autoincrement())
+  id        Int        @id @default(autoincrement())
   numero    Int
   data      DateTime
   pezzi     Int
@@ -35,33 +35,32 @@ model FattureVendita {
   listino   Float
   sconto    Float?
   totale    Float
-  note      String?  @db.Text
-  clienti   Clienti? @relation(fields: [clientiId], references: [id])
+  note      String?    @db.Text
+  clienti   Clienti?   @relation(fields: [clientiId], references: [id])
+  prodotti  Prodotti[]
   clientiId Int?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 }
 
 model Fornitori {
   id              Int               @id @default(autoincrement())
   ragioneSociale  String?           @db.VarChar(100)
-  nome            String?
-  cognome         String?
-  partitaIva      Int?
+  partitaIva      String?
   indirizzo       String
   scontoFornitore Float?
   telefono        String?
   email           String
   note            String?           @db.Text
   fattureAcquisti FattureAcquisti[]
-  prodotto Prodotti[]
+  prodotti        Prodotti[]
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
 }
 
 model FattureAcquisti {
   id          Int        @id @default(autoincrement())
-  numero   Int
+  numero      Int
   data        DateTime
   pezzi       Int
   iva         Int
@@ -73,26 +72,29 @@ model FattureAcquisti {
   fornitoriId Int?
   pagamento   Pagamento? @relation(fields: [pagamentoId], references: [id])
   pagamentoId Int?
+  prodotti    Prodotti[]
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
 }
+
 //(many to many)
-model Prodotti{
-  id Int @id @default(autoincrement())
-  nome String
-  descrizione String? @db.Text
-  pezzi Int
-  prezzoVendita Float
-  prezzoAcquisto Float
-  listino Float?
-  note String? @db.Text
-  fornitore Fornitori[]
+model Prodotti {
+  id              Int               @id @default(autoincrement())
+  nome            String
+  descrizione     String?           @db.Text
+  pezzi           Int
+  prezzoVendita   Float
+  prezzoAcquisto  Float
+  listino         Float?
+  note            String?           @db.Text
+  fattureAcquisti FattureAcquisti[]
+  fattureVendita  FattureVendita[]
+  fornitore       Fornitori[]
 }
 
 model Pagamento {
-  id Int @id @default(autoincrement())
-  scadenza String
-  note String? @db.Text
+  id              Int               @id @default(autoincrement())
+  scadenza        String
+  note            String?           @db.Text
   fattureAcquisti FattureAcquisti[]
 }
-

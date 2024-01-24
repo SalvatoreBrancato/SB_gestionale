@@ -67,7 +67,7 @@ async function update(req, res){
     })
 
     if(!cliente){
-        throw new Error('cliente no trovato')
+        throw new Error('cliente non trovato')
     }
 
     const aggiornaCliente = await prisma.clienti.update({
