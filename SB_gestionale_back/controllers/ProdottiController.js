@@ -1,25 +1,122 @@
 const {PrismaClient} = require('@prisma/client');
 const prisma = new PrismaClient();
 
+//###INDEX###
 async function index(req, res){
-    
+    const data = await prisma.prodotti.findMany()
+    return res.json(data)
 }
 
+//###SHOW###
 async function show(req, res){
+    const id = req.params.id
 
+    const data = await prisma.prodotti.findUnique({
+        where:{
+            id: parseInt(id)
+        },
+        include:{
+            fattureAcquisti:{
+                select:{
+                    numero: true,
+                    data: true,
+                    note: true
+                }
+            },
+            fattureVendita:{
+                select:{
+                    numero: true,
+                    data: true,
+                    note: true
+                }
+            },
+            fornitore:{
+                select:{
+                    ragioneSociale: true
+                }
+            }
+        }
+    })
+
+    if (!data) {
+        throw new Error("Cliente non trovato");
+    }
+
+    return res.json(data)
 }
 
+//###CREATE###
 async function create(req, res){
-    
+    const datiInIngresso = req.body
+    const nuovoProdotto = await prisma.prodotti.create({
+        data:{
+            nome: datiInIngresso.nome,
+            descrizione: datiInIngresso.descrizione,
+            pezzi: datiInIngresso.pezzi,
+            prezzoVendita: datiInIngresso.prezzoVendita,
+            prezzoAcquisto: datiInIngresso.prezzoAcquisto,
+            listino: datiInIngresso.listino,
+            note: datiInIngresso.note,
+            fattureAcquisti: {
+                connect: datiInIngresso.fattureAcquisti.map((elem)=>{
+                    return {id: elem}
+                })
+            },
+            fattureVendita: {
+                connect: datiInIngresso.fattureVendita.map((elem)=>{
+                    return {id: elem}
+                })
+            },
+            fornitore: {
+                connect: datiInIngresso.fornitore.map((elem)=>{
+                    return {id: elem}
+                })
+            }
+        }
+    })
+    return res.json(nuovoProdotto)
 }
 
+//###UPDATE###
 async function update(req, res){
-    
+    const id = req.params.id
+    const datiInIngresso = req.body
+
+    //controllo se il prodotto esiste
+    const prodotto = await prisma.prodotti.findUnique({
+        where: {
+            id: parseInt(id)
+        }
+    })
+
+    if(!prodotto){
+        throw new Error('Prodotto non trovato')
+    }
+
+    const aggiornaProdotto = await prisma.prodotti.update({
+        where:{
+            id: parseInt(id)
+        },
+        data:{
+            ...datiInIngresso
+        }
+    })
+    return res.json(aggiornaProdotto)
 }
 
-async function destroy(req, res){
-    
-}
+//###DESTROY###
+async function destroy(req, res) {
+    const id  = req.params.id;
+
+    await prisma.prodotti.delete({
+      where: { id: parseInt(id) },
+      include: { fattureAcquisti: true },
+    });
+
+    res.status(200).json({ message: 'Prodotto eliminato correttamente' });
+  }
+
+
 module.exports = {
     index,
     show,
