@@ -78,11 +78,6 @@ export default function FormCreateComp({form, setForm}){
         };
 
         inviaDati()
-
-        setTimeout(() => {
-            setForm(false)
-        }, 2000);
-
     }
 
     const [isLoading, setIsLoading] = useState(false);

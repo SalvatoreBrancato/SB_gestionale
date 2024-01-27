@@ -3,7 +3,25 @@ const prisma = new PrismaClient();
 
 //###INDEX###
 async function index(req, res){
-    const data = await prisma.clienti.findMany()
+
+    const query = {}
+     //filtro titolo e descrizione
+     const { ragioneSociale, nome, cognome } = req.query
+     if (ragioneSociale || nome || cognome) {
+         query.where = {
+             ragioneSociale: {
+                 contains: ragioneSociale
+             },
+             nome: {
+                 contains: nome
+             },
+             cognome: {
+                contains: cognome
+            }
+         }
+     }
+
+    const data = await prisma.clienti.findMany(query)
     return res.json(data)
 }
 

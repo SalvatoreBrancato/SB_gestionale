@@ -3,7 +3,7 @@ import HeaderComp from '../components/HeaderComp';
 
 export default function DefaultLayout(){
     return(
-        <div className="flex flex-col min-h-screen">
+        <div className="flex flex-col h-screen">
             <HeaderComp></HeaderComp>
             <Outlet></Outlet>
         </div>

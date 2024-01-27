@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import {Link} from "react-router-dom";
 import axios from 'axios';
+import { ClipLoader } from "react-spinners";
 import FormCreateComp from '../components/FormCreateComp';
 
 export default function ClientiPage(){
@@ -11,17 +12,26 @@ export default function ClientiPage(){
     
     const [form, setForm] = useState(false)
 
+    const [isLoading, setIsLoading] = useState(false);
+
+    const [searchInput, setSearchInput] = useState('')
+
+    const risultatiRicerca = clienti.filter(cliente => cliente.ragioneSociale.includes(searchInput) || cliente.nome.includes(searchInput) || cliente.cognome.includes(searchInput));
+
     function clientiApi(){
+        setIsLoading(true);
         axios.get('http://localhost:3000/clienti')
             .then(response => {
               // Analizza la risposta
               setClienti(response.data);
               console.log(response.data)
+              setIsLoading(false);
             })
             
             .catch(error => {
               // Gestisci gli errori
               console.log(error);
+              setIsLoading(false);
             });
     }
 
@@ -38,7 +48,7 @@ export default function ClientiPage(){
             <div className='mx-5 flex justify-between'>
                 <div>
                     <label htmlFor="ricercaCliente">Ricerca cliente: </label>
-                    <input name='ricercaCliente' type="text" className='border-4 border-sky-100 mt-5'/>
+                    <input name='ricercaCliente' type="text" className='border-4 border-sky-100 mt-5' value={searchInput} onChange={(e) => setSearchInput(e.target.value)}/>
                 </div>
                 <div className='flex justify-center items-center'>
                     <button onClick={()=>apriForm()}>
@@ -48,15 +58,18 @@ export default function ClientiPage(){
                     </button>
                 </div>
             </div>
-            <div className="flex flex-wrap mx-auto realtive">
+            {isLoading ? <ClipLoader/> :  
+            <div className="flex flex-wrap mx-auto realtive overflow-y-auto">
                 {/* sfondo in trasparenza quando si apre il form */}
                 <div className={`absolute inset-x-0 top-32 bottom-0 bg-white ${form ? 'bg-opacity-80':'bg-opacity-0'}`}></div>
                 {
                     clienti.map((cliente)=>{
                         return(
                             <Link key={cliente.id} to={`/dettaglio_cliente/${cliente.id}`} className='border bg-sky-100 rounded-md shadow-lg flex flex-col m-3 w-72'>
-                                <span>{cliente.ragioneSociale}</span>
-                                <span>P.I. {cliente.partitaIva}</span>
+                                {cliente.ragioneSociale &&  <span>{cliente.ragioneSociale}</span>}
+                                {cliente.partitaIva &&  <span>P.I. {cliente.partitaIva}</span>}
+                                {cliente.nome &&  <span>{cliente.nome}</span>}
+                                {cliente.cognome && <span>{cliente.cognome}</span>}
                                 <span>{cliente.indirizzo}</span>
                                 <span>Tel: {cliente.telefono}</span>
                                 <span>email: {cliente.email}</span>
@@ -68,6 +81,8 @@ export default function ClientiPage(){
                 {form && <FormCreateComp form={form} setForm={setForm}></FormCreateComp>}
                 
             </div>
+            }
+           
         </>
     )
 }
