@@ -16,7 +16,11 @@ export default function ClientiPage(){
 
     const [searchInput, setSearchInput] = useState('')
 
-    const risultatiRicerca = clienti.filter(cliente => cliente.ragioneSociale.includes(searchInput) || cliente.nome.includes(searchInput) || cliente.cognome.includes(searchInput));
+    const risultatiRicerca = clienti.filter(cliente => 
+        (cliente.ragioneSociale && cliente.ragioneSociale.toLowerCase().includes(searchInput.toLowerCase())) || 
+        (cliente.nome && cliente.nome.toLowerCase().includes(searchInput.toLowerCase())) || 
+        (cliente.cognome && cliente.cognome.toLowerCase().includes(searchInput.toLowerCase()))
+    );
 
     function clientiApi(){
         setIsLoading(true);
@@ -63,7 +67,7 @@ export default function ClientiPage(){
                 {/* sfondo in trasparenza quando si apre il form */}
                 <div className={`absolute inset-x-0 top-32 bottom-0 bg-white ${form ? 'bg-opacity-80':'bg-opacity-0'}`}></div>
                 {
-                    clienti.map((cliente)=>{
+                    risultatiRicerca.map((cliente)=>{
                         return(
                             <Link key={cliente.id} to={`/dettaglio_cliente/${cliente.id}`} className='border bg-sky-100 rounded-md shadow-lg flex flex-col m-3 w-72'>
                                 {cliente.ragioneSociale &&  <span>{cliente.ragioneSociale}</span>}
