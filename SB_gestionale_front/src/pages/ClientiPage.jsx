@@ -48,8 +48,8 @@ export default function ClientiPage(){
     }
 
     return(
-        <>
-            <div className='mx-5 flex justify-between'>
+        <div className='bg-sky-50 h-full'>
+            <div className='mx-5 flex justify-between '>
                 <div>
                     <label htmlFor="ricercaCliente">Ricerca cliente: </label>
                     <input name='ricercaCliente' type="text" className='border-4 border-sky-100 mt-5' value={searchInput} onChange={(e) => setSearchInput(e.target.value)}/>
@@ -63,21 +63,23 @@ export default function ClientiPage(){
                 </div>
             </div>
             {isLoading ? <ClipLoader/> :  
-            <div className="flex flex-wrap mx-auto realtive overflow-y-auto">
+            <div className="flex flex-wrap px-auto realtive overflow-y-auto">
                 {/* sfondo in trasparenza quando si apre il form */}
-                <div className={`absolute inset-x-0 top-32 bottom-0 bg-white ${form ? 'bg-opacity-80':'bg-opacity-0'}`}></div>
+                <div className={`absolute inset-x-0 top-32 bottom-0 bg-white ${form ? 'bg-opacity-80':'bg-opacity-0'}`} style={{pointerEvents: "none"}}></div>
                 {
                     risultatiRicerca.map((cliente)=>{
                         return(
                             <Link key={cliente.id} to={`/dettaglio_cliente/${cliente.id}`} className='border bg-sky-100 rounded-md shadow-lg flex flex-col m-3 w-72'>
-                                {cliente.ragioneSociale &&  <span>{cliente.ragioneSociale}</span>}
-                                {cliente.partitaIva &&  <span>P.I. {cliente.partitaIva}</span>}
-                                {cliente.nome &&  <span>{cliente.nome}</span>}
-                                {cliente.cognome && <span>{cliente.cognome}</span>}
-                                <span>{cliente.indirizzo}</span>
-                                <span>Tel: {cliente.telefono}</span>
-                                <span>email: {cliente.email}</span>
-                                <span>Note: {cliente.note}</span>
+                                
+                                    {cliente.ragioneSociale &&  <span>{cliente.ragioneSociale}</span>}
+                                    {cliente.partitaIva &&  <span>P.I. {cliente.partitaIva}</span>}
+                                    {cliente.nome &&  <span>{cliente.nome}</span>}
+                                    {cliente.cognome && <span>{cliente.cognome}</span>}
+                                    <span>{cliente.indirizzo}</span>
+                                    <span>Tel: {cliente.telefono}</span>
+                                    <span>email: {cliente.email}</span>
+                                    <span>Note: {cliente.note}</span>
+                                
                             </Link>
                         )
                     })
@@ -87,6 +89,6 @@ export default function ClientiPage(){
             </div>
             }
            
-        </>
+        </div>
     )
 }
