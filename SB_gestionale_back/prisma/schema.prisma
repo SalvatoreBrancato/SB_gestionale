@@ -47,6 +47,8 @@ model Fornitori {
   id              Int               @id @default(autoincrement())
   ragioneSociale  String?           @db.VarChar(100)
   partitaIva      String?
+  nome           String?
+  cognome        String?
   indirizzo       String
   scontoFornitore Float?
   telefono        String?

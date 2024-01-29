@@ -3,10 +3,10 @@ import {useState} from 'react';
 import { ClipLoader } from "react-spinners";
 
 
-export default function FormCreateComp({form, setForm}){
+export default function FormCreateComp({form, setForm, fornitori}){
 
     //estaggo valore input radio cliente/fornitore
-    const [clienteFornitore, setClienteFornitore] = useState('cliente')
+    const [clienteFornitore, setClienteFornitore] = useState(fornitori ? 'fornitore':'cliente')
     
     const handleClienteForntioreChange = (e) =>{
         setClienteFornitore(e.target.value)
@@ -61,8 +61,15 @@ export default function FormCreateComp({form, setForm}){
 
         const inviaDati = async () => {
             try {
-              const response = await axios.post('http://localhost:3000/clienti/inserisci', nuovaAnagrafica);
-              console.log(response.data);
+
+                if(clienteFornitore == 'cliente'){
+                    const response = await axios.post('http://localhost:3000/clienti/inserisci', nuovaAnagrafica);
+                    console.log(response.data);
+                }else{
+                    const response = await axios.post('http://localhost:3000/fornitori/inserisci', nuovaAnagrafica);
+                    console.log(response.data);
+                }
+
               setIsLoading(false);
               setIsSuccess(true);
               setTimeout(() => {

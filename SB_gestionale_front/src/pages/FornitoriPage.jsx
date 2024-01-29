@@ -4,30 +4,28 @@ import axios from 'axios';
 import { ClipLoader } from "react-spinners";
 import FormCreateComp from '../components/FormCreateComp';
 
-export default function ClientiPage(){
+export default function FornitoriPage(){
 
-    useEffect(clientiApi, [])
+    useEffect(fornitoriApi, [])
 
-    const [clienti, setClienti] = useState([])
-    
+    const [fornitori, setFornitori] = useState([])
+
     const [form, setForm] = useState(false)
 
     const [isLoading, setIsLoading] = useState(false);
 
     const [searchInput, setSearchInput] = useState('')
 
-    const risultatiRicerca = clienti.filter(cliente => 
-        (cliente.ragioneSociale && cliente.ragioneSociale.toLowerCase().includes(searchInput.toLowerCase())) || 
-        (cliente.nome && cliente.nome.toLowerCase().includes(searchInput.toLowerCase())) || 
-        (cliente.cognome && cliente.cognome.toLowerCase().includes(searchInput.toLowerCase()))
+    const risultatiRicerca = fornitori.filter(fornitore => 
+        (fornitore.ragioneSociale && fornitore.ragioneSociale.toLowerCase().includes(searchInput.toLowerCase()))
     );
 
-    function clientiApi(){
+    function fornitoriApi(){
         setIsLoading(true);
-        axios.get('http://localhost:3000/clienti')
+        axios.get('http://localhost:3000/fornitori')
             .then(response => {
               // Analizza la risposta
-              setClienti(response.data);
+              setFornitori(response.data);
               console.log(response.data)
               setIsLoading(false);
             })
@@ -51,8 +49,8 @@ export default function ClientiPage(){
         <div className='bg-sky-50 h-full'>
             <div className='mx-5 flex justify-between '>
                 <div>
-                    <label htmlFor="ricercaCliente">Ricerca cliente: </label>
-                    <input name='ricercaCliente' type="text" className='border-4 border-sky-100 mt-5' value={searchInput} onChange={(e) => setSearchInput(e.target.value)}/>
+                    <label htmlFor="ricercaFornitore">Ricerca fornitore: </label>
+                    <input name='ricercaFornitore' type="text" className='border-4 border-sky-100 mt-5' value={searchInput} onChange={(e) => setSearchInput(e.target.value)}/>
                 </div>
                 <div className='flex justify-center items-center'>
                     <button onClick={()=>apriForm()}>
@@ -67,24 +65,22 @@ export default function ClientiPage(){
                 {/* sfondo in trasparenza quando si apre il form */}
                 <div className={`absolute inset-x-0 top-32 bottom-0 bg-white ${form ? 'bg-opacity-80':'bg-opacity-0'}`} style={{pointerEvents: "none"}}></div>
                 {
-                    risultatiRicerca.map((cliente)=>{
+                    risultatiRicerca.map((fornitore)=>{
                         return(
-                            <Link key={cliente.id} to={`/dettaglio_cliente/${cliente.id}`} className='border bg-sky-100 hover:bg-sky-200 rounded-md shadow-lg flex flex-col m-3 w-72'>
+                            <Link key={fornitore.id} to={`/dettaglio_fornitore/${fornitore.id}`} className='border bg-sky-100 hover:bg-sky-200 rounded-md shadow-lg flex flex-col m-3 w-72'>
                                 
-                                    {cliente.ragioneSociale &&  <span>{cliente.ragioneSociale}</span>}
-                                    {cliente.partitaIva &&  <span>P.I. {cliente.partitaIva}</span>}
-                                    {cliente.nome &&  <span>{cliente.nome}</span>}
-                                    {cliente.cognome && <span>{cliente.cognome}</span>}
-                                    <span>{cliente.indirizzo}</span>
-                                    <span>Tel: {cliente.telefono}</span>
-                                    <span>email: {cliente.email}</span>
-                                    <span>Note: {cliente.note}</span>
+                                    <span>{fornitore.ragioneSociale}</span>
+                                    <span>P.I. {fornitore.partitaIva}</span>
+                                    <span>{fornitore.indirizzo}</span>
+                                    <span>Tel: {fornitore.telefono}</span>
+                                    <span>email: {fornitore.email}</span>
+                                    <span>Note: {fornitore.note}</span>
                                 
                             </Link>
                         )
                     })
                 }
-                {form && <FormCreateComp form={form} setForm={setForm}></FormCreateComp>}
+                {form && <FormCreateComp form={form} setForm={setForm} fornitori={fornitori}></FormCreateComp>}
                 
             </div>
             }

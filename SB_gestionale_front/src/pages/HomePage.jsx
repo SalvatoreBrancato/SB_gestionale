@@ -111,8 +111,10 @@ export default function HomePage() {
 
                         {fornitori.map((fornitore) => {
                             return (
-                                <tr className="border-2 border-white bg-sky-200">
-                                    <td className="text-center">{fornitore.ragioneSociale}</td>
+                                <tr className="border-2 border-white bg-sky-200 hover:bg-sky-300">
+                                    <Link key={fornitore.id} to={`/dettaglio_fornitore/${fornitore.id}`} >
+                                        <td className="text-center">{fornitore.ragioneSociale}</td>
+                                    </Link>
                                     <td className="text-center">{fornitore.telefono}</td>
                                     <td className="text-center">{fornitore.email}</td>
                                 </tr>
