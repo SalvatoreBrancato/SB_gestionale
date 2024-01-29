@@ -7,7 +7,9 @@ async function index(req, res){
         include:{
             clienti:{
                 select:{
-                    ragioneSociale: true
+                    ragioneSociale: true,
+                    nome: true,
+                    cognome: true
                 }
             }
         }
