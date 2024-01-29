@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {useState, useEffect} from 'react';
 import { ClipLoader } from 'react-spinners';
-import { Link, useParams } from "react-router-dom";;
+import { Navigate, useParams } from "react-router-dom";
 
 export default function FormUpdateComp({form, setForm, cliente, setCliente}){
 
@@ -15,7 +15,7 @@ export default function FormUpdateComp({form, setForm, cliente, setCliente}){
     }
 
     //estraggo valore input radio forma giuridica
-    const [formaGiuridica, setFormaGiuridica] = useState('personaGiuridica') 
+    const [formaGiuridica, setFormaGiuridica] = useState(cliente.ragioneSociale ? 'personaGiuridica':'personaFisica') 
 
     const handleFormaGiuridicaChange = (e) => {
         setFormaGiuridica(e.target.value)
@@ -42,10 +42,10 @@ export default function FormUpdateComp({form, setForm, cliente, setCliente}){
         setIsLoading(true);
 
         const modificaAnagrafica = {
-            ragioneSociale: cliente.ragioneSociale,
-            nome: cliente.nome,
-            cognome: cliente.cognome,
-            partitaIva: cliente.partitaIva,
+            ragioneSociale: formaGiuridica == 'personaGiuridica' ? cliente.ragioneSociale: '',
+            nome: formaGiuridica == 'personaFisica' ? cliente.nome: '',
+            cognome: formaGiuridica == 'personaFisica' ? cliente.cognome: '',
+            partitaIva: formaGiuridica == 'personaGiuridica' ? cliente.partitaIva:'',
             indirizzo: cliente.indirizzo,
             telefono: cliente.telefono,
             email: cliente.email,
@@ -81,11 +81,12 @@ export default function FormUpdateComp({form, setForm, cliente, setCliente}){
                 {/* CHIUDI FORM */}
                 <div className="absolute top-5 right-5">
                     <button onClick={()=>setForm(false)}>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 hover:scale-125">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
                         </svg>
                     </button>
                 </div>
+                
 
                  {/* INPUT RADIO */}
                  <div className="flex mx-6 my-6">
@@ -155,7 +156,7 @@ export default function FormUpdateComp({form, setForm, cliente, setCliente}){
                         <input className="border-2 rounded-md w-full" type="text" name="note" value={cliente.note} onChange={handleInputChange}/>
                     </div>
                     <div className="flex justify-center">
-                        {isLoading ? <ClipLoader /> : <button type="submit" className="p-1 bg-sky-400 mt-3 rounded-md text-white">{clienteFornitore == 'cliente' ? 'Modifica cliente': 'Modifica fornitore'}</button>}
+                        {isLoading ? <ClipLoader /> : <button type="submit" className="p-1 bg-sky-400 mt-3 rounded-md text-white hover:bg-blue-400">{clienteFornitore == 'cliente' ? 'Modifica cliente': 'Modifica fornitore'}</button>}
                     </div>
                     {isSuccess && <p className="text-center">{clienteFornitore == 'cliente' ? 'Cliente modificato':'Fornitore modificato'}</p>}
                 </form>

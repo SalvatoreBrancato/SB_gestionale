@@ -92,7 +92,7 @@ export default function FormCreateComp({form, setForm}){
                 {/* CHIUDI FORM */}
                 <div className="absolute top-5 right-5">
                     <button onClick={()=>setForm(false)}>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 hover:scale-125">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
                         </svg>
                     </button>
@@ -166,7 +166,7 @@ export default function FormCreateComp({form, setForm}){
                         <input className="border-2 rounded-md w-full" type="text" name="note" value={formData.note} onChange={handleInputChange}/>
                     </div>
                     <div className="flex justify-center">
-                        {isLoading ? <ClipLoader /> : <button type="submit" className="p-1 bg-sky-400 mt-3 rounded-md text-white">{clienteFornitore == 'cliente' ? 'Inserisci nuovo cliente': 'Inserisci nuovo fornitore'}</button>}
+                        {isLoading ? <ClipLoader /> : <button type="submit" className="p-1 bg-sky-400 mt-3 rounded-md text-white hover:bg-blue-400">{clienteFornitore == 'cliente' ? 'Inserisci nuovo cliente': 'Inserisci nuovo fornitore'}</button>}
                     </div>
                     {isSuccess && <p className="text-center">{clienteFornitore == 'cliente' ? 'Nuovo cliente caricato':'Nuovo fornitore caricato'}</p>}
                 </form>
