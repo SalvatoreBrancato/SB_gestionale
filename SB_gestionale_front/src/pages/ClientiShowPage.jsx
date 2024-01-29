@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+import FormUpdateComp from "../components/FormUpdateComp";
 
 export default function DettaglioClientePage() {
 
@@ -9,6 +10,10 @@ export default function DettaglioClientePage() {
     const { id } = useParams()
 
     const [cliente, setCliente] = useState()
+
+    const [form, setForm] = useState(false)
+
+
 
     function dettaglioClienteApi() {
         axios.get(`http://localhost:3000/clienti/${id}`)
@@ -40,12 +45,27 @@ export default function DettaglioClientePage() {
           window.history.back(); // torna alla pagina precedente
     }
 
+    function apriForm(){
+        if(!form){
+            setForm(true)
+        }else{
+            setForm(false)
+        }
+    }
+
 
 
     return (
-        <div className="bg-sky-50 h-full">
+        <div className="bg-sky-50 h-full relative">
+            
+            {/* sfondo in trasparenza quando si apre il form */}
+            <div className={`absolute inset-x-0 top-10 bottom-0 bg-white ${form ? 'bg-opacity-80':'bg-opacity-0'}`}></div>
+            
+            {/* FORM */}
+           {form && <FormUpdateComp form={form} setForm={setForm} cliente={cliente} setCliente={setCliente}></FormUpdateComp>}
+            
             <div className="flex justify-end m-3">
-                <button className="me-3">
+                <button className="me-3" onClick={()=>apriForm()}>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#03A9F4" className="w-7 h-7">
                         <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
                         <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
@@ -60,6 +80,8 @@ export default function DettaglioClientePage() {
 
 
             <div className="flex flex-col">
+                
+                
                 {cliente && cliente.ragioneSociale && <span>{cliente.ragioneSociale}</span>}
                 {cliente && cliente.partitaIva && <span>P.I. {cliente.partitaIva}</span>}
                 {cliente && cliente.nome && <span>{cliente.nome}</span>}

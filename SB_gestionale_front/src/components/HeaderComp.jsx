@@ -6,7 +6,7 @@ export default function HeaderComp(){
             <div>
                 <h1 className="italic font-mono text-4xl text-white">SB_Gestionale</h1>
             </div>
-            <div className="flex justify-around w-2/3 text-white text-xl">
+            <div className="flex justify-around w-2/3 text-white text-xl py-3">
                 {/* DASHBOARD */}
                 <Link to="/" className=" flex flex-col items-center" >
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
