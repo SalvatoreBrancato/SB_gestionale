@@ -38,6 +38,9 @@ async function show(req, res){
                 select:{
                     numero: true,
                     data: true,
+                    iva: true,
+                    listino: true,
+                    sconto: true,
                     totale: true,
                     note: true
                 }
