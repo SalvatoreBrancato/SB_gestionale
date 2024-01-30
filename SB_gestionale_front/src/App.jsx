@@ -6,6 +6,8 @@ import ClientiPage from './pages/ClientiPage';
 import ClientiShowPage from './pages/ClientiShowPage';
 import FornitoriPage from './pages/FornitoriPage';
 import FornitoriShowPage from './pages/FornitoriShowPage';
+import ProdottiPage from './pages/ProdottiPage';
+import ProdottiShowPage from './pages/ProdottiShowPage';
 
 
 function App() {
@@ -19,7 +21,8 @@ function App() {
             <Route path='/dettaglio_cliente/:id' element={<ClientiShowPage/>}></Route>
             <Route path='/fornitori' element={<FornitoriPage/>}></Route>
             <Route path='/dettaglio_fornitore/:id' element={<FornitoriShowPage/>}></Route>
-
+            <Route path='/prodotti' element ={<ProdottiPage/>}></Route> 
+            <Route path='/dettaglio_prodotto/:id' element={<ProdottiShowPage/>}></Route>
           </Route>
         </Routes>
       </BrowserRouter>

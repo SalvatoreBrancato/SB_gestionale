@@ -58,17 +58,17 @@ async function create(req, res){
             listino: datiInIngresso.listino,
             note: datiInIngresso.note,
             fattureAcquisti: {
-                connect: datiInIngresso.fattureAcquisti.map((elem)=>{
+                connect: datiInIngresso.fattureAcquisti?.map((elem)=>{
                     return {id: elem}
                 })
             },
             fattureVendita: {
-                connect: datiInIngresso.fattureVendita.map((elem)=>{
+                connect: datiInIngresso.fattureVendita?.map((elem)=>{
                     return {id: elem}
                 })
             },
             fornitore: {
-                connect: datiInIngresso.fornitore.map((elem)=>{
+                connect: datiInIngresso.fornitore?.map((elem)=>{
                     return {id: elem}
                 })
             }

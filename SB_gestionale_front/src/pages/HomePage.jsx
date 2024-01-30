@@ -145,7 +145,7 @@ export default function HomePage() {
 
                         {fattureVen.map((fatturaVen) => {
                             return (
-                                <tr className="border-2 border-white bg-sky-200">
+                                <tr className="border-2 border-white bg-sky-200 hover:bg-sky-300">
                                     <td className="text-center">{fatturaVen.numero}</td>
                                     <td className="text-center">{fatturaVen.data}</td>
                                     <td className="text-center">{fatturaVen.totale}</td>
@@ -170,7 +170,7 @@ export default function HomePage() {
 
                         {fattureAcq.map((fatturaAcq) => {
                             return (
-                                <tr className="border-2 border-white bg-sky-200">
+                                <tr className="border-2 border-white bg-sky-200 hover:bg-sky-300">
                                     <td className="text-center">{fatturaAcq.numero}</td>
                                     <td className="text-center">{fatturaAcq.data}</td>
                                     <td className="text-center">{fatturaAcq.totale}</td>
