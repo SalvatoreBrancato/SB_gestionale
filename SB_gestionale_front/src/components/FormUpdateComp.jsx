@@ -3,19 +3,19 @@ import {useState, useEffect} from 'react';
 import { ClipLoader } from 'react-spinners';
 import { Navigate, useParams } from "react-router-dom";
 
-export default function FormUpdateComp({form, setForm, cliente, setCliente}){
+export default function FormUpdateComp({form, setForm, anagraficaClienteFornitore, setAnagraficaClienteFornitore, tipoAnagrafica}){
 
     const { id } = useParams()
 
     //estaggo valore input radio cliente/fornitore
-    const [clienteFornitore, setClienteFornitore] = useState('cliente')
+    const [clienteFornitore, setClienteFornitore] = useState(tipoAnagrafica == 1 ? 'cliente':'fornitore')
     
     const handleClienteForntioreChange = (e) =>{
         setClienteFornitore(e.target.value)
     }
 
     //estraggo valore input radio forma giuridica
-    const [formaGiuridica, setFormaGiuridica] = useState(cliente.ragioneSociale ? 'personaGiuridica':'personaFisica') 
+    const [formaGiuridica, setFormaGiuridica] = useState(anagraficaClienteFornitore.ragioneSociale ? 'personaGiuridica':'personaFisica') 
 
     const handleFormaGiuridicaChange = (e) => {
         setFormaGiuridica(e.target.value)
@@ -28,8 +28,8 @@ export default function FormUpdateComp({form, setForm, cliente, setCliente}){
     const handleInputChange = (e) => {
         const { name, type, value, checked } = e.target
         const inputValue = type == 'checkbox' ? checked : value
-        setCliente({
-            ...cliente,
+        setAnagraficaClienteFornitore({
+            ...anagraficaClienteFornitore,
             [name]: inputValue
         })
     }
@@ -42,22 +42,27 @@ export default function FormUpdateComp({form, setForm, cliente, setCliente}){
         setIsLoading(true);
 
         const modificaAnagrafica = {
-            ragioneSociale: formaGiuridica == 'personaGiuridica' ? cliente.ragioneSociale: '',
-            nome: formaGiuridica == 'personaFisica' ? cliente.nome: '',
-            cognome: formaGiuridica == 'personaFisica' ? cliente.cognome: '',
-            partitaIva: formaGiuridica == 'personaGiuridica' ? cliente.partitaIva:'',
-            indirizzo: cliente.indirizzo,
-            telefono: cliente.telefono,
-            email: cliente.email,
-            note: cliente.note
+            ragioneSociale: formaGiuridica == 'personaGiuridica' ? anagraficaClienteFornitore.ragioneSociale : '',
+            nome: formaGiuridica == 'personaFisica' ? anagraficaClienteFornitore.nome : '',
+            cognome: formaGiuridica == 'personaFisica' ? anagraficaClienteFornitore.cognome : '',
+            partitaIva: formaGiuridica == 'personaGiuridica' ? anagraficaClienteFornitore.partitaIva : '',
+            indirizzo: anagraficaClienteFornitore.indirizzo,
+            telefono: anagraficaClienteFornitore.email,
+            email: anagraficaClienteFornitore.email,
+            note: anagraficaClienteFornitore.note
         }
 
         setAnagrafica([...anagrafica, modificaAnagrafica])
 
         const inviaDati = async () => {
             try {
-              const response = await axios.put(`http://localhost:3000/clienti/modifica/${id}`, modificaAnagrafica);
-              console.log(response.data);
+                if(tipoAnagrafica == 1){
+                    const response = await axios.put(`http://localhost:3000/clienti/modifica/${id}`, modificaAnagrafica);
+                    console.log(response.data);
+                }else{
+                    const response = await axios.put(`http://localhost:3000/fornitori/modifica/${id}`, modificaAnagrafica);
+                    console.log(response.data);
+                }
               setIsLoading(false);
               setIsSuccess(true);
               setTimeout(() => {
@@ -114,7 +119,7 @@ export default function FormUpdateComp({form, setForm, cliente, setCliente}){
                    {formaGiuridica == 'personaGiuridica' && 
                    <div className="flex flex-col">
                         <label htmlFor="ragioneSociale">Ragione sociale: </label>
-                        <input className="border-2 rounded-md w-full" type="text" name="ragioneSociale" value={cliente.ragioneSociale} onChange={handleInputChange}/>
+                        <input className="border-2 rounded-md w-full" type="text" name="ragioneSociale" value={anagraficaClienteFornitore.ragioneSociale} onChange={handleInputChange}/>
                     </div>
                     }
 
@@ -122,38 +127,38 @@ export default function FormUpdateComp({form, setForm, cliente, setCliente}){
                     {formaGiuridica == 'personaFisica' && 
                         <div className="flex flex-col">
                         <label htmlFor="nome">Nome: </label>
-                        <input className="border-2 rounded-md w-full" type="text" name="nome" value={cliente.nome} onChange={handleInputChange}/>
+                        <input className="border-2 rounded-md w-full" type="text" name="nome" value={anagraficaClienteFornitore.nome} onChange={handleInputChange}/>
                     </div>
                     }
 
                     {formaGiuridica == 'personaFisica' &&
                         <div className="flex flex-col">
                         <label htmlFor="cognome">Cognome: </label>
-                        <input className="border-2 rounded-md w-full" type="text" name="cognome" value={cliente.cognome} onChange={handleInputChange}/>
+                        <input className="border-2 rounded-md w-full" type="text" name="cognome" value={anagraficaClienteFornitore.cognome} onChange={handleInputChange}/>
                     </div>
                     }
 
                     {formaGiuridica == 'personaGiuridica' && 
                         <div className="flex flex-col">
                         <label htmlFor="partitaIva">Partita IVA: </label>
-                        <input className="border-2 rounded-md w-full" type="number" name="partitaIva" value={cliente.partitaIva} onChange={handleInputChange}/>
+                        <input className="border-2 rounded-md w-full" type="number" name="partitaIva" value={anagraficaClienteFornitore.partitaIva} onChange={handleInputChange}/>
                     </div>
                     }
                     <div className="flex flex-col">
                         <label htmlFor="indirizzo">Indirizzo: </label>
-                        <input className="border-2 rounded-md w-full" type="text" name="indirizzo" value={cliente.indirizzo} onChange={handleInputChange}/>
+                        <input className="border-2 rounded-md w-full" type="text" name="indirizzo" value={anagraficaClienteFornitore.indirizzo} onChange={handleInputChange}/>
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="telefono">Telefono: </label>
-                        <input className="border-2 rounded-md w-full" type="number" name="telefono" value={cliente.telefono} onChange={handleInputChange}/>
+                        <input className="border-2 rounded-md w-full" type="number" name="telefono" value={anagraficaClienteFornitore.telefono} onChange={handleInputChange}/>
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="email">Email: </label>
-                        <input className="border-2 rounded-md w-full" type="email" name="email" value={cliente.email} onChange={handleInputChange}/>
+                        <input className="border-2 rounded-md w-full" type="email" name="email" value={anagraficaClienteFornitore.email} onChange={handleInputChange}/>
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="note">Note: </label>
-                        <input className="border-2 rounded-md w-full" type="text" name="note" value={cliente.note} onChange={handleInputChange}/>
+                        <input className="border-2 rounded-md w-full" type="text" name="note" value={anagraficaClienteFornitore.note} onChange={handleInputChange}/>
                     </div>
                     <div className="flex justify-center">
                         {isLoading ? <ClipLoader /> : <button type="submit" className="p-1 bg-sky-400 mt-3 rounded-md text-white hover:bg-blue-400">{clienteFornitore == 'cliente' ? 'Modifica cliente': 'Modifica fornitore'}</button>}

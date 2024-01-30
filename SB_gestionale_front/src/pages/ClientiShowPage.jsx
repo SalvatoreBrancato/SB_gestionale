@@ -7,6 +7,8 @@ export default function DettaglioClientePage() {
 
     useEffect(dettaglioClienteApi, [])
 
+    const tipoAnagrafica = 1
+
     const { id } = useParams()
 
     const [cliente, setCliente] = useState()
@@ -73,7 +75,7 @@ export default function DettaglioClientePage() {
             <div className={`absolute inset-x-0 top-10 bottom-0 bg-white ${form ? 'bg-opacity-80':'bg-opacity-0'}`}></div>
             
             {/* FORM */}
-           {form && <FormUpdateComp form={form} setForm={setForm} cliente={cliente} setCliente={setCliente}></FormUpdateComp>}
+           {form && <FormUpdateComp form={form} setForm={setForm} anagraficaClienteFornitore={cliente} setAnagraficaClienteFornitore={setCliente} tipoAnagrafica={tipoAnagrafica}></FormUpdateComp>}
             
             <div className="flex justify-between m-3">
                 <div>

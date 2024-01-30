@@ -99,6 +99,7 @@ export default function HomePage() {
 
                     </table>
                 </div>
+
                 {/* FORNITORI */}
                 <div className="w-1/3 h-full bg-sky-200 overflow-y-auto">
                     {/* Tabella Fornitori */}
@@ -125,34 +126,12 @@ export default function HomePage() {
                 </div>
             </div>
             <div className="flex justify-around w-full px-5">
-                <div>Fatture acquisto</div>
                 <div>Fatture vendita</div>
+                <div>Fatture acquisto</div>
             </div>
+
             <div className="flex justify-around w-full h-1/2 p-5">
-                {/* FATT.ACQU */}
-                <div className="w-1/3 h-full bg-sky-200 overflow-y-auto">
-                    {/* Tabella Fatture Acquisto */}
-                    <table className="w-full max-h-full">
-                        <tr className="border-2 border-white bg-sky-400">
-                            <th className="text-center">Numero</th>
-                            <th className="text-center">Data</th>
-                            <th className="text-center">Totale</th>
-                            <th className="text-center">Fornitore</th>
-                        </tr>
 
-                        {fattureAcq.map((fatturaAcq) => {
-                            return (
-                                <tr className="border-2 border-white bg-sky-200">
-                                    <td className="text-center">{fatturaAcq.numero}</td>
-                                    <td className="text-center">{fatturaAcq.data}</td>
-                                    <td className="text-center">{fatturaAcq.totale}</td>
-                                    <td className="text-center">{fatturaAcq.fornitori.ragioneSociale}</td>
-                                </tr>
-                            )
-                        })}
-
-                    </table>
-                </div>
                 {/* FATT.VEN */}
                 <div className="w-1/3 h-full bg-sky-200 overflow-y-auto">
                     {/* Tabella Fatture Vendite */}
@@ -171,6 +150,31 @@ export default function HomePage() {
                                     <td className="text-center">{fatturaVen.data}</td>
                                     <td className="text-center">{fatturaVen.totale}</td>
                                     <td className="text-center">{fatturaVen.clienti.ragioneSociale ? fatturaVen.clienti.ragioneSociale : fatturaVen.clienti.nome + ' ' + fatturaVen.clienti.cognome}</td>
+                                </tr>
+                            )
+                        })}
+
+                    </table>
+                </div>
+
+                {/* FATT.ACQU */}
+                <div className="w-1/3 h-full bg-sky-200 overflow-y-auto">
+                    {/* Tabella Fatture Acquisto */}
+                    <table className="w-full max-h-full">
+                        <tr className="border-2 border-white bg-sky-400">
+                            <th className="text-center">Numero</th>
+                            <th className="text-center">Data</th>
+                            <th className="text-center">Totale</th>
+                            <th className="text-center">Fornitore</th>
+                        </tr>
+
+                        {fattureAcq.map((fatturaAcq) => {
+                            return (
+                                <tr className="border-2 border-white bg-sky-200">
+                                    <td className="text-center">{fatturaAcq.numero}</td>
+                                    <td className="text-center">{fatturaAcq.data}</td>
+                                    <td className="text-center">{fatturaAcq.totale}</td>
+                                    <td className="text-center">{fatturaAcq.fornitori.ragioneSociale}</td>
                                 </tr>
                             )
                         })}
