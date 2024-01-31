@@ -62,7 +62,7 @@ export default function ClientiPage(){
                     </button>
                 </div>
             </div>
-            {isLoading ? <ClipLoader/> :  
+            {isLoading ? <div className='h-full w-full flex justify-center'><ClipLoader /></div> :  
             <div className="flex flex-wrap px-auto realtive overflow-y-auto">
                 {/* sfondo in trasparenza quando si apre il form */}
                 <div className={`absolute inset-x-0 top-32 bottom-0 bg-white ${form ? 'bg-opacity-80':'bg-opacity-0'}`} style={{pointerEvents: "none"}}></div>

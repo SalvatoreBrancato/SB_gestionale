@@ -74,7 +74,7 @@ export default function ProdottiPage() {
                 <span className='w-[13%] text-center'>Pezzi</span>
                 <span className='w-[13%] text-center'>Note</span>
             </div>
-            {isLoading ? <ClipLoader /> :
+            {isLoading ? <div className='h-full w-full flex justify-center'><ClipLoader /></div> :
                 <div className='overflow-y-auto'>
                     {risultatiRicerca.map((prodotto) => {
                         return (
