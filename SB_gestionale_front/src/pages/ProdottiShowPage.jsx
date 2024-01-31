@@ -105,15 +105,35 @@ export default function ProdottiShowPage(){
                 </div>
             </div>}
 
+            <div className="flex justify-between">
 
-            <div className="flex flex-col mb-10">                
-                {prodotto && <span className="text-xl px-3 py-1">{prodotto.nome}</span>}
-                {prodotto && <span className="text-xl px-3 py-1">{prodotto.descrizione}</span>}
-                {prodotto && <span className="text-xl px-3 py-1">Prezzo d'acquisto: {prodotto.prezzoAcquisto}</span>}
-                {prodotto && <span className="text-xl px-3 py-1">Prezzo di vendita: {prodotto.prezzoVendita}</span>}
-                {prodotto && <span className="text-xl px-3 py-1">Listino: {prodotto.listino}</span>}
-                {prodotto && <span className="text-xl px-3 py-1">Pezzi: {prodotto.pezzi}</span>}
-                {prodotto && <span className="text-xl px-3 py-1">Note: {prodotto.note}</span>}
+                <div className="flex flex-col mb-10">                
+                    {prodotto && <span className="text-xl px-3 py-1">{prodotto.nome}</span>}
+                    {prodotto && <span className="text-xl px-3 py-1">{prodotto.descrizione}</span>}
+                    {prodotto && <span className="text-xl px-3 py-1">Prezzo d'acquisto: {prodotto.prezzoAcquisto}</span>}
+                    {prodotto && <span className="text-xl px-3 py-1">Prezzo di vendita: {prodotto.prezzoVendita}</span>}
+                    {prodotto && <span className="text-xl px-3 py-1">Listino: {prodotto.listino}</span>}
+                    {prodotto && <span className="text-xl px-3 py-1">Pezzi: {prodotto.pezzi}</span>}
+                    {prodotto && <span className="text-xl px-3 py-1">Note: {prodotto.note}</span>}
+                </div>
+                
+                <div className="w-1/2 min-h-1/2 overflow-y-auto">
+                    {/* Tabella Fornitori */}
+                    <table className="w-2/3 max-h-[20px">
+                        <tr className="border-2 border-white bg-sky-400">
+                            <th className="text-center">Ragione sociale</th>
+                        </tr>
+                    
+                        {prodotto.fornitore && prodotto.fornitore.map((fornitore) => {
+                            return (
+                                <tr key={fornitore.id} className="border-2 border-white bg-sky-200">
+                                    <td className="text-center">{fornitore.ragioneSociale}</td>
+                                </tr>
+                            )
+                        })}
+
+                    </table>
+                </div>
             </div>
 
             <div className="w-full min-h-1/2 flex justify-around bg-sky-200 overflow-y-auto">

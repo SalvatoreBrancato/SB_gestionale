@@ -1,37 +1,37 @@
-const {PrismaClient} = require('@prisma/client');
+const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 //###INDEX###
-async function index(req, res){
+async function index(req, res) {
     const data = await prisma.prodotti.findMany()
     return res.json(data)
 }
 
 //###SHOW###
-async function show(req, res){
+async function show(req, res) {
     const id = req.params.id
 
     const data = await prisma.prodotti.findUnique({
-        where:{
+        where: {
             id: parseInt(id)
         },
-        include:{
-            fattureAcquisti:{
-                select:{
+        include: {
+            fattureAcquisti: {
+                select: {
                     numero: true,
                     data: true,
                     note: true
                 }
             },
-            fattureVendita:{
-                select:{
+            fattureVendita: {
+                select: {
                     numero: true,
                     data: true,
                     note: true
                 }
             },
-            fornitore:{
-                select:{
+            fornitore: {
+                select: {
                     ragioneSociale: true
                 }
             }
@@ -46,10 +46,10 @@ async function show(req, res){
 }
 
 //###CREATE###
-async function create(req, res){
+async function create(req, res) {
     const datiInIngresso = req.body
     const nuovoProdotto = await prisma.prodotti.create({
-        data:{
+        data: {
             nome: datiInIngresso.nome,
             descrizione: datiInIngresso.descrizione,
             pezzi: datiInIngresso.pezzi,
@@ -58,18 +58,18 @@ async function create(req, res){
             listino: datiInIngresso.listino,
             note: datiInIngresso.note,
             fattureAcquisti: {
-                connect: datiInIngresso.fattureAcquisti?.map((elem)=>{
-                    return {id: elem}
+                connect: datiInIngresso.fattureAcquisti?.map((elem) => {
+                    return { id: elem }
                 })
             },
             fattureVendita: {
-                connect: datiInIngresso.fattureVendita?.map((elem)=>{
-                    return {id: elem}
+                connect: datiInIngresso.fattureVendita?.map((elem) => {
+                    return { id: elem }
                 })
             },
             fornitore: {
-                connect: datiInIngresso.fornitore?.map((elem)=>{
-                    return {id: elem}
+                connect: datiInIngresso.fornitore?.map((elem) => {
+                    return { id: elem }
                 })
             }
         }
@@ -78,7 +78,7 @@ async function create(req, res){
 }
 
 //###UPDATE###
-async function update(req, res){
+async function update(req, res) {
     const id = req.params.id
     const datiInIngresso = req.body
 
@@ -86,19 +86,34 @@ async function update(req, res){
     const prodotto = await prisma.prodotti.findUnique({
         where: {
             id: parseInt(id)
+        },
+        include: {
+            fornitore: true
         }
     })
 
-    if(!prodotto){
+    if (!prodotto) {
         throw new Error('Prodotto non trovato')
     }
 
+    // Prepara l'elenco dei fornitori da disconnettere
+    const fornitoriDaDisconnettere = prodotto.fornitore.map((fornitore) => {
+        return { id: fornitore.id }
+    })
+
     const aggiornaProdotto = await prisma.prodotti.update({
-        where:{
+        where: {
             id: parseInt(id)
         },
-        data:{
-            ...datiInIngresso
+        data: {
+            ...datiInIngresso,
+
+            fornitore: {
+                disconnect: fornitoriDaDisconnettere,
+                connect: datiInIngresso.fornitore?.map((elem) => {
+                    return { id: elem }
+                })
+            }
         }
     })
     return res.json(aggiornaProdotto)
@@ -106,15 +121,15 @@ async function update(req, res){
 
 //###DESTROY###
 async function destroy(req, res) {
-    const id  = req.params.id;
+    const id = req.params.id;
 
     await prisma.prodotti.delete({
-      where: { id: parseInt(id) },
-      include: { fattureAcquisti: true },
+        where: { id: parseInt(id) },
+        include: { fattureAcquisti: true },
     });
 
     res.status(200).json({ message: 'Prodotto eliminato correttamente' });
-  }
+}
 
 
 module.exports = {
