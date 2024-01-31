@@ -118,9 +118,9 @@ export default function FornitoriShowPage(){
                 {fornitore && <span className="text-xl px-3 py-1">Note: {fornitore.note}</span>}
             </div>
 
-            <div className="w-1/2 min-h-1/2 mx-auto bg-sky-200 overflow-y-auto">
+            <div className="w-full min-h-1/2 flex justify-around bg-sky-200 overflow-y-auto">
                 {/* Tabella Fatture */}
-                <table className="w-full max-h-full">
+                <table className="w-2/3 max-h-[20px] overflow-y-auto">
                     <tr className="border-2 border-white bg-sky-400">
                         <th className="text-center">Data</th>
                         <th className="text-center">Numero</th>
@@ -145,7 +145,33 @@ export default function FornitoriShowPage(){
                         )
                     })}
 
-                </table>                
+                </table>          
+
+                 {/* Tabella Prodotti Acquistati */}
+                <table className="w-2/3 max-h-[20px]  overflow-y-auto">
+                    <tr className="border-2 border-white bg-sky-400">
+                        <th className="text-center">nome</th>
+                        <th className="text-center">pezzi</th>
+                        <th className="text-center">prezzo Acquisto</th>
+                        <th className="text-center">Prezzo Vendita</th>
+                        <th className="text-center">Listino</th>                    
+                        <th className="text-center">Note</th>
+                    </tr>
+
+                    {fornitore && fornitore.prodotti.map((prodotto) => {
+                        return (
+                            <tr key={prodotto.id} className="border-2 border-white bg-sky-200">
+                                <td className="text-center">{prodotto.nome}</td>
+                                <td className="text-center">{prodotto.pezzi}</td>
+                                <td className="text-center">{prodotto.prezzoAcquisto}</td>
+                                <td className="text-center">{prodotto.prezzoVendita}</td>
+                                <td className="text-center">{prodotto.listino}</td>
+                                <td className="text-center">{prodotto.note}</td>
+                            </tr>
+                        )
+                    })}
+
+                </table>                      
             </div>
         </div>
     )

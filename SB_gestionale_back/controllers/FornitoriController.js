@@ -26,8 +26,20 @@ async function show(req, res){
                     totale: true,
                     note: true
                 }
+            },
+            prodotti:{
+                select: {
+                    nome: true,
+                    pezzi: true,
+                    prezzoAcquisto: true,
+                    prezzoVendita: true,
+                    listino: true,
+                    note: true  
+                }
             }
         }
+        
+        
     }) 
 
     if (!data) {

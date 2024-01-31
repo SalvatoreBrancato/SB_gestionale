@@ -123,7 +123,7 @@ export default function DettaglioClientePage() {
 
             <div className="w-1/2 min-h-1/2 mx-auto bg-sky-200 overflow-y-auto">
                 {/* Tabella Fatture */}
-                <table className="w-full max-h-full">
+                <table className="w-full max-h-full overflow-x-auto">
                     <tr className="border-2 border-white bg-sky-400">
                         <th className="text-center">Data</th>
                         <th className="text-center">Numero</th>
