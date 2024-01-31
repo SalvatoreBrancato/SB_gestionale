@@ -149,7 +149,7 @@ export default function HomePage() {
                                     <td className="text-center">{fatturaVen.numero}</td>
                                     <td className="text-center">{fatturaVen.data}</td>
                                     <td className="text-center">{fatturaVen.totale}</td>
-                                    <td className="text-center">{fatturaVen.clienti.ragioneSociale ? fatturaVen.clienti.ragioneSociale : fatturaVen.clienti.nome + ' ' + fatturaVen.clienti.cognome}</td>
+                                    {fatturaVen.clienti && <td className="text-center">{fatturaVen.clienti.ragioneSociale ? fatturaVen.clienti.ragioneSociale : fatturaVen.clienti.nome + ' ' + fatturaVen.clienti.cognome}</td>}
                                 </tr>
                             )
                         })}

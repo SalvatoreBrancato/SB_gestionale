@@ -47,7 +47,7 @@ export default function FormUpdateComp({form, setForm, anagraficaClienteFornitor
             cognome: formaGiuridica == 'personaFisica' ? anagraficaClienteFornitore.cognome : '',
             partitaIva: formaGiuridica == 'personaGiuridica' ? anagraficaClienteFornitore.partitaIva : '',
             indirizzo: anagraficaClienteFornitore.indirizzo,
-            telefono: anagraficaClienteFornitore.email,
+            telefono: anagraficaClienteFornitore.telefono,
             email: anagraficaClienteFornitore.email,
             note: anagraficaClienteFornitore.note
         }

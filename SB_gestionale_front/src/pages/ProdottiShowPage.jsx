@@ -71,7 +71,7 @@ export default function ProdottiShowPage(){
             <div className={`absolute inset-x-0 top-10 bottom-0 bg-white ${form ? 'bg-opacity-80':'bg-opacity-0'}`}></div>
             
             {/* FORM */}
-           {form && <FormProdottiUpdate form={form} setForm={setForm} prodotto={prodotto}/>}
+           {form && <FormProdottiUpdate form={form} setForm={setForm} prodotto={prodotto} setProdotto={setProdotto}/>}
             
             <div className="flex justify-between m-3">
                 <div>
@@ -108,17 +108,17 @@ export default function ProdottiShowPage(){
 
             <div className="flex flex-col mb-10">                
                 {prodotto && <span className="text-xl px-3 py-1">{prodotto.nome}</span>}
-                {prodotto && <span className="text-xl px-3 py-1">Tel: {prodotto.descrizione}</span>}
-                {prodotto && <span className="text-xl px-3 py-1">email: {prodotto.prezzoAcquisto}</span>}
-                {prodotto && <span className="text-xl px-3 py-1">Note: {prodotto.prezzoVendita}</span>}
-                {prodotto && <span className="text-xl px-3 py-1">Note: {prodotto.listino}</span>}
-                {prodotto && <span className="text-xl px-3 py-1">Note: {prodotto.pezzi}</span>}
+                {prodotto && <span className="text-xl px-3 py-1">{prodotto.descrizione}</span>}
+                {prodotto && <span className="text-xl px-3 py-1">Prezzo d'acquisto: {prodotto.prezzoAcquisto}</span>}
+                {prodotto && <span className="text-xl px-3 py-1">Prezzo di vendita: {prodotto.prezzoVendita}</span>}
+                {prodotto && <span className="text-xl px-3 py-1">Listino: {prodotto.listino}</span>}
+                {prodotto && <span className="text-xl px-3 py-1">Pezzi: {prodotto.pezzi}</span>}
                 {prodotto && <span className="text-xl px-3 py-1">Note: {prodotto.note}</span>}
             </div>
 
-            <div className="w-1/2 min-h-1/2 mx-auto bg-sky-200 overflow-y-auto">
-                {/* Tabella Fatture */}
-                {/* <table className="w-full max-h-full">
+            <div className="w-full min-h-1/2 flex justify-around bg-sky-200 overflow-y-auto">
+                {/* Tabella Fatture Acquisti */}
+                <table className="w-2/3 max-h-[20px">
                     <tr className="border-2 border-white bg-sky-400">
                         <th className="text-center">Data</th>
                         <th className="text-center">Numero</th>
@@ -127,9 +127,9 @@ export default function ProdottiShowPage(){
                         <th className="text-center">Sconto</th>                    
                         <th className="text-center">Totale</th>
                         <th className="text-center">Note</th>
-                    </tr> */}
+                    </tr>
 
-                    {/* {cliente && cliente.fattureVendita.map((fattura) => {
+                    {prodotto.fattureAcquisti && prodotto.fattureAcquisti.map((fattura) => {
                         return (
                             <tr key={fattura.id} className="border-2 border-white bg-sky-200">
                                 <td className="text-center">{fattura.data}</td>
@@ -143,7 +143,35 @@ export default function ProdottiShowPage(){
                         )
                     })}
 
-                </table>                 */}
+                </table>
+
+                 {/* Tabella Fatture Vendita */}
+                 <table className="w-2/3 max-h-[20px">
+                    <tr className="border-2 border-white bg-sky-400">
+                        <th className="text-center">Data</th>
+                        <th className="text-center">Numero</th>
+                        <th className="text-center">IVA</th>
+                        <th className="text-center">Listino</th>
+                        <th className="text-center">Sconto</th>                    
+                        <th className="text-center">Totale</th>
+                        <th className="text-center">Note</th>
+                    </tr>
+
+                    {prodotto.fattureVendita && prodotto.fattureVendita.map((fattura) => {
+                        return (
+                            <tr key={fattura.id} className="border-2 border-white bg-sky-200">
+                                <td className="text-center">{fattura.data}</td>
+                                <td className="text-center">{fattura.numero}</td>
+                                <td className="text-center">{fattura.iva}</td>
+                                <td className="text-center">{fattura.listino}</td>
+                                <td className="text-center">{fattura.sconto}</td>
+                                <td className="text-center">{fattura.totale}</td>
+                                <td className="text-center">{fattura.note}</td>
+                            </tr>
+                        )
+                    })}
+
+                </table>
             </div>
         </div>
     )
