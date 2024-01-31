@@ -65,14 +65,14 @@ export default function ProdottiPage() {
                 </div>
              </div>
 
-            <div className='w-full flex justify-between p-5 bg-sky-300'>
-                <span className='w-[13%] text-center'>Nome</span>
-                <span className='w-[13%] text-center'>Descrizione</span>
-                <span className='w-[13%] text-center'>Prezzo d'acquisto</span>
-                <span className='w-[13%] text-center'>Prezzo di vendita</span>
-                <span className='w-[13%] text-center'>Listino</span>
-                <span className='w-[13%] text-center'>Pezzi</span>
-                <span className='w-[13%] text-center'>Note</span>
+            <div className='w-full flex justify-between p-5 bg-sky-300 font-bold text-center'>
+                <span className='w-[13%]'>Nome</span>
+                <span className='w-[13%]'>Descrizione</span>
+                <span className='w-[13%]'>Prezzo d'acquisto</span>
+                <span className='w-[13%]'>Prezzo di vendita</span>
+                <span className='w-[13%]'>Listino</span>
+                <span className='w-[13%]'>Pezzi</span>
+                <span className='w-[13%]'>Note</span>
             </div>
             {isLoading ? <div className='h-full w-full flex justify-center'><ClipLoader /></div> :
                 <div className='overflow-y-auto'>

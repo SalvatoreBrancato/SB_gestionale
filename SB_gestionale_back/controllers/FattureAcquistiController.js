@@ -8,7 +8,8 @@ async function index(req, res){
                 select:{
                     ragioneSociale: true
                 }
-            }
+            },
+            pagamento: true
         }
     })
 
