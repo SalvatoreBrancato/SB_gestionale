@@ -68,14 +68,12 @@ export default function FornitoriPage(){
                     risultatiRicerca.map((fornitore)=>{
                         return(
                             <Link key={fornitore.id} to={`/dettaglio_fornitore/${fornitore.id}`} className='border bg-sky-100 hover:bg-sky-200 rounded-md shadow-lg flex flex-col m-3 w-72'>
-                                
-                                    <span>{fornitore.ragioneSociale}</span>
-                                    <span>P.I. {fornitore.partitaIva}</span>
-                                    <span>{fornitore.indirizzo}</span>
-                                    <span>Tel: {fornitore.telefono}</span>
-                                    <span>email: {fornitore.email}</span>
-                                    <span>Note: {fornitore.note}</span>
-                                
+                                <span>{fornitore.ragioneSociale}</span>
+                                <span>P.I. {fornitore.partitaIva}</span>
+                                <span>{fornitore.indirizzo}</span>
+                                <span>Tel: {fornitore.telefono}</span>
+                                <span>email: {fornitore.email}</span>
+                                <span>Note: {fornitore.note}</span>
                             </Link>
                         )
                     })

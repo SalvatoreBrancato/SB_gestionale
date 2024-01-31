@@ -69,7 +69,7 @@ export default function FornitoriShowPage(){
         <div className="bg-sky-50 h-full relative">
             
             {/* sfondo in trasparenza quando si apre il form */}
-            <div className={`absolute inset-x-0 top-10 bottom-0 bg-white ${form ? 'bg-opacity-80':'bg-opacity-0'}`}></div>
+            {form && <div className={`absolute inset-x-0 top-10 bottom-0 bg-white ${form ? 'bg-opacity-80':'bg-opacity-0'}`}></div>}
             
             {/* FORM */}
            {form && <FormUpdateComp form={form} setForm={setForm} anagraficaClienteFornitore={fornitore} setAnagraficaClienteFornitore={setFornitore} tipoAnagrafica={tipoAnagrafica}></FormUpdateComp>}
@@ -148,11 +148,11 @@ export default function FornitoriShowPage(){
                 </table>          
 
                  {/* Tabella Prodotti Acquistati */}
-                <table className="w-2/3 max-h-[20px] ">
+                <table className="w-2/3 max-h-[20px] overflow-y-auto">
                     <tr className="border-2 border-white bg-sky-400">
-                        <th className="text-center">nome</th>
-                        <th className="text-center">pezzi</th>
-                        <th className="text-center">prezzo Acquisto</th>
+                        <th className="text-center">Prodotto acq.</th>
+                        <th className="text-center">Pezzi</th>
+                        <th className="text-center">Prezzo Acquisto</th>
                         <th className="text-center">Prezzo Vendita</th>
                         <th className="text-center">Listino</th>                    
                         <th className="text-center">Note</th>
@@ -161,7 +161,9 @@ export default function FornitoriShowPage(){
                     {fornitore && fornitore.prodotti.map((prodotto) => {
                         return (
                             <tr key={prodotto.id} className="border-2 border-white bg-sky-200">
-                                <td className="text-center">{prodotto.nome}</td>
+                                <Link  to={`/dettaglio_prodotto/${prodotto.id}`}>
+                                    <td className="text-center">{prodotto.nome}</td>                                
+                                </Link>
                                 <td className="text-center">{prodotto.pezzi}</td>
                                 <td className="text-center">{prodotto.prezzoAcquisto}</td>
                                 <td className="text-center">{prodotto.prezzoVendita}</td>

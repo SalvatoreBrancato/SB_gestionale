@@ -72,7 +72,7 @@ export default function DettaglioClientePage() {
         <div className="bg-sky-50 h-full relative">
             
             {/* sfondo in trasparenza quando si apre il form */}
-            <div className={`absolute inset-x-0 top-10 bottom-0 bg-white ${form ? 'bg-opacity-80':'bg-opacity-0'}`}></div>
+            {form && <div className={`absolute inset-x-0 top-10 bottom-0 bg-white ${form ? 'bg-opacity-80':'bg-opacity-0'}`}></div>}
             
             {/* FORM */}
            {form && <FormUpdateComp form={form} setForm={setForm} anagraficaClienteFornitore={cliente} setAnagraficaClienteFornitore={setCliente} tipoAnagrafica={tipoAnagrafica}></FormUpdateComp>}

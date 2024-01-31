@@ -30,11 +30,9 @@ async function show(req, res) {
                     note: true
                 }
             },
-            fornitore: {
-                select: {
-                    ragioneSociale: true
-                }
-            }
+            fornitore: true
+                
+            
         }
     })
 

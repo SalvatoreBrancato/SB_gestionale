@@ -68,7 +68,7 @@ export default function ProdottiShowPage(){
         <div className="bg-sky-50 h-full relative">
             
             {/* sfondo in trasparenza quando si apre il form */}
-            <div className={`absolute inset-x-0 top-10 bottom-0 bg-white ${form ? 'bg-opacity-80':'bg-opacity-0'}`}></div>
+            {form && <div className={`absolute inset-x-0 top-10 bottom-0 bg-white ${form ? 'bg-opacity-80':'bg-opacity-0'}`}></div>}
             
             {/* FORM */}
            {form && <FormProdottiUpdate form={form} setForm={setForm} prodotto={prodotto} setProdotto={setProdotto}/>}
@@ -117,21 +117,37 @@ export default function ProdottiShowPage(){
                     {prodotto && <span className="text-xl px-3 py-1">Note: {prodotto.note}</span>}
                 </div>
                 
-                <div className="w-1/2 min-h-1/2 overflow-y-auto">
+                <div className="w-1/2 min-h-1/2 flex overflow-y-auto">
                     {/* Tabella Fornitori */}
-                    <table className="w-2/3 max-h-[20px">
+                    <table className="w-2/3 max-h-[20px]">
                         <tr className="border-2 border-white bg-sky-400">
                             <th className="text-center">Ragione sociale</th>
+                            <th className="text-center">Email</th>
+                            <th className="text-center">Telefono</th>
+
                         </tr>
                     
                         {prodotto.fornitore && prodotto.fornitore.map((fornitore) => {
                             return (
-                                <tr key={fornitore.id} className="border-2 border-white bg-sky-200">
-                                    <td className="text-center">{fornitore.ragioneSociale}</td>
+                                <tr key={fornitore.id}className="border-2 border-white bg-sky-200">
+                                    <Link  to={`/dettaglio_fornitore/${fornitore.id}`}>
+                                        <td className="text-center">{fornitore.ragioneSociale}</td>
+                                    </Link>
+                                        <td className="text-center">{fornitore.email}</td>
+                                        <td className="text-center">{fornitore.telefono}</td>                                    
                                 </tr>
                             )
                         })}
 
+                    </table>
+                    {/* Tabella prezzo d'acquisto */}
+                    <table className="w-1/3 max-h-[20px]">
+                        <tr className="border-2 border-white bg-sky-400">
+                            <th className="text-center">Prezzo d'acquisto</th>
+                        </tr>
+                        <tr className="border-2 border-white bg-sky-200">
+                        <td className="text-center">{prodotto.prezzoAcquisto}</td>
+                        </tr>
                     </table>
                 </div>
             </div>

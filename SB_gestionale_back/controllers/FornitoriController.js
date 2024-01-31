@@ -29,6 +29,7 @@ async function show(req, res){
             },
             prodotti:{
                 select: {
+                    id:true,
                     nome: true,
                     pezzi: true,
                     prezzoAcquisto: true,

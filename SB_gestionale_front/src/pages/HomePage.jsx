@@ -86,7 +86,7 @@ export default function HomePage() {
                         {clienti.map((cliente) => {
                             return (
                                 <tr className="border-2 border-white bg-sky-200 hover:bg-sky-300">
-                                    <Link key={cliente.id} to={`/dettaglio_cliente/${cliente.id}`} >
+                                    <Link key={cliente.id} to={`/dettaglio_cliente/${cliente.id}`}>
                                         <td className="text-center ">{cliente.ragioneSociale}</td>
                                     </Link>
                                     <td className="text-center">{cliente.nome}</td>
