@@ -16,6 +16,12 @@ export default function ProdottiPage() {
 
     const [formProdotto, setFormProdotto] = useState(false)
 
+    const [searchInput, setSearchInput] = useState('')
+
+    const risultatiRicerca = prodotti.filter(prodotto => 
+        (prodotto.nome && prodotto.nome.toLowerCase().includes(searchInput.toLowerCase()))
+    );
+
     function listaProdottiApi() {
         setIsLoading(true);
         axios.get('http://localhost:3000/prodotti')
@@ -48,7 +54,7 @@ export default function ProdottiPage() {
              <div className='w-full flex justify-between items-center p-5 '>
                 <div>
                     <label htmlFor="ricercaFornitore">Ricerca fornitore: </label>
-                    <input name='ricercaFornitore' type="text" className='border-4 border-sky-100'/>
+                    <input name='ricercaFornitore' type="text" className='border-4 border-sky-100' value={searchInput} onChange={(e) => setSearchInput(e.target.value)}/>
                 </div>
                 <div className=''>
                     <button className='flex flex-col justify-center items-center' onClick={()=>apriChiudiForm()}>
@@ -70,7 +76,7 @@ export default function ProdottiPage() {
             </div>
             {isLoading ? <ClipLoader /> :
                 <div className='overflow-y-auto'>
-                    {prodotti.map((prodotto) => {
+                    {risultatiRicerca.map((prodotto) => {
                         return (
                             <Link key={prodotto.id} to={`/dettaglio_prodotto/${prodotto.id}`} className='fw-full flex justify-between p-5 bg-sky-200 hover:bg-sky-100 border-2 border-y-white'>
                                 <span className='w-[13%] text-center'>{prodotto.nome}</span>
@@ -85,7 +91,7 @@ export default function ProdottiPage() {
                     })}
                 </div>}
 
-               {formProdotto && <FormProdottiCreate/>}
+               {formProdotto && <FormProdottiCreate formProdotto={formProdotto} setFormProdotto={setFormProdotto} prodotti={prodotti}/>}
 
         </div>
     )
