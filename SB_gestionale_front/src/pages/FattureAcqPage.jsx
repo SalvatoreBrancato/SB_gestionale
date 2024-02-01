@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
-
+import FormFattAcqComp from '../components/FormFattAcqComp';
 
 
 export default function FattureAcqPage() {
@@ -52,7 +52,7 @@ export default function FattureAcqPage() {
 
             <div className='w-full flex justify-between items-center p-5 '>
                 <div>
-                    <label htmlFor="ricercaFatturaAcq">Ricerca fattura ricevuta: </label>
+                    <label htmlFor="ricercaFatturaAcq">Ricerca per denominazione: </label>
                     <input name='ricercaFatturaAcq' type="text" className='border-4 border-sky-100' value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />
                 </div>
                 <div className=''>
@@ -99,7 +99,7 @@ export default function FattureAcqPage() {
                     })}
                 </div>}
 
-            {/* {formFatturaAcq && <FormProdottiCreate formFatturaAcq={formFatturaAcq} setFormFformFatturaAcq={setFormFformFatturaAcq} prodotti={prodotti}/>} */}
+            {formFatturaAcq && <FormFattAcqComp formFatturaAcq={formFatturaAcq} setFormFatturaAcq={setFormFatturaAcq} fattureAcq={fattureAcq}/>}
 
         </div>
     )

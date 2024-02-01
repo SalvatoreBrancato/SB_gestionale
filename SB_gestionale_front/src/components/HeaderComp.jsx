@@ -4,7 +4,7 @@ export default function HeaderComp(){
     return(
         <header className="h-16 bg-[#03A9F4] flex items-center justify-around py-10">
             <div>
-                <h1 className="italic font-mono text-4xl text-white">SB_Gestionale</h1>
+                <h1 className=" italic font-bold text-5xl  animate-pulse">SBGestionale</h1>
             </div>
             <div className="flex justify-around w-2/3 text-white text-xl">
                 {/* DASHBOARD */}

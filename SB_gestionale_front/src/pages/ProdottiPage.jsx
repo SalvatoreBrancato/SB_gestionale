@@ -53,7 +53,7 @@ export default function ProdottiPage() {
 
              <div className='w-full flex justify-between items-center p-5 '>
                 <div>
-                    <label htmlFor="ricercaFornitore">Ricerca fornitore: </label>
+                    <label htmlFor="ricercaFornitore">Ricerca prodotto: </label>
                     <input name='ricercaFornitore' type="text" className='border-4 border-sky-100' value={searchInput} onChange={(e) => setSearchInput(e.target.value)}/>
                 </div>
                 <div className=''>
