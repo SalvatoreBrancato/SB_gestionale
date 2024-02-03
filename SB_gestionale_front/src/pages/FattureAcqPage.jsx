@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import FormFattAcqComp from '../components/FormFattAcqComp';
+import FormCreateComp from '../components/FormCreateComp';
 
 
 export default function FattureAcqPage() {
@@ -39,28 +40,55 @@ export default function FattureAcqPage() {
     function apriChiudiForm() {
         if (formFatturaAcq == false) {
             setFormFatturaAcq(true)
+            
         } else {
             setFormFatturaAcq(false)
+            
+        }
+    }
+
+    function chiudiFormTrasparenza(){
+        if (formFatturaAcq == true) {
+            setFormFatturaAcq(false)   
+        }
+        else if(form == true){
+            setForm(false)
+        }
+    }
+    
+    const [form, setForm] = useState(false)
+    const [fornitori, setFornitori] = useState(true)
+
+    function apriForm(){
+        if(!form){
+            setForm(true)
+            
+        }else{
+            setForm(false)
         }
     }
 
     return (
-        <div className='bg-sky-50 h-full relative'>
+        <div className='bg-sky-50 h-full relative z-0'>
 
             {/* sfondo in trasparenza quando si apre il form */}
-            {formFatturaAcq && <div className={`absolute inset-x-0 top-0 bottom-0 bg-white ${formFatturaAcq ? 'bg-opacity-80' : 'bg-opacity-0'}`} style={{ pointerEvents: "none" }}></div>}
+            { (formFatturaAcq || form) && <div className={`absolute inset-x-0 top-0 bottom-0 bg-white z-10 ${formFatturaAcq || form ? 'bg-opacity-80' : 'bg-opacity-0'}`} onClick={() => chiudiFormTrasparenza()}></div>}
 
             <div className='w-full flex justify-between items-center p-5 '>
                 <div>
                     <label htmlFor="ricercaFatturaAcq">Ricerca per denominazione: </label>
                     <input name='ricercaFatturaAcq' type="text" className='border-4 border-sky-100' value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />
                 </div>
-                <div className=''>
+                <div className='flex'>
                     <button className='flex flex-col justify-center items-center' onClick={() => apriChiudiForm()}>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="#03A9F4" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#FFFFFF" className="w-8 h-8 transform hover:scale-125">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="#03A9F4" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#FFFFFF" className="w-9 h-9 transform hover:scale-125">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
                         </svg>
-
+                    </button>
+                    <button onClick={() => apriForm()}>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#03A9F4" className="w-8 h-8 hover:scale-125">
+                            <path d="M5.25 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM2.25 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122ZM18.75 7.5a.75.75 0 0 0-1.5 0v2.25H15a.75.75 0 0 0 0 1.5h2.25v2.25a.75.75 0 0 0 1.5 0v-2.25H21a.75.75 0 0 0 0-1.5h-2.25V7.5Z" />
+                        </svg>
                     </button>
                 </div>
             </div>
@@ -99,8 +127,8 @@ export default function FattureAcqPage() {
                     })}
                 </div>}
 
-            {formFatturaAcq && <FormFattAcqComp formFatturaAcq={formFatturaAcq} setFormFatturaAcq={setFormFatturaAcq} fattureAcq={fattureAcq}/>}
-
+            {formFatturaAcq && <FormFattAcqComp formFatturaAcq={formFatturaAcq} setFormFatturaAcq={setFormFatturaAcq} fattureAcq={fattureAcq} form={form} setForm={setForm}/>}
+            {form && <FormCreateComp form={form} setForm={setForm} fornitori={fornitori}></FormCreateComp>}
         </div>
     )
 }

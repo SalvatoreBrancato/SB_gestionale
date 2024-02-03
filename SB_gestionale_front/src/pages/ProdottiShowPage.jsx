@@ -62,13 +62,22 @@ export default function ProdottiShowPage(){
         }
     }
 
+    function chiudiFormTrasparenza(){
+        if (form == true) {
+            setForm(false)   
+        }
+        else if(formDestroy == true){
+            setFormDestroy(false)
+        }
+    }
+
     const navigate = useNavigate();
 
     return(
         <div className="bg-sky-50 h-full relative">
             
             {/* sfondo in trasparenza quando si apre il form */}
-            {form && <div className={`absolute inset-x-0 top-0 bottom-0 bg-white z-10 ${form ? 'bg-opacity-80':'bg-opacity-0'}`} onClick={()=>apriForm()}></div>}
+            {(form || formDestroy) && <div className={`absolute inset-x-0 top-0 bottom-0 bg-white z-10 ${form || formDestroy? 'bg-opacity-80':'bg-opacity-0'}`} onClick={()=>chiudiFormTrasparenza()}></div>}
             
             {/* FORM */}
            {form && <FormProdottiUpdate form={form} setForm={setForm} prodotto={prodotto} setProdotto={setProdotto}/>}
@@ -97,7 +106,7 @@ export default function ProdottiShowPage(){
             </div>
 
             {/* Conferma eliminazione? */}
-            {formDestroy && <div className="flex flex-col items-center justify-around absolute w-1/4 h-1/4 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-sky-100 rounded-lg">
+            {formDestroy && <div className="flex flex-col items-center justify-around absolute w-1/4 h-1/4 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-sky-100 rounded-lg z-20">
                 <span className="text-2xl">Sei sicuro di volere eliminare il prodtto?</span>
                 <div className="flex justify-center items-center">
                     <button onClick={()=>destroyProdotto()} className="bg-green-400 p-3 mr-5 rounded-md">Conferma</button>

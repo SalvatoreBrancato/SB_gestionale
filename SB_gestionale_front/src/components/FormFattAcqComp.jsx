@@ -2,7 +2,9 @@ import axios from "axios";
 import { useEffect, useState } from 'react';
 import { ClipLoader } from "react-spinners";
 
-export default function FormFattAcqComp({ formFatturaAcq, setFormFatturaAcq, fattureAcq }) {
+
+
+export default function FormFattAcqComp({ formFatturaAcq, setFormFatturaAcq, fattureAcq, form, setForm }) {
 
     useEffect(fornitoriList, []);
 
@@ -212,9 +214,20 @@ export default function FormFattAcqComp({ formFatturaAcq, setFormFatturaAcq, fat
         console.log(iva);
     }, [iva]);
 
+    
+
+    function apriForm(){
+        if(!form){
+            setForm(true)
+            setFormFatturaAcq(false)
+        }else{
+            setForm(false)
+        }
+    }
+
 
     return (
-        <div className="absolute w-5/6 min-h-[400px] max-h-[700px]   bg-sky-100 rounded-lg top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-y-scroll">
+        <div className='absolute w-5/6 min-h-[400px] max-h-[700px] bg-sky-100 rounded-lg top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-y-scroll z-10'>
 
             {/* CHIUDI FORM */}
             <div className="absolute top-5 right-5">
@@ -238,7 +251,7 @@ export default function FormFattAcqComp({ formFatturaAcq, setFormFatturaAcq, fat
                         <input className="border-2 rounded-md w-1/2" type="text" name="data" value={formData.data} onChange={handleInputChange} />
                     </div>
                     {/* Fornitore */}
-                    <div className="flex w-1/2">
+                    <div className="flex w-1/3 mr-3">
                         <label htmlFor="fornitore" className="mr-1">Fornitore: </label>
                         <select name="fornitore" id="fornitore" className="w-full" onChange={handleFornitoreChange}>
                             <option value="">Seleziona fornitore...</option>
@@ -255,7 +268,14 @@ export default function FormFattAcqComp({ formFatturaAcq, setFormFatturaAcq, fat
 
                         </select>
                     </div>
+                    <div className="w-1/6">
+                        <button type='button' className="text-[#03A9F4]" onClick={()=>apriForm()}>
+                            Nuovo fornitore? clicca qui
+                        </button> 
+                    </div>
+
                 </div>
+
 
                 <div className="flex flex-col w-full justify-center mb-10">
                     {/* Aggiungi riga prodotto */}
