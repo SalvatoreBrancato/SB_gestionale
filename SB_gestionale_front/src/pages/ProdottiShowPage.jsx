@@ -68,7 +68,7 @@ export default function ProdottiShowPage(){
         <div className="bg-sky-50 h-full relative">
             
             {/* sfondo in trasparenza quando si apre il form */}
-            {form && <div className={`absolute inset-x-0 top-10 bottom-0 bg-white ${form ? 'bg-opacity-80':'bg-opacity-0'}`}></div>}
+            {form && <div className={`absolute inset-x-0 top-0 bottom-0 bg-white z-10 ${form ? 'bg-opacity-80':'bg-opacity-0'}`} onClick={()=>apriForm()}></div>}
             
             {/* FORM */}
            {form && <FormProdottiUpdate form={form} setForm={setForm} prodotto={prodotto} setProdotto={setProdotto}/>}

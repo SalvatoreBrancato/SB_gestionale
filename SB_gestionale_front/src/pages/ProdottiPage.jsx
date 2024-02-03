@@ -49,7 +49,7 @@ export default function ProdottiPage() {
         <div className="h-full bg-sky-50 relative">
 
              {/* sfondo in trasparenza quando si apre il form */}
-             <div className={`absolute inset-x-0 top-0 bottom-0 bg-white ${formProdotto ? 'bg-opacity-80':'bg-opacity-0'}`} style={{pointerEvents: "none"}}></div>
+             {formProdotto && <div className={`absolute inset-x-0 top-0 bottom-0 bg-white z-10 ${formProdotto ? 'bg-opacity-80':'bg-opacity-0'}`}  onClick={()=>apriChiudiForm()}></div>}
 
              <div className='w-full flex justify-between items-center p-5 '>
                 <div>

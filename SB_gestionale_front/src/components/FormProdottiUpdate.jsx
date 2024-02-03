@@ -92,7 +92,7 @@ export default function FormProdottiUpdate({form, setForm, prodotto, setProdotto
 
     return(
         <>
-            <div className="absolute w-1/2 min-h-[450px] bg-sky-100 rounded-lg top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <div className="absolute w-1/2 min-h-[450px] bg-sky-100 rounded-lg top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
                 {/* CHIUDI FORM */}
                 <div className="absolute top-5 right-5">
                     <button onClick={()=>setForm(false)}>

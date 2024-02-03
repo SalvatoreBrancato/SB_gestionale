@@ -49,7 +49,7 @@ export default function FornitoriPage() {
         <div className='bg-sky-50 h-full relative'>
 
             {/* sfondo in trasparenza quando si apre il form */}
-            <div className={`absolute inset-x-0 top-0 bottom-0 bg-white ${form ? 'bg-opacity-80' : 'bg-opacity-0'}`} style={{ pointerEvents: "none" }}></div>
+            {form && <div className={`absolute inset-x-0 top-0 bottom-0 bg-white z-10 ${form ? 'bg-opacity-80' : 'bg-opacity-0'}`} onClick={()=>apriForm()}></div>}
 
             <div className='mx-5 flex justify-between '>
                 <div>

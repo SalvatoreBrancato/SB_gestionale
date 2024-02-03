@@ -64,7 +64,7 @@ export default function FormFattAcqComp({ formFatturaAcq, setFormFatturaAcq, fat
     }
 
     //estrazione valore select-option pagamento
-    const [selezionePagamento, setSelezionePagamnto] = useState()
+    const [selezionePagamento, setSelezionePagamento] = useState()
 
     const handlePagamentoChange = (e) => {
         setSelezionePagamento(e.target.value)
@@ -89,14 +89,14 @@ export default function FormFattAcqComp({ formFatturaAcq, setFormFatturaAcq, fat
         const nuovaFatturaAcq = {
             numero: formData.numero,
             data: formData.data,
-            pezzi: parseFloat(formData.pezzi.replace(',', '.')),
-            iva: parseFloat(formData.iva),
-            listino: parseFloat(formData.listino.replace(',', '.')),
+            pezzi: parseFloat(totalePezzi),
+            iva: parseFloat(iva),
+            listino: parseFloat(totaleListino.replace(',', '.')),
             sconto: parseFloat(formData.sconto.replace(',', '.')),
-            totale: parseFloat(formData.totale.replace(',', '.')),
+            totale: parseFloat(totaleNetti.replace(',', '.')),
             note: formData.note,
             fornitore: [parseFloat(selezioneFornitore)],
-            pagamento: formData.pagamento,
+            pagamento: selezionePagamento,
             prodotto: [formData.prodotto]
         }
 
@@ -104,7 +104,7 @@ export default function FormFattAcqComp({ formFatturaAcq, setFormFatturaAcq, fat
 
         const inviaDati = async () => {
             try {
-                const response = await axios.post('http://localhost:3000/fattureAcqusti/inserisci', nuovoFatturaAcq);
+                const response = await axios.post('http://localhost:3000/fattureAcqusti/inserisci', nuovaFatturaAcq);
                 console.log(response.data)
 
                 setIsLoading(false);
@@ -125,7 +125,7 @@ export default function FormFattAcqComp({ formFatturaAcq, setFormFatturaAcq, fat
     }
 
     //aggiungi riga
-    const [rigaProdotto, setRigaProdotto] = useState([]);
+    const [rigaProdotto, setRigaProdotto] = useState([1]);
 
     function aggiungiRiga() {
         setRigaProdotto([...rigaProdotto, {}])
@@ -133,12 +133,88 @@ export default function FormFattAcqComp({ formFatturaAcq, setFormFatturaAcq, fat
 
     //rimuovi riga
     function rimuoviRiga(index) {
+
         setRigaProdotto(rigaProdotto.filter((_, i) => i !== index));
+        //rimuovi il valore corrispondente allinputPezzi
+        setInputPezzi(inputPezzi.filter((_, i) => i !== index));
+        //rimuovi il valore corrispondente all'inputListino
+        setInputListino(inputListino.filter((_, i) => i !== index));
     }
 
 
+    //############ Somma i vari input############
+    //PEZZI
+    const [inputPezzi, setInputPezzi] = useState([]);
+    const [totalePezzi, setTotalePezzi] = useState(0);
+
+    useEffect(() => {
+        const sommaPezzi = inputPezzi.reduce((a, b) => a + b, 0);
+        setTotalePezzi(sommaPezzi);
+    }, [inputPezzi]);
+
+    const handlePezziChange = (index) => (e) => {
+        const newInputPezzi = [...inputPezzi];
+        newInputPezzi[index] = Number(e.target.value);
+        setInputPezzi(newInputPezzi);
+    };
+    //LISTINO
+    const [inputListino, setInputListino] = useState([]);
+    const [totaleListino, setTotaleListino] = useState(0);
+
+    useEffect(() => {
+        const sommaListino = inputListino.reduce((a, b) => a + b, 0);
+        setTotaleListino(sommaListino);
+    }, [inputListino]);
+
+    const handleListinoChange = (index) => (e) => {
+        const newInputListino = [...inputListino];
+        newInputListino[index] = Number(e.target.value);
+        setInputListino(newInputListino);
+    };
+    // SCONTO
+    const [sconto, setSconto] = useState([]);
+    const handleScontoChange = (index) => (e) => {
+        const newSconto = [...sconto];
+        newSconto[index] = Number(e.target.value);
+        setSconto(newSconto);
+    };
+
+    // NETTO
+    const [netto, setNetto] = useState([]);
+
+    useEffect(() => {
+        const calcolaNetto = inputListino.map((listino, index) => listino - (listino * sconto[index] / 100 || 0));
+        setNetto(calcolaNetto);
+    }, [inputListino, sconto]);
+
+    //TOTALE NETTO
+    const [totaleNetti, setTotaleNetti] = useState(0);
+
+    useEffect(() => {
+        const calcolaTotaleNetti = netto.reduce((a, b) => a + b, 0);
+        setTotaleNetti(calcolaTotaleNetti);
+    }, [netto]);
+
+    //IVA
+    const [iva, setIva] = useState(0);
+    const handleIvaChange = (e) => {
+        setIva(Number(e.target.value));
+    };
+
+    //TOTALE FATTURA
+    const [totaleFattura, setTotaleFattura] = useState(0);
+    useEffect(() => {
+        const calcolaTotaleFattura = totaleNetti + (totaleNetti * iva / 100);
+        setTotaleFattura(calcolaTotaleFattura);
+    }, [totaleNetti, iva]);
+
+    useEffect(() => {
+        console.log(iva);
+    }, [iva]);
+
+
     return (
-        <div className="absolute w-5/6 min-h-[500px] max-h-[700px]   bg-sky-100 rounded-lg top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-y-scroll">
+        <div className="absolute w-5/6 min-h-[400px] max-h-[700px]   bg-sky-100 rounded-lg top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-y-scroll">
 
             {/* CHIUDI FORM */}
             <div className="absolute top-5 right-5">
@@ -164,7 +240,7 @@ export default function FormFattAcqComp({ formFatturaAcq, setFormFatturaAcq, fat
                     {/* Fornitore */}
                     <div className="flex w-1/2">
                         <label htmlFor="fornitore" className="mr-1">Fornitore: </label>
-                        <select name="fornitore" id="fornitore" className="w-full" value={selezioneFornitore} onChange={handleFornitoreChange}>
+                        <select name="fornitore" id="fornitore" className="w-full" onChange={handleFornitoreChange}>
                             <option value="">Seleziona fornitore...</option>
 
                             {
@@ -181,34 +257,10 @@ export default function FormFattAcqComp({ formFatturaAcq, setFormFatturaAcq, fat
                     </div>
                 </div>
 
-                <div className="flex flex-col w-full  justify-center">
-                    <div className="flex w-full items-center pr-7">
-                        {/* Prodotto */}
-                        <div className="flex flex-col w-2/3">
-                            <label htmlFor="prodotto">Prodotto: </label>
-                            <input className="border-2 rounded-md w-full" type="text" name="prodotto" value={formData.prodotto} onChange={handleInputChange} />
-                        </div>
-                        {/* Pezzi */}
-                        <div className="flex flex-col w-1/12">
-                            <label htmlFor="pezzi">Pezzi: </label>
-                            <input className="border-2 rounded-md w-full" type="number" name="pezzi" value={formData.pezzi} onChange={handleInputChange} />
-                        </div>
-                        {/* Listino */}
-                        <div className="flex flex-col">
-                            <label htmlFor="listino">Listino: </label>
-                            <input className="border-2 rounded-md w-full" type="number" name="listino" value={formData.listino} onChange={handleInputChange} />
-                        </div>
-                        {/* Sconto */}
-                        <div className="flex flex-col">
-                            <label htmlFor="sconto">Sconto: </label>
-                            <input className="border-2 rounded-md w-full" type="text" name="sconto" value={formData.sconto} onChange={handleInputChange} />
-                        </div>
-                    </div>
-
-
+                <div className="flex flex-col w-full justify-center mb-10">
                     {/* Aggiungi riga prodotto */}
                     {rigaProdotto.map((riga, index) => (
-                        <div id="riga" className="flex w-full items-center">
+                        <div className="flex w-full items-center">
                             <div key={index} className="flex w-full items-center">
                                 {/* Prodotto */}
                                 <div className="flex flex-col w-2/3">
@@ -218,65 +270,79 @@ export default function FormFattAcqComp({ formFatturaAcq, setFormFatturaAcq, fat
                                 {/* Pezzi */}
                                 <div className="flex flex-col w-1/12">
                                     <label htmlFor="pezzi">Pezzi: </label>
-                                    <input className="border-2 rounded-md w-full" type="number" name="pezzi" />
+                                    <input className="border-2 rounded-md w-full" type="number" name="pezzi" value={inputPezzi[index]} onChange={handlePezziChange(index)} />
                                 </div>
                                 {/* Listino */}
                                 <div className="flex flex-col">
                                     <label htmlFor="listino">Listino: </label>
-                                    <input className="border-2 rounded-md w-full" type="number" name="listino" value={formData.listino} onChange={handleInputChange} />
+                                    <input className="border-2 rounded-md w-full" type="number" name="listino" value={inputListino[index]} onChange={handleListinoChange(index)} />
                                 </div>
                                 {/* Sconto */}
                                 <div className="flex flex-col">
-                                    <label htmlFor="sconto">Sconto: </label>
-                                    <input className="border-2 rounded-md w-full" type="text" name="sconto" value={formData.sconto} onChange={handleInputChange} />
+                                    <label htmlFor="sconto">Sconto (%) </label>
+                                    <input className="border-2 rounded-md w-full" type="number" name="sconto" value={sconto[index] || ''} onChange={handleScontoChange(index)} />
+                                </div>
+                                {/* Netto */}
+                                <div className="flex flex-col">
+                                    <label htmlFor="netto">Netto: </label>
+                                    <input className="border-2 rounded-md w-full" type="number" name="netto" value={netto[index]} readOnly />
+                                </div>
+                                {/* Tasto aggiungi */}
+                                <div className="flex flex-col w-4 items-end ml-3">
+                                    <label htmlFor="" className="none">Aggiungi</label>
+                                    <button type="button" onClick={() => { aggiungiRiga() }}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#008000" className="w-5 h-5 hover:scale-125">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                        </svg>
+
+                                    </button>
                                 </div>
                                 {/* Tasto elimina */}
-                                <div className="flex flex-col w-4 items-end ml-3">
+                                {<div className={`flex flex-col w-4 items-end ml-3 ${index == 0 ? 'none' : ''}`}>
                                     <label htmlFor="" className="none">elimina</label>
-                                    <button onClick={() => { rimuoviRiga(index) }}>
+                                    <button type="button" onClick={() => { rimuoviRiga(index) }}>
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FF0000" className="w-5 h-5 hover:scale-125">
                                             <path fillRule="evenodd" d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z" clipRule="evenodd" />
                                         </svg>
                                     </button>
-                                </div>
+                                </div>}
                             </div>
                         </div>
                     ))}
                 </div>
 
-                <div className="flex justify-end my-5">
-                    <button className="p-1 bg-sky-400 mt-3 rounded-md text-white hover:bg-blue-400" onClick={() => { aggiungiRiga() }}>Aggiungi riga</button>
-                </div>
+
 
                 <div className="flex w-full justify-end mb-5">
                     {/* Totale pezzi */}
                     <div className="flex flex-col w-1/12 me-5">
                         <label htmlFor="totalePezzi">Totale pezzi: </label>
-                        <input className="border-2 rounded-md w-full" type="number" name="totalePezzi" value={formData.pezzi} onChange={handleInputChange} />
+                        <input className="border-2 rounded-md w-full" type="number" name="totalePezzi" value={totalePezzi} onChange={handleInputChange} />
                     </div>
                     {/* Totale listino */}
                     <div className="flex flex-col w-1/12 me-5">
                         <label htmlFor="totaleListino">Totale listino: </label>
-                        <input className="border-2 rounded-md w-full" type="number" name="totaleListino" value={formData.totale} onChange={handleInputChange} />
+                        <input className="border-2 rounded-md w-full" type="number" name="totaleListino" value={totaleListino} onChange={handleInputChange} />
                     </div>
                     {/* Totale netto*/}
                     <div className="flex flex-col w-1/12 me-5">
                         <label htmlFor="totale">Totale imponibile: </label>
-                        <input className="border-2 rounded-md w-full" type="number" name="totale" value={formData.totale} onChange={handleInputChange} />
+                        <input className="border-2 rounded-md w-full" type="number" name="totale" value={totaleNetti} onChange={handleInputChange} />
                     </div>
                     {/* IVA */}
                     <div className="me-5">
                         <label htmlFor="iva" className="flex flex-col">IVA: </label>
-                        <select name="iva" id="iva">
-                            <option value="4%">4%</option>
-                            <option value="10%">10%</option>
-                            <option value="22%">22%</option>
+                        <select name="iva" id="iva" value={iva} onChange={handleIvaChange}>
+                            <option value=""></option>
+                            <option value="4">4%</option>
+                            <option value="10">10%</option>
+                            <option value="22">22%</option>
                         </select>
                     </div>
                     {/* Totale fattura*/}
                     <div className="flex flex-col w-1/12 ">
                         <label htmlFor="totale">Totale fattura: </label>
-                        <input className="border-2 rounded-md w-full" type="number" name="totale" value={formData.totale} onChange={handleInputChange} />
+                        <input className="border-2 rounded-md w-full" type="number" name="totale" value={totaleFattura} />
                     </div>
                 </div>
 
