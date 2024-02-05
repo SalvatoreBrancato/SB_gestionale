@@ -29,8 +29,8 @@ export default function FormFattAcqComp({ formFatturaAcq, setFormFatturaAcq, fat
         sconto: '',
         totale: '',
         note: '',
-        pagamento: [],
-        fornitore: [],
+        pagamentoId: '',
+        fornitoriId: '',
         prodotto: []
     })
 
@@ -59,18 +59,35 @@ export default function FormFattAcqComp({ formFatturaAcq, setFormFatturaAcq, fat
     }
 
     //estrazione valore select-option fornitore
-    const [selezioneFornitore, setSelezioneFornitore] = useState()
+    const [selezioneFornitore, setSelezioneFornitore] = useState('')
 
     const handleFornitoreChange = (e) => {
-        setSelezioneFornitore(e.target.value)
+        setSelezioneFornitore(Number(e.target.value))
     }
+
+    useEffect(() => {
+        setFormData(prevState => ({
+            ...prevState,
+            fornitore: selezioneFornitore
+        }));
+        console.log(selezioneFornitore)
+    }, [selezioneFornitore]);
 
     //estrazione valore select-option pagamento
-    const [selezionePagamento, setSelezionePagamento] = useState()
+    const [selezionePagamento, setSelezionePagamento] = useState('')
 
     const handlePagamentoChange = (e) => {
-        setSelezionePagamento(e.target.value)
+        setSelezionePagamento(Number(e.target.value))
     }
+
+    useEffect(() => {
+        setFormData(prevState => ({
+            ...prevState,
+            pagamento: selezionePagamento
+        }));
+        console.log(selezionePagamento)
+    }, [selezionePagamento]);
+    
 
 
     const handleInputChange = (e) => {
@@ -89,24 +106,24 @@ export default function FormFattAcqComp({ formFatturaAcq, setFormFatturaAcq, fat
         setIsLoading(true);
 
         const nuovaFatturaAcq = {
-            numero: formData.numero,
-            data: formData.data,
+            numero: parseFloat(formData.numero),
+            data: new Date(formData.data),
             pezzi: parseFloat(totalePezzi),
             iva: parseFloat(iva),
-            listino: parseFloat(totaleListino.replace(',', '.')),
+            listino: parseFloat(totaleListino),
             sconto: parseFloat(formData.sconto.replace(',', '.')),
-            totale: parseFloat(totaleNetti.replace(',', '.')),
+            totale: parseFloat(totaleNetti),
             note: formData.note,
-            fornitore: [parseFloat(selezioneFornitore)],
-            pagamento: selezionePagamento,
-            prodotto: [formData.prodotto]
+            fornitoriId: parseFloat(selezioneFornitore),
+            pagamentoId: parseFloat(selezionePagamento),
+            prodotto: [parseFloat(selezioneProdotto)]
         }
 
         setFatturaAcq([...fatturaAcq, nuovaFatturaAcq])
 
         const inviaDati = async () => {
             try {
-                const response = await axios.post('http://localhost:3000/fattureAcqusti/inserisci', nuovaFatturaAcq);
+                const response = await axios.post('http://localhost:3000/fattureAcquisti/inserisci', nuovaFatturaAcq);
                 console.log(response.data)
 
                 setIsLoading(false);
@@ -127,21 +144,22 @@ export default function FormFattAcqComp({ formFatturaAcq, setFormFatturaAcq, fat
     }
 
     //aggiungi riga
-    const [rigaProdotto, setRigaProdotto] = useState([1]);
+    const [rigaProdotto, setRigaProdotto] = useState([0]);
 
     function aggiungiRiga() {
         setRigaProdotto([...rigaProdotto, {}])
+        setSearchInput([...searchInput, '']);
     }
 
     //rimuovi riga
     function rimuoviRiga(index) {
-
         setRigaProdotto(rigaProdotto.filter((_, i) => i !== index));
-        //rimuovi il valore corrispondente allinputPezzi
         setInputPezzi(inputPezzi.filter((_, i) => i !== index));
-        //rimuovi il valore corrispondente all'inputListino
         setInputListino(inputListino.filter((_, i) => i !== index));
+        setSelezioneProdotto(selezioneProdotto.filter((_, i) => i !== index));
+        setSearchInput(searchInput.filter((_, i) => i !== index));
     }
+
 
 
     //############ Somma i vari input############
@@ -214,16 +232,105 @@ export default function FormFattAcqComp({ formFatturaAcq, setFormFatturaAcq, fat
         console.log(iva);
     }, [iva]);
 
-    
 
-    function apriForm(){
-        if(!form){
+
+    function apriForm() {
+        if (!form) {
             setForm(true)
             setFormFatturaAcq(false)
-        }else{
+        } else {
             setForm(false)
         }
     }
+
+    //PRODOTTI
+    const [prodotti, setProdotti] = useState([])
+
+    useEffect(prodottiApi, [])
+
+    function prodottiApi() {
+        axios.get('http://localhost:3000/prodotti')
+            .then(response => {
+                setProdotti(response.data)
+                console.log(response.data)
+            })
+            .catch(error => {
+                // Gestisci gli errori
+                console.log(error);
+            });
+    }
+
+
+
+    const [showResults, setShowResults] = useState([]);
+    const [selezioneProdotto, setSelezioneProdotto] = useState([])
+
+    const [searchInput, setSearchInput] = useState(['']);
+    const risultatiRicerca = prodotti.filter(prodotto =>
+        prodotto.nome &&
+        !selezioneProdotto.includes(prodotto.id) &&
+        searchInput.some(input => prodotto.nome.toLowerCase().includes(input.toLowerCase()))
+    );
+
+    const [currentIndex, setCurrentIndex] = useState(null);
+
+    function prodottoSelezionato(prodotto, index) {
+        setCurrentIndex(index);
+        setSelezioneProdotto(selezioneProdotto => [...selezioneProdotto, prodotto.id]);
+    }
+
+
+    useEffect(() => {
+        if (currentIndex !== null) {
+            const prodotto = prodotti.find(prodotto => prodotto.id === selezioneProdotto[currentIndex]);
+            if (prodotto) {
+                const newSearchInput = [...searchInput];
+                newSearchInput[currentIndex] = prodotto.nome;
+                setSearchInput(newSearchInput);
+                const newShowResults = [...showResults];
+                newShowResults[currentIndex] = false;
+                setShowResults(newShowResults);
+            }
+        }
+    }, [selezioneProdotto]);
+
+
+
+
+    const handleProdottoChange = (index) => (e) => {
+        const newSearchInput = [...searchInput];
+        newSearchInput[index] = e.target.value;
+        setSearchInput(newSearchInput);
+        const newShowResults = [...showResults];
+        newShowResults[index] = true;
+        setShowResults(newShowResults);
+
+        // Se l'input è vuoto, rimuovi il prodotto corrispondente da selezioneProdotto
+        if (e.target.value === '') {
+            setSelezioneProdotto(selezioneProdotto.filter((_, i) => i !== index));
+        }
+    };
+
+    useEffect(() => {
+        console.log(selezioneProdotto);
+    }, [selezioneProdotto]);
+
+    useEffect(() => {
+        console.log(searchInput);
+    }, [searchInput]);
+
+
+    function handleBlur(index) {
+        if (!prodotti.some(prodotto => prodotto.nome === searchInput[index])) {
+            const newSearchInput = [...searchInput];
+            newSearchInput[index] = '';
+            setSearchInput(newSearchInput);
+            // Opzionalmente, mostra un messaggio di errore
+            console.error('Prodotto non valido');
+        }
+    }
+
+
 
 
     return (
@@ -253,14 +360,14 @@ export default function FormFattAcqComp({ formFatturaAcq, setFormFatturaAcq, fat
                     {/* Fornitore */}
                     <div className="flex w-1/3 mr-3">
                         <label htmlFor="fornitore" className="mr-1">Fornitore: </label>
-                        <select name="fornitore" id="fornitore" className="w-full" onChange={handleFornitoreChange}>
+                        <select name="fornitore" id="fornitore" className="w-full" value={selezioneFornitore} onChange={handleFornitoreChange}>
                             <option value="">Seleziona fornitore...</option>
 
                             {
-                                fornitori.map((fornitore) => {
+                                fornitori.map((fornitore, index) => {
                                     return (
 
-                                        <option key={fornitore.id} value={fornitore.id}>{fornitore.ragioneSociale}</option>
+                                        <option key={index} value={fornitore.id}>{fornitore.ragioneSociale}</option>
 
                                     )
                                 })
@@ -269,9 +376,9 @@ export default function FormFattAcqComp({ formFatturaAcq, setFormFatturaAcq, fat
                         </select>
                     </div>
                     <div className="w-1/6">
-                        <button type='button' className="text-[#03A9F4]" onClick={()=>apriForm()}>
+                        <button type='button' className="text-[#03A9F4]" onClick={() => apriForm()}>
                             Nuovo fornitore? clicca qui
-                        </button> 
+                        </button>
                     </div>
 
                 </div>
@@ -283,9 +390,23 @@ export default function FormFattAcqComp({ formFatturaAcq, setFormFatturaAcq, fat
                         <div className="flex w-full items-center">
                             <div key={index} className="flex w-full items-center">
                                 {/* Prodotto */}
-                                <div className="flex flex-col w-2/3">
+                                <div className="flex flex-col w-2/3 relative">
                                     <label htmlFor="prodotto">Prodotto: </label>
-                                    <input className="border-2 rounded-md w-full" type="text" name="prodotto" value={formData.prodotto} onChange={handleInputChange} />
+                                    <input className="border-2 rounded-md w-full" type="text" name="prodotto" value={searchInput[index] || ''} onChange={handleProdottoChange(index)} onBlur={() => handleBlur(index)} />
+                                    {showResults[index] &&
+                                        <div className="absolute top-14 w-full max-h-24 bg-white overflow-y-auto shadow-lg rounded-md">
+                                            {risultatiRicerca.map((prodotto) => {
+                                                return (
+                                                    <div key={prodotto.id} className="w-full border-b border-gray-200 p-2 hover:bg-gray-100 cursor-pointer z-40" onClick={() => prodottoSelezionato(prodotto, index)}>
+                                                        {prodotto.nome}
+                                                    </div>
+                                                )
+                                            })}
+
+                                        </div>
+                                    }
+
+
                                 </div>
                                 {/* Pezzi */}
                                 <div className="flex flex-col w-1/12">

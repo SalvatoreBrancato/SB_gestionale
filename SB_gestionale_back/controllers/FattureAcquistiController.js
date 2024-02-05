@@ -55,7 +55,7 @@ async function create(req, res){
             totale: datiInIngresso.totale,
             note: datiInIngresso.note,
             fornitoriId: datiInIngresso.fornitoriId,
-            pagamentiId: datiInIngresso.pagamentoId
+            pagamentoId: datiInIngresso.pagamentoId
         }
     })
 

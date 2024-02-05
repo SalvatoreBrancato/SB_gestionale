@@ -37,8 +37,8 @@ model FattureVendita {
   totale    Float
   note      String?    @db.Text
   clienti   Clienti?   @relation(fields: [clientiId], references: [id])
-  prodotti  Prodotti[]
   clientiId Int?
+  prodotti  Prodotti[]
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
 }
