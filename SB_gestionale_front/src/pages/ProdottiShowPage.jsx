@@ -138,7 +138,7 @@ export default function ProdottiShowPage(){
                     
                         {prodotto.fornitore && prodotto.fornitore.map((fornitore) => {
                             return (
-                                <tr key={fornitore.id}className="border-2 border-white bg-sky-200">
+                                <tr key={fornitore.id}className="border-2 border-white bg-sky-200 hover:bg-sky-300">
                                     <Link  to={`/dettaglio_fornitore/${fornitore.id}`}>
                                         <td className="text-center">{fornitore.ragioneSociale}</td>
                                     </Link>
@@ -176,7 +176,7 @@ export default function ProdottiShowPage(){
 
                     {prodotto.fattureAcquisti && prodotto.fattureAcquisti.map((fattura) => {
                         return (
-                            <tr key={fattura.id} className="border-2 border-white bg-sky-200">
+                            <tr key={fattura.id} className="border-2 border-white bg-sky-200 hover:bg-sky-300">
                                 <td className="text-center">{fattura.data}</td>
                                 <td className="text-center">{fattura.numero}</td>
                                 <td className="text-center">{fattura.iva}</td>

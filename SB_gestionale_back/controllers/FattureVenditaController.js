@@ -56,7 +56,12 @@ async function create(req, res){
             sconto: datiInIngresso.sconto,
             totale: datiInIngresso.totale,
             note: datiInIngresso.note,
-            clientiId: datiInIngresso.clientiId            
+            clientiId: datiInIngresso.clientiId,
+            prodotti: {
+                connect: datiInIngresso.prodotti.map((elem) => {
+                    return{ id: elem}
+                })
+            }            
         }
     })
 

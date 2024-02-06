@@ -99,7 +99,6 @@ export default function FattureAcqPage() {
                 <span className='w-[13%]'>Data</span>
                 <span className='w-[13%]'>Pezzi</span>
                 <span className='w-[13%]'>Listino</span>
-                <span className='w-[13%]'>Sconto</span>
                 <span className='w-[13%]'>IVA</span>
                 <span className='w-[13%]'>Totale</span>
                 <span className='w-[13%]'>Scadenza</span>
@@ -116,7 +115,6 @@ export default function FattureAcqPage() {
                                     <span className='w-[13%] text-center'>{fatturaAcq.data}</span>
                                     <span className='w-[13%] text-center'>{fatturaAcq.pezzi}</span>
                                     <span className='w-[13%] text-center'>{fatturaAcq.listino}</span>
-                                    <span className='w-[13%] text-center'>{fatturaAcq.sconto}</span>
                                     <span className='w-[13%] text-center'>{fatturaAcq.iva}</span>
                                     <span className='w-[13%] text-center'>{fatturaAcq.totale}</span>
                                     <span className='w-[13%] text-center'>{fatturaAcq.pagamento.scadenza}</span>

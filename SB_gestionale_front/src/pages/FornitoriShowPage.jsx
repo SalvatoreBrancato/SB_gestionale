@@ -134,20 +134,18 @@ export default function FornitoriShowPage(){
                         <th className="text-center">Data</th>
                         <th className="text-center">Numero</th>
                         <th className="text-center">IVA</th>
-                        <th className="text-center">Listino</th>
-                        <th className="text-center">Sconto</th>                    
+                        <th className="text-center">Listino</th>                    
                         <th className="text-center">Totale</th>
                         <th className="text-center">Note</th>
                     </tr>
 
                     {fornitore && fornitore.fattureAcquisti.map((fattura) => {
                         return (
-                            <tr key={fattura.id} className="border-2 border-white bg-sky-200">
+                            <tr key={fattura.id} className="border-2 border-white bg-sky-200 hover:bg-sky-300">
                                 <td className="text-center">{fattura.data}</td>
                                 <td className="text-center">{fattura.numero}</td>
                                 <td className="text-center">{fattura.iva}</td>
                                 <td className="text-center">{fattura.listino}</td>
-                                <td className="text-center">{fattura.sconto}</td>
                                 <td className="text-center">{fattura.totale}</td>
                                 <td className="text-center">{fattura.note}</td>
                             </tr>
@@ -169,7 +167,7 @@ export default function FornitoriShowPage(){
 
                     {fornitore && fornitore.prodotti.map((prodotto) => {
                         return (
-                            <tr key={prodotto.id} className="border-2 border-white bg-sky-200">
+                            <tr key={prodotto.id} className="border-2 border-white bg-sky-200 hover:bg-sky-300">
                                 <Link  to={`/dettaglio_prodotto/${prodotto.id}`}>
                                     <td className="text-center">{prodotto.nome}</td>                                
                                 </Link>
