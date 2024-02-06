@@ -43,6 +43,7 @@ async function show(req, res){
 //###CREATE###
 async function create(req, res){
     const datiInIngresso = req.body
+    console.log(datiInIngresso.prodotti)
 
     const nuovaFatturaAcquisti = await prisma.fattureAcquisti.create({
         data:{
@@ -55,7 +56,12 @@ async function create(req, res){
             totale: datiInIngresso.totale,
             note: datiInIngresso.note,
             fornitoriId: datiInIngresso.fornitoriId,
-            pagamentoId: datiInIngresso.pagamentoId
+            pagamentoId: datiInIngresso.pagamentoId,
+            prodotti: {
+                connect: datiInIngresso.prodotti.map((elem) => {
+                    return{ id: elem}
+                })
+            }
         }
     })
 

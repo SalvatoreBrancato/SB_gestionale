@@ -163,7 +163,7 @@ export default function ProdottiShowPage(){
 
             <div className="w-full min-h-1/2 flex justify-around bg-sky-200 overflow-y-auto">
                 {/* Tabella Fatture Acquisti */}
-                <table className="w-2/3 max-h-[20px">
+                <table className="w-2/3 max-h-[20px]">
                     <tr className="border-2 border-white bg-sky-400">
                         <th className="text-center">Data</th>
                         <th className="text-center">Numero</th>
@@ -191,7 +191,7 @@ export default function ProdottiShowPage(){
                 </table>
 
                  {/* Tabella Fatture Vendita */}
-                 <table className="w-2/3 max-h-[20px">
+                 <table className="w-2/3 max-h-[20px]">
                     <tr className="border-2 border-white bg-sky-400">
                         <th className="text-center">Data</th>
                         <th className="text-center">Numero</th>

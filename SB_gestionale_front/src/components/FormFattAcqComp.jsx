@@ -31,7 +31,7 @@ export default function FormFattAcqComp({ formFatturaAcq, setFormFatturaAcq, fat
         note: '',
         pagamentoId: '',
         fornitoriId: '',
-        prodotto: []
+        prodotti: []
     })
 
     function fornitoriList() {
@@ -116,7 +116,7 @@ export default function FormFattAcqComp({ formFatturaAcq, setFormFatturaAcq, fat
             note: formData.note,
             fornitoriId: parseFloat(selezioneFornitore),
             pagamentoId: parseFloat(selezionePagamento),
-            prodotto: [parseFloat(selezioneProdotto)]
+            prodotti: selezioneProdotto
         }
 
         setFatturaAcq([...fatturaAcq, nuovaFatturaAcq])
@@ -312,6 +312,14 @@ export default function FormFattAcqComp({ formFatturaAcq, setFormFatturaAcq, fat
     };
 
     useEffect(() => {
+        setFormData(prevState => ({
+            ...prevState,
+            prodotto: selezioneProdotto
+        }));
+        console.log(selezioneProdotto)
+    }, [selezioneProdotto]);
+
+    useEffect(() => {
         console.log(selezioneProdotto);
     }, [selezioneProdotto]);
 
@@ -329,9 +337,6 @@ export default function FormFattAcqComp({ formFatturaAcq, setFormFatturaAcq, fat
             console.error('Prodotto non valido');
         }
     }
-
-
-
 
     return (
         <div className='absolute w-5/6 min-h-[400px] max-h-[700px] bg-sky-100 rounded-lg top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-y-scroll z-10'>
@@ -394,10 +399,10 @@ export default function FormFattAcqComp({ formFatturaAcq, setFormFatturaAcq, fat
                                     <label htmlFor="prodotto">Prodotto: </label>
                                     <input className="border-2 rounded-md w-full" type="text" name="prodotto" value={searchInput[index] || ''} onChange={handleProdottoChange(index)} onBlur={() => handleBlur(index)} />
                                     {showResults[index] &&
-                                        <div className="absolute top-14 w-full max-h-24 bg-white overflow-y-auto shadow-lg rounded-md">
+                                        <div className="absolute top-14 z-40 w-full max-h-24 bg-white overflow-y-auto shadow-lg rounded-md">
                                             {risultatiRicerca.map((prodotto) => {
                                                 return (
-                                                    <div key={prodotto.id} className="w-full border-b border-gray-200 p-2 hover:bg-gray-100 cursor-pointer z-40" onClick={() => prodottoSelezionato(prodotto, index)}>
+                                                    <div key={prodotto.id} className="w-full border-b border-gray-200 p-2 hover:bg-gray-100 cursor-pointer" onClick={() => prodottoSelezionato(prodotto, index)}>
                                                         {prodotto.nome}
                                                     </div>
                                                 )
