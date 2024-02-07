@@ -246,18 +246,18 @@ export default function FormFattAcqComp({ formFatturaAcq, setFormFatturaAcq, fat
     //PRODOTTI
     const [prodotti, setProdotti] = useState([])
 
-    useEffect(prodottiApi, [])
+    useEffect(prodottiApi, [selezioneFornitore])
 
     function prodottiApi() {
-        axios.get('http://localhost:3000/prodotti')
-            .then(response => {
-                setProdotti(response.data)
-                console.log(response.data)
-            })
-            .catch(error => {
-                // Gestisci gli errori
-                console.log(error);
-            });
+        axios.get(`http://localhost:3000/prodotti?fornitoreId=${selezioneFornitore}`)
+        .then(response => {
+            setProdotti(response.data)
+            console.log(response.data)
+        })
+        .catch(error => {
+            // Gestisci gli errori
+            console.log(error);
+        });
     }
 
 

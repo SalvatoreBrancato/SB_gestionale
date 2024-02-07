@@ -102,7 +102,7 @@ export default function FattureAcqShowPage() {
 
             {/* Conferma eliminazione? */}
             {formDestroy && <div className="flex flex-col items-center justify-around absolute w-1/4 h-1/4 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-sky-100 rounded-lg z-20">
-                <span className="text-2xl">Sei sicuro di volere eliminare l'anagrafica?</span>
+                <span className="text-2xl">Sei sicuro di volere eliminare la fattura?</span>
                 <div className="flex justify-center items-center">
                     <button onClick={()=>destroyFatturaAcq()} className="bg-green-400 p-3 mr-5 rounded-md">Conferma</button>
                     <button onClick={()=>eliminaFatturaAcq()} className="bg-red-500 p-3 rounded-md">Annulla</button>
@@ -122,8 +122,6 @@ export default function FattureAcqShowPage() {
                         )
                     })
                 }
-
-
             </div> 
 
         </div>
