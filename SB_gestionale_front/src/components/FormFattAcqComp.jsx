@@ -279,15 +279,15 @@ export default function FormFattAcqComp({ formFatturaAcq, setFormFatturaAcq, fat
         if (risultatiRicerca.includes(prodotto)) {
             setCurrentIndex(index);
             setSelezioneProdotto(selezioneProdotto => [...selezioneProdotto, prodotto]);
-    
+
             // Aggiorna direttamente searchInput con il nome del prodotto selezionato
             const newSearchInput = [...searchInput];
             newSearchInput[index] = prodotto.nome;
             setSearchInput(newSearchInput);
         }
     }
-    
-    
+
+
 
 
 
@@ -399,7 +399,6 @@ export default function FormFattAcqComp({ formFatturaAcq, setFormFatturaAcq, fat
                             Nuovo fornitore? clicca qui
                         </button>
                     </div>
-
                 </div>
 
 
