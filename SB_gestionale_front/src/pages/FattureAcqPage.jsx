@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import FormFattAcqComp from '../components/FormFattAcqComp';
 import FormCreateComp from '../components/FormCreateComp';
-
+import NewFormFattAcq from '../components/NewFormFattAcq';
 
 export default function FattureAcqPage() {
 
@@ -125,7 +125,8 @@ export default function FattureAcqPage() {
                     })}
                 </div>}
 
-            {formFatturaAcq && <FormFattAcqComp formFatturaAcq={formFatturaAcq} setFormFatturaAcq={setFormFatturaAcq} fattureAcq={fattureAcq} form={form} setForm={setForm}/>}
+            {/* {formFatturaAcq && <FormFattAcqComp formFatturaAcq={formFatturaAcq} setFormFatturaAcq={setFormFatturaAcq} fattureAcq={fattureAcq} form={form} setForm={setForm}/>} */}
+            {formFatturaAcq && <NewFormFattAcq formFatturaAcq={formFatturaAcq} setFormFatturaAcq={setFormFatturaAcq} fattureAcq={fattureAcq} form={form} setForm={setForm}/>}
             {form && <FormCreateComp form={form} setForm={setForm} fornitori={fornitori}></FormCreateComp>}
         </div>
     )

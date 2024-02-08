@@ -87,7 +87,7 @@ export default function FormFattAcqComp({ formFatturaAcq, setFormFatturaAcq, fat
         }));
         console.log(selezionePagamento)
     }, [selezionePagamento]);
-    
+
 
 
     const handleInputChange = (e) => {
@@ -246,18 +246,18 @@ export default function FormFattAcqComp({ formFatturaAcq, setFormFatturaAcq, fat
     //PRODOTTI
     const [prodotti, setProdotti] = useState([])
 
-    useEffect(prodottiApi, [selezioneFornitore])
+    useEffect(prodottiApi, [])
 
     function prodottiApi() {
-        axios.get(`http://localhost:3000/prodotti?fornitoreId=${selezioneFornitore}`)
-        .then(response => {
-            setProdotti(response.data)
-            console.log(response.data)
-        })
-        .catch(error => {
-            // Gestisci gli errori
-            console.log(error);
-        });
+        axios.get(`http://localhost:3000/prodotti`)
+            .then(response => {
+                setProdotti(response.data)
+                console.log(response.data)
+            })
+            .catch(error => {
+                // Gestisci gli errori
+                console.log(error);
+            });
     }
 
 
@@ -275,14 +275,25 @@ export default function FormFattAcqComp({ formFatturaAcq, setFormFatturaAcq, fat
     const [currentIndex, setCurrentIndex] = useState(null);
 
     function prodottoSelezionato(prodotto, index) {
-        setCurrentIndex(index);
-        setSelezioneProdotto(selezioneProdotto => [...selezioneProdotto, prodotto.id]);
+        // Controlla se il prodotto è nell'elenco dei risultati della ricerca
+        if (risultatiRicerca.includes(prodotto)) {
+            setCurrentIndex(index);
+            setSelezioneProdotto(selezioneProdotto => [...selezioneProdotto, prodotto]);
+    
+            // Aggiorna direttamente searchInput con il nome del prodotto selezionato
+            const newSearchInput = [...searchInput];
+            newSearchInput[index] = prodotto.nome;
+            setSearchInput(newSearchInput);
+        }
     }
+    
+    
+
 
 
     useEffect(() => {
         if (currentIndex !== null) {
-            const prodotto = prodotti.find(prodotto => prodotto.id === selezioneProdotto[currentIndex]);
+            const prodotto = selezioneProdotto[currentIndex];
             if (prodotto) {
                 const newSearchInput = [...searchInput];
                 newSearchInput[currentIndex] = prodotto.nome;
@@ -307,7 +318,7 @@ export default function FormFattAcqComp({ formFatturaAcq, setFormFatturaAcq, fat
 
         // Se l'input è vuoto, rimuovi il prodotto corrispondente da selezioneProdotto
         if (e.target.value === '') {
-            setSelezioneProdotto(selezioneProdotto.filter((_, i) => i !== index));
+            setSelezioneProdotto(selezioneProdotto.filter((prodotto, i) => i !== index));
         }
     };
 
@@ -330,13 +341,16 @@ export default function FormFattAcqComp({ formFatturaAcq, setFormFatturaAcq, fat
 
     function handleBlur(index) {
         if (!prodotti.some(prodotto => prodotto.nome === searchInput[index])) {
-            const newSearchInput = [...searchInput];
-            newSearchInput[index] = '';
-            setSearchInput(newSearchInput);
-            // Opzionalmente, mostra un messaggio di errore
-            console.error('Prodotto non valido');
+            const nuovoProdotto = {
+                id: Math.max(...prodotti.map(prodotto => prodotto.id)) + 1, // Genera un nuovo ID univoco
+                nome: searchInput[index],
+                // Aggiungi qui gli altri campi del prodotto
+            };
+            setProdotti(prodotti => [...prodotti, nuovoProdotto]); // Aggiungi il nuovo prodotto all'array dei prodotti
+            prodottoSelezionato(nuovoProdotto, index); // Seleziona il nuovo prodotto
         }
     }
+
 
     return (
         <div className='absolute w-5/6 min-h-[400px] max-h-[700px] bg-sky-100 rounded-lg top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-y-scroll z-10'>
