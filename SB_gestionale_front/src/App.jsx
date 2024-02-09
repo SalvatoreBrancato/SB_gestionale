@@ -10,6 +10,8 @@ import ProdottiPage from './pages/ProdottiPage';
 import ProdottiShowPage from './pages/ProdottiShowPage';
 import FattureAcqPage from './pages/FattureAcqPage';
 import FattureAcqShowPage from './pages/FattureAcqShowPage';
+import MagazzinoPage from './pages/MagazzinoPage';
+
 
 function App() {
   return (
@@ -24,6 +26,7 @@ function App() {
             <Route path='/dettaglio_fornitore/:id' element={<FornitoriShowPage/>}></Route>
             <Route path='/prodotti' element ={<ProdottiPage/>}></Route> 
             <Route path='/dettaglio_prodotto/:id' element={<ProdottiShowPage/>}></Route>
+            <Route path='/magazzino' element ={<MagazzinoPage/>}></Route> 
             <Route path='/fatture_acquisti' element ={<FattureAcqPage/>}></Route> 
             <Route path='/dettaglio_fattura_acquisti/:id' element={<FattureAcqShowPage/>}></Route>
           </Route>

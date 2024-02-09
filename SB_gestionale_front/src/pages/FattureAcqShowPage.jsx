@@ -111,7 +111,7 @@ export default function FattureAcqShowPage() {
 
             <div className="flex flex-col mb-10">
                 {fatturaAcq &&
-                    <div className="w-full flex justify-between px-5 mb-10">
+                    <div className="w-full flex justify-between items-center px-5 mb-10">
                         <span className="text-3xl p-3">{fatturaAcq.fornitori.ragioneSociale}</span>
                         <span className="text-xl px-3 py-1">N. {fatturaAcq.numero} del {fatturaAcq.data}</span>
                     </div>
@@ -119,17 +119,22 @@ export default function FattureAcqShowPage() {
                 {fatturaAcq &&
                     <div className="w-2/3 flex mx-auto justify-between text-xl px-3 py-1 text-center">
                         <span className="w-1/3">Prodotto</span>
+                        <span className="w-1/3">Descrizione</span>
                         <span className="w-1/3">Pezzi</span>
-                        <span className="w-1/3">Importo</span>
-
+                        <span className="w-1/3">Listino</span>
+                        <span className="w-1/3">Prezzo Acquisto</span>
+                        <span className="w-1/3">Note</span>
                     </div>
                 }
                 {fatturaAcq && fatturaAcq.prodotti && fatturaAcq.prodotti.map((prodotto, index) => {
                     return (
                         <div key={index} className="w-2/3 flex justify-between mx-auto bg-white border-2 border-sky-200 text-center text-xl px-3 py-1 my-2">
                             <span className="w-1/3 ">{prodotto.nome}</span>
+                            {prodotto.descrizione && <span className="w-1/3">{prodotto.descrizione}</span>}
                             <span className="w-1/3">{prodotto.pezzi}</span>
-                            <span className="w-1/3">{prodotto.prezzoAcquisto}</span>
+                            {prodotto.listino && <span className="w-1/3">{prodotto.listino}</span>}
+                            {prodotto.prezzoAcquisto && <span className="w-1/3">{prodotto.prezzoAcquisto}</span>}
+                            {prodotto.note && <span className="w-1/3">{prodotto.note}</span>}
                         </div>
                     )
                 })
