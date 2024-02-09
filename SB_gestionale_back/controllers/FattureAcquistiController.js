@@ -44,8 +44,8 @@ async function show(req, res){
 
 //###CREATE###
 async function create(req, res){
-    //const datiInIngresso = req.body
-    console.log(datiInIngresso.prodotti)
+    const datiInIngresso = req.body
+    //console.log(datiInIngresso.prodotti)
 
     const nuovaFatturaAcquisti = await prisma.fattureAcquisti.create({
         data:{
