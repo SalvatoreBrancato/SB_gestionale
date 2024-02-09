@@ -27,6 +27,7 @@ export default function ProdottiPage() {
         axios.get('http://localhost:3000/prodotti')
             .then(response => {
                 setProdotti(response.data)
+                console.log(response.data)
                 setIsLoading(false);
             })
             .catch(error => {
@@ -67,6 +68,7 @@ export default function ProdottiPage() {
 
             <div className='w-full flex justify-between p-5 bg-sky-300 font-bold text-center'>
                 <span className='w-[13%]'>Nome</span>
+                <span className='w-[13%]'>Fornitore</span>
                 <span className='w-[13%]'>Descrizione</span>
                 <span className='w-[13%]'>Prezzo d'acquisto</span>
                 <span className='w-[13%]'>Prezzo di vendita</span>
@@ -76,10 +78,11 @@ export default function ProdottiPage() {
             </div>
             {isLoading ? <div className='h-full w-full flex justify-center'><ClipLoader /></div> :
                 <div className='overflow-y-auto'>
-                    {risultatiRicerca.map((prodotto) => {
+                    {risultatiRicerca.map((prodotto, index) => {
                         return (
-                            <Link key={prodotto.id} to={`/dettaglio_prodotto/${prodotto.id}`} className='fw-full flex justify-between p-5 bg-sky-200 hover:bg-sky-100 border-2 border-y-white'>
+                            <Link key={index} to={`/dettaglio_prodotto/${prodotto.id}`} className='fw-full flex justify-between p-5 bg-sky-200 hover:bg-sky-100 border-2 border-y-white'>
                                 <span className='w-[13%] text-center'>{prodotto.nome}</span>
+                                {prodotto.fornitore && prodotto.fornitore.map((elem)=><span className='w-[13%] text-center'>{elem.ragioneSociale}</span>) }
                                 <span className='w-[13%] text-center'>{prodotto.descrizione}</span>
                                 <span className='w-[13%] text-center'>{prodotto.prezzoAcquisto}</span>
                                 <span className='w-[13%] text-center'>{prodotto.prezzoVendita}</span>

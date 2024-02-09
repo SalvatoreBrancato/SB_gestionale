@@ -473,7 +473,7 @@ export default function NewFormFattAcq({ formFatturaAcq, setFormFatturaAcq, fatt
                 <div className="flex justify-center">
                     {isLoading ? <ClipLoader /> : <button type="submit" className="p-1 bg-sky-400 mt-3 rounded-md text-white hover:bg-blue-400">Registra nuova fattura acq.</button>}
                 </div>
-                {isSuccess && <p className="text-center">Nuova fattura acquisti creata</p>}
+                {isSuccess && <p className="text-center">✔ Nuova fattura acquisti registrata</p>}
             </form>
         </div>
     )

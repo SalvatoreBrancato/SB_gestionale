@@ -3,24 +3,12 @@ const prisma = new PrismaClient();
 
 //###INDEX###
 async function index(req, res) {
-    const fornitoreId = req.query.fornitoreId; // Ottieni l'ID del fornitore dalla richiesta
-
-    let data;
-    if (fornitoreId) {
-        //Filtra i prodotti per il fornitore
-        data = await prisma.prodotti.findMany({
-            where: {
-                fornitore: {
-                    some: {
-                        id: Number(fornitoreId), 
-                    },
-                },
-            },
-        });
-    } else {
-        //Restituisci tutti i prodotti
-        data = await prisma.prodotti.findMany();
-    }
+    const data = await prisma.prodotti.findMany({
+        include:{
+            fornitore: true
+        }
+    });
+    
 
     return res.json(data);
 }
