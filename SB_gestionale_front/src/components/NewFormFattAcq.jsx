@@ -222,10 +222,10 @@ export default function NewFormFattAcq({ formFatturaAcq, setFormFatturaAcq, fatt
                 const responseProdotti = await axios.post('http://localhost:3000/prodotti/inserisci', nuovoProdotto);
                 console.log(responseProdotti.data);
         
-                // Recupera gli ID dei prodotti appena creati
-                const idProdottiCreati = responseProdotti.data.map(prodotto => prodotto.id);  // Assumendo che l'ID del prodotto sia disponibile come `id` nella risposta
+                // Recupero gli ID dei prodotti appena creati dalla risposta della chiamata axio
+                const idProdottiCreati = responseProdotti.data.map(prodotto => prodotto.id);  
         
-                // Aggiungi gli ID dei prodotti alla fattura
+                // Aggiungo gli ID dei prodotti alla fattura
                 const nuovaFatturaAcqConIdProdotti = {
                     ...nuovaFatturaAcq,
                     prodotti: idProdottiCreati,
