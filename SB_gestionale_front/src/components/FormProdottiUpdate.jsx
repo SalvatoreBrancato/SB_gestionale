@@ -54,7 +54,7 @@ export default function FormProdottiUpdate({form, setForm, prodotto, setProdotto
         const modificaProdotto = {
             nome: prodotto.nome,
             descrizione: prodotto.descrizione,
-            prezzoVendita: prodotto.prezzoVendita,
+            prezzoVendita: parseFloat(prodotto.prezzoVendita),
             pezzi: prodotto.pezzi,
             prezzoAcquisto: prodotto.prezzoAcquisto,
             listino: prodotto.listino,

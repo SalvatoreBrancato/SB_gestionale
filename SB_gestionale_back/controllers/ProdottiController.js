@@ -23,20 +23,8 @@ async function show(req, res) {
             id: parseInt(id)
         },
         include: {
-            fattureAcquisti: {
-                select: {
-                    numero: true,
-                    data: true,
-                    note: true
-                }
-            },
-            fattureVendita: {
-                select: {
-                    numero: true,
-                    data: true,
-                    note: true
-                }
-            },
+            fattureAcquisti: true,
+            fattureVendita: true,
             fornitore: true
                 
             
@@ -136,9 +124,9 @@ async function update(req, res) {
     }
 
     // Prepara l'elenco dei fornitori da disconnettere
-    const fornitoriDaDisconnettere = prodotto.fornitore.map((fornitore) => {
-        return { id: fornitore.id }
-    })
+    // const fornitoriDaDisconnettere = prodotto.fornitore.map((fornitore) => {
+    //     return { id: fornitore.id }
+    // })
 
     const aggiornaProdotto = await prisma.prodotti.update({
         where: {
@@ -148,7 +136,7 @@ async function update(req, res) {
             ...datiInIngresso,
 
             fornitore: {
-                disconnect: fornitoriDaDisconnettere,
+                // disconnect: fornitoriDaDisconnettere,
                 connect: datiInIngresso.fornitore?.map((elem) => {
                     return { id: elem }
                 })

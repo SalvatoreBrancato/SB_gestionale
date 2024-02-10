@@ -8,6 +8,8 @@ export default function NewFormFattAcq({ formFatturaAcq, setFormFatturaAcq, fatt
 
     const [isSuccess, setIsSuccess] = useState(false);
 
+    const [isSuccessProdotti, setIsSuccessProdotti ] = useState(false)
+
     const [fatturaAcq, setFatturaAcq] = useState([])
 
     const [formData, setFormData] = useState({
@@ -230,6 +232,8 @@ export default function NewFormFattAcq({ formFatturaAcq, setFormFatturaAcq, fatt
                     ...nuovaFatturaAcq,
                     prodotti: idProdottiCreati,
                 };
+
+                setIsSuccessProdotti(true)
         
                 // Richiesta POST per creare la fattura
                 const responseFattura = await axios.post('http://localhost:3000/fattureAcquisti/inserisci', nuovaFatturaAcqConIdProdotti);
@@ -473,6 +477,7 @@ export default function NewFormFattAcq({ formFatturaAcq, setFormFatturaAcq, fatt
                 <div className="flex justify-center">
                     {isLoading ? <ClipLoader /> : <button type="submit" className="p-1 bg-sky-400 mt-3 rounded-md text-white hover:bg-blue-400">Registra nuova fattura acq.</button>}
                 </div>
+                {isSuccessProdotti && <div className="text-center"><p>✔ Prodotti caricati</p><p>✔ Magazzino aggiornato</p></div>}
                 {isSuccess && <p className="text-center">✔ Nuova fattura acquisti registrata</p>}
             </form>
         </div>

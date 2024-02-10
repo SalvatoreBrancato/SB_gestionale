@@ -36,7 +36,7 @@ export default function HeaderComp() {
                         <path d="M8.25 19.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0ZM15.75 6.75a.75.75 0 0 0-.75.75v11.25c0 .087.015.17.042.248a3 3 0 0 1 5.958.464c.853-.175 1.522-.935 1.464-1.883a18.659 18.659 0 0 0-3.732-10.104 1.837 1.837 0 0 0-1.47-.725H15.75Z" />
                         <path d="M19.5 19.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0Z" />
                     </svg>
-                    Prodotti
+                    Storico prodotti
                 </Link>
                 {/* MAGAZZINO */}
                 <Link className=" mx-2 flex flex-col items-center" to='/magazzino'>

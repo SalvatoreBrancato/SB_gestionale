@@ -75,24 +75,26 @@ export default function HomePage() {
                 <div className="w-1/3 h-full bg-sky-200 overflow-y-auto">
                     {/* Tabella Clienti */}
                     <table className="w-full max-h-full">
-                        <tr className="border-2 border-white bg-sky-400">
-                            <th className="text-center">Ragione Sociale</th>
-                            <th className="text-center">Nome</th>
-                            <th className="text-center">Cognome</th>
-                            <th className="text-center">Telefono</th>
-                            <th className="text-center">Email</th>
+                        <tr className="border-2 border-white bg-sky-400 text-center">
+                            <th>Ragione Sociale</th>
+                            <th>Nome</th>
+                            <th>Cognome</th>
+                            <th>Telefono</th>
+                            <th>Email</th>
                         </tr>
 
                         {clienti.map((cliente) => {
                             return (
-                                <tr className="border-2 border-white bg-sky-200 hover:bg-sky-300">
-                                    <Link key={cliente.id} to={`/dettaglio_cliente/${cliente.id}`}>
-                                        <td className="text-center ">{cliente.ragioneSociale}</td>
-                                    </Link>
-                                    <td className="text-center">{cliente.nome}</td>
-                                    <td className="text-center">{cliente.cognome}</td>
-                                    <td className="text-center">{cliente.telefono}</td>
-                                    <td className="text-center">{cliente.email}</td>
+                                <tr className="border-2 border-white bg-sky-200 hover:bg-sky-300 text-center">
+                                    <td>
+                                        <Link key={cliente.id} to={`/dettaglio_cliente/${cliente.id}`}>
+                                            {cliente.ragioneSociale}
+                                        </Link>
+                                    </td>
+                                    <td>{cliente.nome}</td>
+                                    <td>{cliente.cognome}</td>
+                                    <td>{cliente.telefono}</td>
+                                    <td>{cliente.email}</td>
                                 </tr>
                             )
                         })}
@@ -103,21 +105,23 @@ export default function HomePage() {
                 {/* FORNITORI */}
                 <div className="w-1/3 h-full bg-sky-200 overflow-y-auto">
                     {/* Tabella Fornitori */}
-                    <table className="w-full max-h-full">
+                    <table className="w-full max-h-full text-center">
                         <tr className="border-2 border-white bg-sky-400">
-                            <th className="text-center">Ragione Sociale</th>
-                            <th className="text-center">Telefono</th>
-                            <th className="text-center">Email</th>
+                            <th>Ragione Sociale</th>
+                            <th>Telefono</th>
+                            <th>Email</th>
                         </tr>
 
                         {fornitori.map((fornitore) => {
                             return (
-                                <tr className="border-2 border-white bg-sky-200 hover:bg-sky-300">
-                                    <Link key={fornitore.id} to={`/dettaglio_fornitore/${fornitore.id}`} >
-                                        <td className="text-center">{fornitore.ragioneSociale}</td>
-                                    </Link>
-                                    <td className="text-center">{fornitore.telefono}</td>
-                                    <td className="text-center">{fornitore.email}</td>
+                                <tr className="border-2 border-white bg-sky-200 hover:bg-sky-300 text-center">
+                                    <td>
+                                        <Link key={fornitore.id} to={`/dettaglio_fornitore/${fornitore.id}`} >
+                                            {fornitore.ragioneSociale}
+                                        </Link>
+                                    </td>
+                                    <td>{fornitore.telefono}</td>
+                                    <td>{fornitore.email}</td>
                                 </tr>
                             )
                         })}
@@ -136,20 +140,20 @@ export default function HomePage() {
                 <div className="w-1/3 h-full bg-sky-200 overflow-y-auto">
                     {/* Tabella Fatture Vendite */}
                     <table className="w-full max-h-full">
-                        <tr className="border-2 border-white bg-sky-400">
-                            <th className="text-center">Numero</th>
-                            <th className="text-center">Data</th>
-                            <th className="text-center">Totale</th>
-                            <th className="text-center">Cliente</th>
+                        <tr className="border-2 border-white bg-sky-400 text-center">
+                            <th>Numero</th>
+                            <th>Data</th>
+                            <th>Totale</th>
+                            <th>Cliente</th>
                         </tr>
 
                         {fattureVen.map((fatturaVen) => {
                             return (
-                                <tr className="border-2 border-white bg-sky-200 hover:bg-sky-300">
-                                    <td className="text-center">{fatturaVen.numero}</td>
-                                    <td className="text-center">{fatturaVen.data}</td>
-                                    <td className="text-center">{fatturaVen.totale}</td>
-                                    {fatturaVen.clienti && <td className="text-center">{fatturaVen.clienti.ragioneSociale ? fatturaVen.clienti.ragioneSociale : fatturaVen.clienti.nome + ' ' + fatturaVen.clienti.cognome}</td>}
+                                <tr className="border-2 border-white bg-sky-200 hover:bg-sky-300 text-center">
+                                    <td>{fatturaVen.numero}</td>
+                                    <td>{fatturaVen.data}</td>
+                                    <td>{fatturaVen.totale}</td>
+                                    {fatturaVen.clienti && <td>{fatturaVen.clienti.ragioneSociale ? fatturaVen.clienti.ragioneSociale : fatturaVen.clienti.nome + ' ' + fatturaVen.clienti.cognome}</td>}
                                 </tr>
                             )
                         })}
@@ -161,20 +165,24 @@ export default function HomePage() {
                 <div className="w-1/3 h-full bg-sky-200 overflow-y-auto">
                     {/* Tabella Fatture Acquisto */}
                     <table className="w-full max-h-full">
-                        <tr className="border-2 border-white bg-sky-400">
-                            <th className="text-center">Numero</th>
-                            <th className="text-center">Data</th>
-                            <th className="text-center">Totale</th>
+                        <tr className="border-2 border-white bg-sky-400 text-center">
+                            <th>Numero</th>
+                            <th>Data</th>
+                            <th>Totale</th>
                             <th className="text-center">Fornitore</th>
                         </tr>
 
                         {fattureAcq.map((fatturaAcq) => {
                             return (
-                                <tr className="border-2 border-white bg-sky-200 hover:bg-sky-300">
-                                    <td className="text-center">{fatturaAcq.numero}</td>
-                                    <td className="text-center">{fatturaAcq.data}</td>
-                                    <td className="text-center">{fatturaAcq.totale}</td>
-                                    <td className="text-center">{fatturaAcq.fornitori.ragioneSociale}</td>
+                                <tr className="border-2 border-white bg-sky-200 hover:bg-sky-300 text-center">
+                                    <td>
+                                        <Link to={`/dettaglio_fattura_acquisti/${fatturaAcq.id}`}>
+                                            {fatturaAcq.numero}
+                                        </Link>
+                                    </td>
+                                    <td>{fatturaAcq.data}</td>
+                                    <td>{fatturaAcq.totale}</td>
+                                    <td>{fatturaAcq.fornitori.ragioneSociale}</td>
                                 </tr>
                             )
                         })}
@@ -182,7 +190,6 @@ export default function HomePage() {
                     </table>
                 </div>
             </div>
-
         </div>
     )
 }
