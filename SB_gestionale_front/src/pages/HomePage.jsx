@@ -157,7 +157,7 @@ export default function HomePage() {
                                 return (
                                     <tr key={index} className="border-2 border-white bg-sky-200 hover:bg-sky-300 text-center">
                                         <td>{fatturaVen.numero}</td>
-                                        <td>{fatturaVen.data}</td>
+                                        <td>{new Date(fatturaVen.data).toLocaleDateString('it-IT')}</td>
                                         <td>{fatturaVen.totale}</td>
                                         {fatturaVen.clienti && <td>{fatturaVen.clienti.ragioneSociale ? fatturaVen.clienti.ragioneSociale : fatturaVen.clienti.nome + ' ' + fatturaVen.clienti.cognome}</td>}
                                     </tr>
@@ -188,7 +188,7 @@ export default function HomePage() {
                                                 {fatturaAcq.numero}
                                             </Link>
                                         </td>
-                                        <td>{fatturaAcq.data}</td>
+                                        <td>{new Date(fatturaAcq.data).toLocaleDateString('it-IT')}</td>
                                         <td>{fatturaAcq.totale}</td>
                                         <td>{fatturaAcq.fornitori.ragioneSociale}</td>
                                     </tr>

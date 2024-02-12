@@ -108,7 +108,7 @@ export default function FornitoriShowPage() {
 
             {/* Conferma eliminazione? */}
             {formDestroy && <div className="flex flex-col items-center justify-around absolute w-1/4 h-1/4 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-sky-100 rounded-lg z-20">
-                <span className="text-2xl">Sei sicuro di volere eliminare l'anagrafica?</span>
+                <span className="text-2xl px-2">Sei sicuro di volere eliminare l'anagrafica?</span>
                 <div className="flex justify-center items-center">
                     <button onClick={() => destroyAnagrafica()} className="bg-green-400 p-3 mr-5 rounded-md">Conferma</button>
                     <button onClick={() => eliminaAnagrafica()} className="bg-red-500 p-3 rounded-md">Annulla</button>
@@ -144,7 +144,7 @@ export default function FornitoriShowPage() {
                         {fornitore && fornitore.fattureAcquisti.map((fattura, index) => {
                             return (
                                 <tr key={index} className="border-2 border-white bg-sky-200 hover:bg-sky-300 text-center">
-                                    <td>{fattura.data}</td>
+                                    <td>{new Date(fattura.data).toLocaleDateString('it-IT')}</td>
                                     <td>{fattura.numero}</td>
                                     <td>{fattura.iva}</td>
                                     <td>{fattura.listino}</td>

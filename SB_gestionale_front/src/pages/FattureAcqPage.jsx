@@ -40,30 +40,30 @@ export default function FattureAcqPage() {
     function apriChiudiForm() {
         if (formFatturaAcq == false) {
             setFormFatturaAcq(true)
-            
+
         } else {
             setFormFatturaAcq(false)
-            
+
         }
     }
 
-    function chiudiFormTrasparenza(){
+    function chiudiFormTrasparenza() {
         if (formFatturaAcq == true) {
-            setFormFatturaAcq(false)   
+            setFormFatturaAcq(false)
         }
-        else if(form == true){
+        else if (form == true) {
             setForm(false)
         }
     }
-    
+
     const [form, setForm] = useState(false)
     const [fornitori, setFornitori] = useState(true)
 
-    function apriForm(){
-        if(!form){
+    function apriForm() {
+        if (!form) {
             setForm(true)
-            
-        }else{
+
+        } else {
             setForm(false)
         }
     }
@@ -72,7 +72,7 @@ export default function FattureAcqPage() {
         <div className='bg-sky-50 h-full relative z-0'>
 
             {/* sfondo in trasparenza quando si apre il form */}
-            { (formFatturaAcq || form) && <div className={`absolute inset-x-0 top-0 bottom-0 bg-white z-10 ${formFatturaAcq || form ? 'bg-opacity-80' : 'bg-opacity-0'}`} onClick={() => chiudiFormTrasparenza()}></div>}
+            {(formFatturaAcq || form) && <div className={`absolute inset-x-0 top-0 bottom-0 bg-white z-10 ${formFatturaAcq || form ? 'bg-opacity-80' : 'bg-opacity-0'}`} onClick={() => chiudiFormTrasparenza()}></div>}
 
             <div className='w-full flex justify-between items-center p-5 '>
                 <div>
@@ -109,10 +109,12 @@ export default function FattureAcqPage() {
                     {risultatiRicerca.map((fatturaAcq, index) => {
                         return (
                             <div key={index}>
-                                <Link  to={`/dettaglio_fattura_acquisti/${fatturaAcq.id}`} className='fw-full flex justify-between p-5 bg-sky-200 hover:bg-sky-100 border-2 border-y-white'>
+                                <Link to={`/dettaglio_fattura_acquisti/${fatturaAcq.id}`} className='fw-full flex justify-between p-5 bg-sky-200 hover:bg-sky-100 border-2 border-y-white'>
                                     <span className='w-[13%] text-center'>{fatturaAcq.fornitori.ragioneSociale}</span>
                                     <span className='w-[13%] text-center'>{fatturaAcq.numero}</span>
-                                    <span className='w-[13%] text-center'>{fatturaAcq.data}</span>
+                                    <span className='w-[13%] text-center'>
+                                        {new Date(fatturaAcq.data).toLocaleDateString('it-IT')}
+                                    </span>
                                     <span className='w-[13%] text-center'>{fatturaAcq.pezzi}</span>
                                     <span className='w-[13%] text-center'>{fatturaAcq.listino}</span>
                                     <span className='w-[13%] text-center'>{fatturaAcq.iva}</span>
@@ -125,7 +127,7 @@ export default function FattureAcqPage() {
                 </div>}
 
             {/* {formFatturaAcq && <FormFattAcqComp formFatturaAcq={formFatturaAcq} setFormFatturaAcq={setFormFatturaAcq} fattureAcq={fattureAcq} form={form} setForm={setForm}/>} */}
-            {formFatturaAcq && <NewFormFattAcq formFatturaAcq={formFatturaAcq} setFormFatturaAcq={setFormFatturaAcq} fattureAcq={fattureAcq} form={form} setForm={setForm}/>}
+            {formFatturaAcq && <NewFormFattAcq formFatturaAcq={formFatturaAcq} setFormFatturaAcq={setFormFatturaAcq} fattureAcq={fattureAcq} form={form} setForm={setForm} />}
             {form && <FormCreateComp form={form} setForm={setForm} fornitori={fornitori}></FormCreateComp>}
         </div>
     )
