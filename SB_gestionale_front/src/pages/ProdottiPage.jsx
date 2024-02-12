@@ -77,12 +77,12 @@ export default function ProdottiPage() {
                 <span className='w-[13%]'>Note</span>
             </div>
             {isLoading ? <div className='h-full w-full flex justify-center'><ClipLoader /></div> :
-                <div className='overflow-y-auto'>
+                <div>
                     {risultatiRicerca.map((prodotto, index) => {
                         return (
-                            <Link key={index} to={`/dettaglio_prodotto/${prodotto.id}`} className='fw-full flex justify-between p-5 bg-sky-200 hover:bg-sky-100 border-2 border-y-white'>
+                            <Link key={index} to={`/dettaglio_prodotto/${prodotto.id}`} className='w-full flex justify-between p-5 bg-sky-200 hover:bg-sky-100 border-2 border-y-white'>
                                 <span className='w-[13%] text-center'>{prodotto.nome}</span>
-                                {prodotto.fornitore && prodotto.fornitore.map((elem)=><span className='w-[13%] text-center'>{elem.ragioneSociale}</span>) }
+                                {prodotto.fornitore && prodotto.fornitore.map((elem, index)=><span key={index} className='w-[13%] text-center'>{elem.ragioneSociale}</span>) }
                                 <span className='w-[13%] text-center'>{prodotto.descrizione}</span>
                                 <span className='w-[13%] text-center'>{prodotto.prezzoAcquisto}</span>
                                 <span className='w-[13%] text-center'>{prodotto.prezzoVendita}</span>

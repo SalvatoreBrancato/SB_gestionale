@@ -129,34 +129,41 @@ export default function ProdottiShowPage() {
                 <div className="w-1/2 min-h-1/2 flex overflow-y-auto">
                     {/* Tabella Fornitori */}
                     <table className="w-2/3 max-h-[20px]">
-                        <tr className="border-2 border-white bg-sky-400">
-                            <th className="text-center">Ragione sociale</th>
-                            <th className="text-center">Email</th>
-                            <th className="text-center">Telefono</th>
-
-                        </tr>
-
-                        {prodotto.fornitore && prodotto.fornitore.map((fornitore) => {
-                            return (
-                                <tr key={fornitore.id} className="border-2 border-white bg-sky-200 hover:bg-sky-300">
-                                    <Link to={`/dettaglio_fornitore/${fornitore.id}`}>
-                                        <td className="text-center">{fornitore.ragioneSociale}</td>
-                                    </Link>
-                                    <td className="text-center">{fornitore.email}</td>
-                                    <td className="text-center">{fornitore.telefono}</td>
-                                </tr>
-                            )
-                        })}
-
+                        <thead>
+                            <tr className="border-2 border-white bg-sky-400 text-center">
+                                <th>Ragione sociale</th>
+                                <th>Email</th>
+                                <th>Telefono</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {prodotto.fornitore && prodotto.fornitore.map((fornitore, index) => {
+                                return (
+                                    <tr key={index} className="border-2 border-white bg-sky-200 hover:bg-sky-300 text-center">
+                                        <td>
+                                            <Link to={`/dettaglio_fornitore/${fornitore.id}`}>
+                                                {fornitore.ragioneSociale}
+                                            </Link>
+                                        </td>
+                                        <td>{fornitore.email}</td>
+                                        <td>{fornitore.telefono}</td>
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
                     </table>
                     {/* Tabella prezzo d'acquisto */}
                     <table className="w-1/3 max-h-[20px]">
-                        <tr className="border-2 border-white bg-sky-400">
-                            <th className="text-center">Prezzo d'acquisto</th>
-                        </tr>
-                        <tr className="border-2 border-white bg-sky-200">
-                            <td className="text-center">{prodotto.prezzoAcquisto}</td>
-                        </tr>
+                        <thead>
+                            <tr className="border-2 border-white bg-sky-400 text-center">
+                                <th>Prezzo d'acquisto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="border-2 border-white bg-sky-200 text-center">
+                                <td>{prodotto.prezzoAcquisto}</td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -164,62 +171,66 @@ export default function ProdottiShowPage() {
             <div className="w-full min-h-1/2 flex justify-around bg-sky-200 overflow-y-auto">
                 {/* Tabella Fatture Acquisti */}
                 <table className="w-2/3 max-h-[20px]">
-                    <tr className="border-2 border-white bg-sky-400">
-                        <th className="text-center">Numero</th>
-                        <th className="text-center">Data</th>
-                        <th className="text-center">IVA</th>
-                        <th className="text-center">Listino</th>
-                        <th className="text-center">Sconto</th>
-                        <th className="text-center">Totale</th>
-                        <th className="text-center">Note</th>
-                    </tr>
-
-                    {prodotto.fattureAcquisti && prodotto.fattureAcquisti.map((fattura, index) => {
-                        return (
-                            <tr key={index} className="border-2 border-white bg-sky-200 hover:bg-sky-300">
-                                <td className="text-center">
-                                    <Link to={`/dettaglio_fattura_acquisti/${fattura.id}`}>
-                                        {fattura.numero}
-                                    </Link>
-                                </td>
-                                <td className="text-center">{fattura.data}</td>
-                                <td className="text-center">{fattura.iva}</td>
-                                <td className="text-center">{fattura.listino}</td>
-                                <td className="text-center">{fattura.sconto}</td>
-                                <td className="text-center">{fattura.totale}</td>
-                                <td className="text-center">{fattura.note}</td>
-                            </tr>
-                        )
-                    })}
-
+                    <thead>
+                        <tr className="border-2 border-white bg-sky-400 text-center">
+                            <th>Numero</th>
+                            <th>Data</th>
+                            <th>IVA</th>
+                            <th>Listino</th>
+                            <th>Sconto</th>
+                            <th>Totale</th>
+                            <th>Note</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {prodotto.fattureAcquisti && prodotto.fattureAcquisti.map((fattura, index) => {
+                            return (
+                                <tr key={index} className="border-2 border-white bg-sky-200 hover:bg-sky-300 text-center">
+                                    <td>
+                                        <Link to={`/dettaglio_fattura_acquisti/${fattura.id}`}>
+                                            {fattura.numero}
+                                        </Link>
+                                    </td>
+                                    <td>{fattura.data}</td>
+                                    <td>{fattura.iva}</td>
+                                    <td>{fattura.listino}</td>
+                                    <td>{fattura.sconto}</td>
+                                    <td>{fattura.totale}</td>
+                                    <td>{fattura.note}</td>
+                                </tr>
+                            )
+                        })}                        
+                    </tbody>        
                 </table>
 
                 {/* Tabella Fatture Vendita */}
                 <table className="w-2/3 max-h-[20px]">
-                    <tr className="border-2 border-white bg-sky-400">
-                        <th className="text-center">Data</th>
-                        <th className="text-center">Numero</th>
-                        <th className="text-center">IVA</th>
-                        <th className="text-center">Listino</th>
-                        <th className="text-center">Sconto</th>
-                        <th className="text-center">Totale</th>
-                        <th className="text-center">Note</th>
-                    </tr>
-
-                    {prodotto.fattureVendita && prodotto.fattureVendita.map((fattura) => {
-                        return (
-                            <tr key={fattura.id} className="border-2 border-white bg-sky-200">
-                                <td className="text-center">{fattura.data}</td>
-                                <td className="text-center">{fattura.numero}</td>
-                                <td className="text-center">{fattura.iva}</td>
-                                <td className="text-center">{fattura.listino}</td>
-                                <td className="text-center">{fattura.sconto}</td>
-                                <td className="text-center">{fattura.totale}</td>
-                                <td className="text-center">{fattura.note}</td>
-                            </tr>
-                        )
-                    })}
-
+                    <thead>
+                        <tr className="border-2 border-white bg-sky-400 text-center">
+                            <th>Data</th>
+                            <th>Numero</th>
+                            <th>IVA</th>
+                            <th>Listino</th>
+                            <th>Sconto</th>
+                            <th>Totale</th>
+                            <th>Note</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {prodotto.fattureVendita && prodotto.fattureVendita.map((fattura, index) => {
+                            return (
+                                <tr key={index} className="border-2 border-white bg-sky-200 text-center">
+                                    <td>{fattura.data}</td>
+                                    <td>{fattura.numero}</td>
+                                    <td>{fattura.iva}</td>
+                                    <td>{fattura.listino}</td>
+                                    <td>{fattura.sconto}</td>
+                                    <td>{fattura.totale}</td>
+                                    <td>{fattura.note}</td>
+                                </tr>
+                            )
+                        })}
+                    </tbody>
                 </table>
             </div>
         </div>

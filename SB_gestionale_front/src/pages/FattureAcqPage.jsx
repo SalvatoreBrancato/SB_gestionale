@@ -106,9 +106,9 @@ export default function FattureAcqPage() {
 
             {isLoading ? <div className='h-full w-full flex justify-center'><ClipLoader /></div> :
                 <div className='overflow-y-auto'>
-                    {risultatiRicerca.map((fatturaAcq) => {
+                    {risultatiRicerca.map((fatturaAcq, index) => {
                         return (
-                            <div key={fattureAcq.id}>
+                            <div key={index}>
                                 <Link  to={`/dettaglio_fattura_acquisti/${fatturaAcq.id}`} className='fw-full flex justify-between p-5 bg-sky-200 hover:bg-sky-100 border-2 border-y-white'>
                                     <span className='w-[13%] text-center'>{fatturaAcq.fornitori.ragioneSociale}</span>
                                     <span className='w-[13%] text-center'>{fatturaAcq.numero}</span>
@@ -118,7 +118,6 @@ export default function FattureAcqPage() {
                                     <span className='w-[13%] text-center'>{fatturaAcq.iva}</span>
                                     <span className='w-[13%] text-center'>{fatturaAcq.totale}</span>
                                     <span className='w-[13%] text-center'>{fatturaAcq.pagamento.scadenza}</span>
-
                                 </Link>
                             </div>
                         )

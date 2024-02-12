@@ -133,28 +133,30 @@ export default function DettaglioClientePage() {
             <div className="w-1/2 min-h-1/2 mx-auto bg-sky-200 overflow-y-auto">
                 {/* Tabella Fatture */}
                 <table className="w-full max-h-[20px]">
-                    <tr className="border-2 border-white bg-sky-400">
-                        <th className="text-center">Data</th>
-                        <th className="text-center">Numero</th>
-                        <th className="text-center">IVA</th>
-                        <th className="text-center">Listino</th>                    
-                        <th className="text-center">Totale</th>
-                        <th className="text-center">Note</th>
-                    </tr>
-
-                    {cliente && cliente.fattureVendita.map((fattura) => {
-                        return (
-                            <tr key={fattura.id} className="border-2 border-white bg-sky-200 hover:bg-sky-300">
-                                <td className="text-center">{fattura.data}</td>
-                                <td className="text-center">{fattura.numero}</td>
-                                <td className="text-center">{fattura.iva}</td>
-                                <td className="text-center">{fattura.listino}</td>
-                                <td className="text-center">{fattura.totale}</td>
-                                <td className="text-center">{fattura.note}</td>
-                            </tr>
-                        )
-                    })}
-
+                    <thead>
+                        <tr className="border-2 border-white bg-sky-400">
+                            <th className="text-center">Data</th>
+                            <th className="text-center">Numero</th>
+                            <th className="text-center">IVA</th>
+                            <th className="text-center">Listino</th>                    
+                            <th className="text-center">Totale</th>
+                            <th className="text-center">Note</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {cliente && cliente.fattureVendita.map((fattura, index) => {
+                            return (
+                                <tr key={index} className="border-2 border-white bg-sky-200 hover:bg-sky-300">
+                                    <td className="text-center">{fattura.data}</td>
+                                    <td className="text-center">{fattura.numero}</td>
+                                    <td className="text-center">{fattura.iva}</td>
+                                    <td className="text-center">{fattura.listino}</td>
+                                    <td className="text-center">{fattura.totale}</td>
+                                    <td className="text-center">{fattura.note}</td>
+                                </tr>
+                            )
+                        })}
+                    </tbody>
                 </table>                
             </div>
         </div>

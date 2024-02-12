@@ -6,8 +6,6 @@ import { Navigate, useParams } from "react-router-dom";
 
 export default function FormProdottiUpdate({form, setForm, prodotto, setProdotto}){
 
-    useEffect(fornitoriList, [])
-
     const { id } = useParams()
 
     const [isLoading, setIsLoading] = useState(false);
@@ -15,27 +13,6 @@ export default function FormProdottiUpdate({form, setForm, prodotto, setProdotto
     const [isSuccess, setIsSuccess] = useState(false);
 
     const [dettaglioProdotto, setDettaglioProdotto] = useState([])
-
-    //estrazione valore select-option
-    const [selezioneFornitore, setSelezioneFornitore] = useState()
-
-    const [fornitori, setFornitori] = useState([])
-
-    const handleFornitoreChange = (e) => {
-        setSelezioneFornitore(e.target.value)
-    }
-
-    function fornitoriList() {
-        axios.get('http://localhost:3000/fornitori')
-            .then(response => {
-                setFornitori(response.data)
-                console.log(response.data)
-            })
-            .catch(error => {
-                // Gestisci gli errori
-                console.log(error);
-            });
-    }
 
     const handleInputChange = (e) => {
         const { name, type, value, checked } = e.target
@@ -55,11 +32,11 @@ export default function FormProdottiUpdate({form, setForm, prodotto, setProdotto
             nome: prodotto.nome,
             descrizione: prodotto.descrizione,
             prezzoVendita: parseFloat(prodotto.prezzoVendita),
-            pezzi: prodotto.pezzi,
-            prezzoAcquisto: prodotto.prezzoAcquisto,
-            listino: prodotto.listino,
+            pezzi: parseFloat(prodotto.pezzi),
+            prezzoAcquisto: parseFloat(prodotto.prezzoAcquisto),
+            listino: parseFloat(prodotto.listino),
             note: prodotto.note,
-            fornitore: [parseFloat(selezioneFornitore)]
+            //fornitore: [parseFloat(selezioneFornitore)]
         }
 
         setDettaglioProdotto([...dettaglioProdotto, modificaProdotto])
@@ -139,28 +116,10 @@ export default function FormProdottiUpdate({form, setForm, prodotto, setProdotto
                         <label htmlFor="note">Note: </label>
                         <input className="border-2 rounded-md w-full" type="text" name="note" value={prodotto.note} onChange={handleInputChange}/>
                     </div>
-                     {/* Fornitore */}
-                    <div className="flex flex-col">
-                        <label htmlFor="fornitore">Fornitore</label>
-                        <select name="fornitore" id="fornitore" className="overflow-y-auto" value={selezioneFornitore} onChange={handleFornitoreChange}>
-                            <option value="">Seleziona fornitore...</option>
-
-                            {
-                                fornitori.map((fornitore) => {
-                                    return (
-
-                                        <option key={fornitore.id} value={fornitore.id}>{fornitore.ragioneSociale}</option>
-
-                                    )
-                                })
-                            }
-
-                        </select>
-                    </div>
                     <div className="flex justify-center">
                         {isLoading ? <ClipLoader /> : <button type="submit" className="p-1 bg-sky-400 mt-3 rounded-md text-white hover:bg-blue-400">Modifica prodotto</button>}
                     </div>
-                    {isSuccess && <p className="text-center">Prodotto modificato con successo</p>}
+                    {isSuccess && <p className="text-center">✔ Prodotto modificato con successo</p>}
                 </form>
             </div>
         </>

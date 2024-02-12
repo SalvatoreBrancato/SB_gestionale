@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import FormProdottiCreate from '../components/FormProdottiCreate';
 
@@ -31,15 +30,33 @@ export default function MagazzinoPage() {
 
     const prodottiAggregati = prodotti.reduce((acc, prodotto) => {
         const prodottoEsistente = acc.find(p => p.nome === prodotto.nome);
-
+    
         if (prodottoEsistente) {
             prodottoEsistente.pezzi += prodotto.pezzi;
+            prodottoEsistente.count += 1;
+    
+            // Se il prodotto corrente è più recente, aggiorna i valori
+            if (prodotto.id > prodottoEsistente.id) {
+                prodottoEsistente.descrizione = prodotto.descrizione;
+                prodottoEsistente.prezzoAcquisto += prodotto.prezzoAcquisto;
+                prodottoEsistente.prezzoVendita += prodotto.prezzoVendita;
+                prodottoEsistente.listino += prodotto.listino;
+                prodottoEsistente.note = prodotto.note;                
+            }
         } else {
+            prodotto.count = 1;
             acc.push({ ...prodotto });
         }
-
+    
         return acc;
-    }, []);
+    }, []).map(prodotto => {
+        prodotto.prezzoAcquisto /= prodotto.count;
+        prodotto.prezzoVendita /= prodotto.count;
+        prodotto.listino /= prodotto.count;
+        return prodotto;
+    });
+    
+    
 
     console.log(prodottiAggregati);
 
@@ -60,11 +77,10 @@ export default function MagazzinoPage() {
             </div>
             <div className='w-full flex justify-between p-5 bg-sky-300 font-bold text-center'>
                 <span className='w-[13%]'>Nome</span>
-                <span className='w-[13%]'>Fornitore</span>
                 <span className='w-[13%]'>Descrizione</span>
-                <span className='w-[13%]'>Prezzo d'acquisto</span>
-                <span className='w-[13%]'>Prezzo di vendita</span>
-                <span className='w-[13%]'>Listino</span>
+                <span className='w-[13%]'>pr. d'acq. medio</span>
+                <span className='w-[13%]'>pr. di ven. medio</span>
+                <span className='w-[13%]'>listino medio</span>
                 <span className='w-[13%]'>Pezzi disponibili</span>
                 <span className='w-[13%]'>Note</span>
             </div>
@@ -72,16 +88,15 @@ export default function MagazzinoPage() {
                 <div className='overflow-y-auto'>
                     {risultatiRicerca.map((prodotto, index) => {
                         return (
-                            <Link key={index} to={`/dettaglio_prodotto/${prodotto.id}`} className='fw-full flex justify-between p-5 bg-sky-200 hover:bg-sky-100 border-2 border-y-white'>
+                            <div key={index} className='w-full flex justify-between p-5 bg-sky-200 hover:bg-sky-100 border-2 border-y-white'>
                                 <span className='w-[13%] text-center'>{prodotto.nome}</span>
-                                {prodotto.fornitore && prodotto.fornitore.map((elem) => <span className='w-[13%] text-center'>{elem.ragioneSociale}</span>)}
                                 <span className='w-[13%] text-center'>{prodotto.descrizione}</span>
                                 <span className='w-[13%] text-center'>{prodotto.prezzoAcquisto}</span>
                                 <span className='w-[13%] text-center'>{prodotto.prezzoVendita}</span>
                                 <span className='w-[13%] text-center'>{prodotto.listino}</span>
                                 <span className='w-[13%] text-center'>{prodotto.pezzi}</span>
                                 <span className='w-[13%] text-center'>{prodotto.note}</span>
-                            </Link>
+                            </div>
                         )
                     })}
                 </div>}

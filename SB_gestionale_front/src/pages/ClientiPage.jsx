@@ -70,9 +70,9 @@ export default function ClientiPage() {
             {isLoading ? <div className='h-full w-full flex justify-center'><ClipLoader /></div> :
                 <div className="flex flex-wrap px-auto overflow-y-auto">
                     {
-                        risultatiRicerca.map((cliente) => {
+                        risultatiRicerca.map((cliente, index) => {
                             return (
-                                <Link key={cliente.id} to={`/dettaglio_cliente/${cliente.id}`} className='border bg-sky-100 hover:bg-sky-200 rounded-md shadow-lg flex flex-col m-3 w-72'>
+                                <Link key={index} to={`/dettaglio_cliente/${cliente.id}`} className='border bg-sky-100 hover:bg-sky-200 rounded-md shadow-lg flex flex-col m-3 w-72'>
 
                                     {cliente.ragioneSociale && <span className='font-bold'>{cliente.ragioneSociale}</span>}
                                     {cliente.partitaIva && <span>P.I. {cliente.partitaIva}</span>}
