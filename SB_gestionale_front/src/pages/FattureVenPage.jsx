@@ -3,29 +3,33 @@ import axios from 'axios';
 import { Link } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import FormCreateComp from '../components/FormCreateComp';
-import NewFormFattAcq from '../components/NewFormFattAcq';
+import FormFattVen from '../components/FormFattVen';
 
-export default function FattureAcqPage() {
 
-    useEffect(listaFattureAcqApi, [])
+export default function FattureVenPage(){
 
-    const [fattureAcq, setFattureAcq] = useState([])
+    useEffect(listaFattureVenApi, [])
+
+    const [fattureVen, setFattureVen] = useState([])
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const [formFatturaAcq, setFormFatturaAcq] = useState(false)
-
+    const [formFatturaVen, setFormFatturaVen] = useState(false)  
+    
     const [searchInput, setSearchInput] = useState('')
 
-    const risultatiRicerca = fattureAcq.filter(fattura =>
-        (fattura.fornitori.ragioneSociale && fattura.fornitori.ragioneSociale.toLowerCase().includes(searchInput.toLowerCase()))
+    const risultatiRicerca = fattureVen.filter(fattura =>
+        (fattura.clienti.ragioneSociale && fattura.clienti.ragioneSociale.toLowerCase().includes(searchInput.toLowerCase())) ||
+        (fattura.clienti.nome && fattura.clienti.nome.toLowerCase().includes(searchInput.toLowerCase())) ||
+        (fattura.clienti.cognome && fattura.clienti.cognome.toLowerCase().includes(searchInput.toLowerCase()))
     );
+    
 
-    function listaFattureAcqApi() {
+    function listaFattureVenApi() {
         setIsLoading(true);
-        axios.get('http://localhost:3000/fattureAcquisti')
+        axios.get('http://localhost:3000/fattureVendita')
             .then(response => {
-                setFattureAcq(response.data)
+                setFattureVen(response.data)
                 console.log(response.data)
                 setIsLoading(false);
             })
@@ -37,18 +41,18 @@ export default function FattureAcqPage() {
     }
 
     function apriChiudiForm() {
-        if (formFatturaAcq == false) {
-            setFormFatturaAcq(true)
+        if (formFatturaVen == false) {
+            setFormFatturaVen(true)
 
         } else {
-            setFormFatturaAcq(false)
+            setFormFatturaVen(false)
 
         }
     }
 
     function chiudiFormTrasparenza() {
-        if (formFatturaAcq == true) {
-            setFormFatturaAcq(false)
+        if (formFatturaVen == true) {
+            setFormFatturaVen(false)
         }
         else if (form == true) {
             setForm(false)
@@ -56,7 +60,7 @@ export default function FattureAcqPage() {
     }
 
     const [form, setForm] = useState(false)
-    const [fornitori, setFornitori] = useState(true)
+    const [fornitori, setFornitori] = useState(false)
 
     function apriForm() {
         if (!form) {
@@ -66,17 +70,16 @@ export default function FattureAcqPage() {
             setForm(false)
         }
     }
-
-    return (
+    
+    return(
         <div className='bg-sky-50 h-full relative z-0'>
+             {/* sfondo in trasparenza quando si apre il form */}
+             {(formFatturaVen || form) && <div className={`absolute inset-x-0 top-0 bottom-0 bg-white z-10 ${formFatturaVen || form ? 'bg-opacity-80' : 'bg-opacity-0'}`} onClick={() => chiudiFormTrasparenza()}></div>}
 
-            {/* sfondo in trasparenza quando si apre il form */}
-            {(formFatturaAcq || form) && <div className={`absolute inset-x-0 top-0 bottom-0 bg-white z-10 ${formFatturaAcq || form ? 'bg-opacity-80' : 'bg-opacity-0'}`} onClick={() => chiudiFormTrasparenza()}></div>}
-
-            <div className='w-full flex justify-between items-center p-5 '>
+             <div className='w-full flex justify-between items-center p-5 '>
                 <div>
-                    <label htmlFor="ricercaFatturaAcq">Ricerca per denominazione: </label>
-                    <input name='ricercaFatturaAcq' type="text" className='border-4 border-sky-100' value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />
+                    <label htmlFor="ricercaFatturaVen">Ricerca per denominazione: </label>
+                    <input name='ricercaFatturaVen' type="text" className='border-4 border-sky-100' value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />
                 </div>
                 <div className='flex'>
                     <button className='flex flex-col justify-center items-center' onClick={() => apriChiudiForm()}>
@@ -100,34 +103,31 @@ export default function FattureAcqPage() {
                 <span className='w-[13%]'>Listino</span>
                 <span className='w-[13%]'>IVA</span>
                 <span className='w-[13%]'>Totale</span>
-                <span className='w-[13%]'>Scadenza</span>
             </div>
 
             {isLoading ? <div className='h-full w-full flex justify-center'><ClipLoader /></div> :
                 <div className='overflow-y-auto'>
-                    {risultatiRicerca.map((fatturaAcq, index) => {
+                    {risultatiRicerca.map((fatturaVen, index) => {
                         return (
                             <div key={index}>
-                                <Link to={`/dettaglio_fattura_acquisti/${fatturaAcq.id}`} className='fw-full flex justify-between p-5 bg-sky-200 hover:bg-sky-100 border-2 border-y-white'>
-                                    <span className='w-[13%] text-center'>{fatturaAcq.fornitori.ragioneSociale}</span>
-                                    <span className='w-[13%] text-center'>{fatturaAcq.numero}</span>
+                                <Link to={`/dettaglio_fattura_vendita/${fatturaVen.id}`} className='fw-full flex justify-between p-5 bg-sky-200 hover:bg-sky-100 border-2 border-y-white'>
+                                    <span className='w-[13%] text-center'>{fatturaVen.clienti.ragioneSociale ? fatturaVen.clienti.ragioneSociale : fatturaVen.clienti.nome + ' ' + fatturaVen.clienti.cognome}</span>
+                                    <span className='w-[13%] text-center'>{fatturaVen.numero}</span>
                                     <span className='w-[13%] text-center'>
-                                        {new Date(fatturaAcq.data).toLocaleDateString('it-IT')}
+                                        {new Date(fatturaVen.data).toLocaleDateString('it-IT')}
                                     </span>
-                                    <span className='w-[13%] text-center'>{fatturaAcq.pezzi}</span>
-                                    <span className='w-[13%] text-center'>{fatturaAcq.listino}</span>
-                                    <span className='w-[13%] text-center'>{fatturaAcq.iva}</span>
-                                    <span className='w-[13%] text-center'>{fatturaAcq.totale}</span>
-                                    <span className='w-[13%] text-center'>{fatturaAcq.pagamento.scadenza}</span>
+                                    <span className='w-[13%] text-center'>{fatturaVen.pezzi}</span>
+                                    <span className='w-[13%] text-center'>{fatturaVen.listino}</span>
+                                    <span className='w-[13%] text-center'>{fatturaVen.iva}</span>
+                                    <span className='w-[13%] text-center'>{fatturaVen.totale}</span>
                                 </Link>
                             </div>
                         )
                     })}
                 </div>}
-
-            {/* {formFatturaAcq && <FormFattAcqComp formFatturaAcq={formFatturaAcq} setFormFatturaAcq={setFormFatturaAcq} fattureAcq={fattureAcq} form={form} setForm={setForm}/>} */}
-            {formFatturaAcq && <NewFormFattAcq formFatturaAcq={formFatturaAcq} setFormFatturaAcq={setFormFatturaAcq} fattureAcq={fattureAcq} form={form} setForm={setForm} />}
-            {form && <FormCreateComp form={form} setForm={setForm} fornitori={fornitori}></FormCreateComp>}
+            {formFatturaVen && <FormFattVen formFatturaVen={formFatturaVen} setFormFatturaVen={setFormFatturaVen} fattureVen={fattureVen} form={form} setForm={setForm} />}
+                
+                {form && <FormCreateComp form={form} setForm={setForm} fornitori={fornitori}></FormCreateComp>}
         </div>
     )
 }

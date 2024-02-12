@@ -75,9 +75,9 @@ export default function ClientiPage() {
                                 <Link key={index} to={`/dettaglio_cliente/${cliente.id}`} className='border bg-sky-100 hover:bg-sky-200 rounded-md shadow-lg flex flex-col m-3 w-72'>
 
                                     {cliente.ragioneSociale && <span className='font-bold'>{cliente.ragioneSociale}</span>}
+                                    {cliente.nome && <span className='font-bold'>{cliente.nome}</span>}
+                                    {cliente.cognome && <span className='font-bold'>{cliente.cognome}</span>}
                                     {cliente.partitaIva && <span>P.I. {cliente.partitaIva}</span>}
-                                    {cliente.nome && <span>{cliente.nome}</span>}
-                                    {cliente.cognome && <span>{cliente.cognome}</span>}
                                     <span>{cliente.indirizzo}</span>
                                     <span>Tel: {cliente.telefono}</span>
                                     <span>email: {cliente.email}</span>
