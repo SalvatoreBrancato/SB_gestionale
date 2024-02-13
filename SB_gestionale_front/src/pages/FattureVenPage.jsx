@@ -110,7 +110,7 @@ export default function FattureVenPage(){
                     {risultatiRicerca.map((fatturaVen, index) => {
                         return (
                             <div key={index}>
-                                <Link to={`/dettaglio_fattura_vendita/${fatturaVen.id}`} className='fw-full flex justify-between p-5 bg-sky-200 hover:bg-sky-100 border-2 border-y-white'>
+                                <Link to={`/dettaglio_fattura_vendite/${fatturaVen.id}`} className='fw-full flex justify-between p-5 bg-sky-200 hover:bg-sky-100 border-2 border-y-white'>
                                     <span className='w-[13%] text-center'>{fatturaVen.clienti.ragioneSociale ? fatturaVen.clienti.ragioneSociale : fatturaVen.clienti.nome + ' ' + fatturaVen.clienti.cognome}</span>
                                     <span className='w-[13%] text-center'>{fatturaVen.numero}</span>
                                     <span className='w-[13%] text-center'>

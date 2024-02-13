@@ -12,6 +12,9 @@ import FattureAcqPage from './pages/FattureAcqPage';
 import FattureAcqShowPage from './pages/FattureAcqShowPage';
 import MagazzinoPage from './pages/MagazzinoPage';
 import FattureVenPage from './pages/FattureVenPage';
+import FattureVenShowPage from './pages/FattureVenShowPage';
+
+
 
 function App() {
   return (
@@ -29,7 +32,8 @@ function App() {
             <Route path='/magazzino' element ={<MagazzinoPage/>}></Route> 
             <Route path='/fatture_acquisti' element ={<FattureAcqPage/>}></Route> 
             <Route path='/dettaglio_fattura_acquisti/:id' element={<FattureAcqShowPage/>}></Route>
-            <Route path='/fatture_vendita' element ={<FattureVenPage/>}></Route> 
+            <Route path='/fatture_vendita' element ={<FattureVenPage/>}></Route>
+            <Route path='/dettaglio_fattura_vendite/:id' element={<FattureVenShowPage/>}></Route>
           </Route>
         </Routes>
       </BrowserRouter>
