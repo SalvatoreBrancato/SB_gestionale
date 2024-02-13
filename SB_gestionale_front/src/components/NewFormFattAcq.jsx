@@ -73,13 +73,6 @@ export default function NewFormFattAcq({ formFatturaAcq, setFormFatturaAcq, fatt
         console.log(selezioneFornitore)
     }, [selezioneFornitore]);
 
-    // useEffect(() => {
-    //     setFormDataProdotto(prevState => ({
-    //         ...prevState,
-    //         fornitore: selezioneFornitore
-    //     }));
-    //     console.log(selezioneFornitore)
-    // }, [selezioneFornitore]);
 
     //####LISTA PAGAMENTI####
     useEffect(pagamentiList, [])
@@ -341,7 +334,6 @@ export default function NewFormFattAcq({ formFatturaAcq, setFormFatturaAcq, fatt
                             Nuovo fornitore? clicca qui
                         </button>
                     </div>
-
                 </div>
                 <div className="flex flex-col w-full justify-center mb-10">
                     {/* Aggiungi riga prodotto */}
@@ -412,7 +404,6 @@ export default function NewFormFattAcq({ formFatturaAcq, setFormFatturaAcq, fatt
                                 </button>
                             </div>}
                         </div>
-
                     ))}
                 </div>
 
