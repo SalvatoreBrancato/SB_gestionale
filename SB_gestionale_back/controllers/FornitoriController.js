@@ -16,17 +16,7 @@ async function show(req, res){
             id: parseInt(id)
         },
         include: {
-            fattureAcquisti:{
-                select:{
-                    numero: true,
-                    data: true,
-                    iva: true,
-                    listino: true,
-                    sconto: true,
-                    totale: true,
-                    note: true
-                }
-            },
+            fattureAcquisti: true,
             prodotti:{
                 select: {
                     id:true,

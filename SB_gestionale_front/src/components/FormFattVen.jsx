@@ -326,7 +326,7 @@ export default function FormFattVen({ formFatturaVen, setFormFatturaVen, fatture
                     <div className="flex w-1/3 mr-3">
                         <label htmlFor="cliente" className="mr-1">Cliente: </label>
                         <select name="cliente" id="cliente" className="w-full" value={selezioneCliente} onChange={handleClienteChange}>
-                            <option value="">Seleziona Cliente...</option>
+                            <option value="">Seleziona cliente...</option>
 
                             {
                                 clienti.map((cliente, index) => {

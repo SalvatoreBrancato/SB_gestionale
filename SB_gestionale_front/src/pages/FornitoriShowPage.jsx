@@ -145,7 +145,11 @@ export default function FornitoriShowPage() {
                             return (
                                 <tr key={index} className="border-2 border-white bg-sky-200 hover:bg-sky-300 text-center">
                                     <td>{new Date(fattura.data).toLocaleDateString('it-IT')}</td>
-                                    <td>{fattura.numero}</td>
+                                    <td>
+                                        <Link to={`/dettaglio_fattura_acquisti/${fattura.id}`}>
+                                            {fattura.numero}
+                                        </Link>
+                                    </td>
                                     <td>{fattura.iva}</td>
                                     <td>{fattura.listino}</td>
                                     <td>{fattura.totale}</td>

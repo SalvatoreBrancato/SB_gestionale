@@ -107,19 +107,19 @@ export default function FormCreateComp({form, setForm, fornitori}){
 
                 {/* INPUT RADIO */}
                 <div className="flex mx-6 my-6">
-                    <div className="flex items-center me-3">
-                        <label htmlFor="cliente-fornitore" className="me-1">Cliente</label>
+                    <div className={`flex items-center me-3 p-2 rounded-md ${clienteFornitore === 'cliente' ? 'bg-sky-400 text-white font-bold':''}`}>
+                        <label htmlFor="cliente-fornitore" className='me-1' >Cliente</label>
                         <input type="radio" name="cliente-fornitore" value="cliente" checked={clienteFornitore === 'cliente'} onChange={handleClienteForntioreChange}/>
                     </div>
-                    <div className="flex items-center">
+                    <div className={`flex items-center p-2 rounded-md ${clienteFornitore === 'fornitore' ? 'bg-sky-400 text-white font-bold':''}`}>
                         <label htmlFor="cliente-fornitore" className="me-1">Fornitore</label>
                         <input type="radio" name="cliente-fornitore" value="fornitore" checked={clienteFornitore === 'fornitore'} onChange={handleClienteForntioreChange}/>                            
                     </div>
-                    <div className="flex items-center mx-3">
+                    <div className={`flex items-center mx-3 p-2 rounded-md ${formaGiuridica === 'personaFisica' ? 'bg-sky-400 text-white font-bold':''}`}>
                         <label htmlFor="formaGiuridica" className="me-1">Persona fisica</label>
                         <input type="radio" name="formaGiuridica" value="personaFisica" checked={formaGiuridica === 'personaFisica'} onChange={handleFormaGiuridicaChange}/>                            
                     </div>
-                    <div className="flex items-center">
+                    <div className={`flex items-center p-2 rounded-md ${formaGiuridica === 'personaGiuridica' ? 'bg-sky-400 text-white font-bold':''}`}>
                         <label htmlFor="formaGiuridica" className="me-1">Persona giuridica</label>
                         <input type="radio" name="formaGiuridica" value="personaGiuridica" checked={formaGiuridica === 'personaGiuridica'} onChange={handleFormaGiuridicaChange}/>                            
                     </div>
@@ -173,7 +173,7 @@ export default function FormCreateComp({form, setForm, fornitori}){
                         <input className="border-2 rounded-md w-full" type="text" name="note" value={formData.note} onChange={handleInputChange}/>
                     </div>
                     <div className="flex justify-center">
-                        {isLoading ? <ClipLoader /> : <button type="submit" className="p-1 bg-sky-400 mt-3 rounded-md text-white hover:bg-blue-400">{clienteFornitore == 'cliente' ? 'Inserisci nuovo cliente': 'Inserisci nuovo fornitore'}</button>}
+                        {isLoading ? <ClipLoader /> : <button type="submit" className="p-1 bg-sky-400 mt-3 rounded-md text-white hover:bg-sky-500">{clienteFornitore == 'cliente' ? 'Inserisci nuovo cliente': 'Inserisci nuovo fornitore'}</button>}
                     </div>
                     {isSuccess && <p className="text-center">{clienteFornitore == 'cliente' ? 'Nuovo cliente caricato':'Nuovo fornitore caricato'}</p>}
                 </form>
