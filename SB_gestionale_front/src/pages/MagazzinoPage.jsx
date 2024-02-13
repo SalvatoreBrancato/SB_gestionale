@@ -30,24 +30,24 @@ export default function MagazzinoPage() {
 
     const prodottiAggregati = prodotti.reduce((acc, prodotto) => {
         const prodottoEsistente = acc.find(p => p.nome === prodotto.nome);
-    
+
         if (prodottoEsistente) {
             prodottoEsistente.pezzi += prodotto.pezzi;
             prodottoEsistente.count += 1;
-    
+
             // Se il prodotto corrente è più recente, aggiorna i valori
             if (prodotto.id > prodottoEsistente.id) {
                 prodottoEsistente.descrizione = prodotto.descrizione;
                 prodottoEsistente.prezzoAcquisto += prodotto.prezzoAcquisto;
                 prodottoEsistente.prezzoVendita += prodotto.prezzoVendita;
                 prodottoEsistente.listino += prodotto.listino;
-                prodottoEsistente.note = prodotto.note;                
+                prodottoEsistente.note = prodotto.note;
             }
         } else {
             prodotto.count = 1;
             acc.push({ ...prodotto });
         }
-    
+
         return acc;
     }, []).map(prodotto => {
         prodotto.prezzoAcquisto /= prodotto.count;
@@ -55,8 +55,8 @@ export default function MagazzinoPage() {
         prodotto.listino /= prodotto.count;
         return prodotto;
     });
-    
-    
+
+
 
     console.log(prodottiAggregati);
 
@@ -99,7 +99,8 @@ export default function MagazzinoPage() {
                             </div>
                         )
                     })}
-                </div>}
+                </div>
+            }
         </div>
 
     )
