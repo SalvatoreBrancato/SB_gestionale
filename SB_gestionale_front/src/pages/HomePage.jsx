@@ -65,7 +65,7 @@ export default function HomePage() {
 
     return (
         <div className='bg-sky-50 h-full flex flex-col justify-center items-center py-2'>
-            <div className="flex justify-around w-full px-5">
+            <div className="flex justify-around w-full px-5 text-xl font-bold text-[#0000ff]">
                 <div>Clienti</div>
                 <div>Fornitori</div>
             </div>
@@ -133,7 +133,7 @@ export default function HomePage() {
                     </table>
                 </div>
             </div>
-            <div className="flex justify-around w-full px-5">
+            <div className="flex justify-around w-full px-5 text-xl font-bold text-[#0000ff]">
                 <div>Fatture vendita</div>
                 <div>Fatture acquisto</div>
             </div>

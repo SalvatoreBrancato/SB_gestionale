@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Navigate, useNavigate, Link, useParams } from "react-router-dom";
 import axios from "axios";
 
-export default function FatturaVenShowPage(){
+export default function FatturaVenShowPage() {
 
     useEffect(dettaglioFatturaVen, [])
 
@@ -70,12 +70,12 @@ export default function FatturaVenShowPage(){
 
     const navigate = useNavigate();
 
-    return(
+    return (
         <div className='bg-sky-50 h-full relative'>
-             {/* sfondo in trasparenza quando si apre il form */}
-             {(form || formDestroy) && <div className={`absolute inset-x-0 top-0 bottom-0 bg-white z-10 ${form || formDestroy ? 'bg-opacity-80' : 'bg-opacity-0'}`} onClick={() => chiudiFormTrasparenza()}></div>}
+            {/* sfondo in trasparenza quando si apre il form */}
+            {(form || formDestroy) && <div className={`absolute inset-x-0 top-0 bottom-0 bg-white z-10 ${form || formDestroy ? 'bg-opacity-80' : 'bg-opacity-0'}`} onClick={() => chiudiFormTrasparenza()}></div>}
 
-             <div className="flex justify-between m-3">
+            <div className="flex justify-between m-3">
                 <div>
                     <button className="bg-[#03A9F4] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onClick={() => navigate(-1)}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -110,8 +110,8 @@ export default function FatturaVenShowPage(){
             <div className="flex flex-col mb-10">
                 {fatturaVen &&
                     <div className="w-full flex justify-between items-center px-5 mb-10">
-                       {fatturaVen.clienti.ragioneSociale && <span className="text-3xl p-3">{fatturaVen.clienti.ragioneSociale}</span>}
-                       {fatturaVen.clienti.cognome && <span className="text-3xl p-3">{fatturaVen.clienti.cognome}</span>}
+                        {fatturaVen.clienti.ragioneSociale && <span className="text-3xl p-3">{fatturaVen.clienti.ragioneSociale}</span>}
+                        {fatturaVen.clienti.cognome && <span className="text-3xl p-3">{fatturaVen.clienti.cognome}</span>}
 
                         <span className="text-xl px-3 py-1">N. {fatturaVen.numero} del {new Date(fatturaVen.data).toLocaleDateString('it-IT')}</span>
                     </div>
@@ -130,21 +130,28 @@ export default function FatturaVenShowPage(){
                     return (
                         <div key={index} className="w-2/3 flex justify-between mx-auto bg-white border-2 border-sky-200 text-center text-xl px-3 py-1 my-2">
                             <span className="w-1/3 ">{prodotto.nome}</span>
-                            {prodotto.descrizione && <span className="w-1/3">{prodotto.descrizione}</span>}
+                            {prodotto.descrizione ? <span className="w-1/3">{prodotto.descrizione}</span> : <span className="w-1/3"></span>}
                             <span className="w-1/3">{prodotto.pezzi}</span>
                             {prodotto.listino && <span className="w-1/3">{prodotto.listino}</span>}
                             {prodotto.prezzoVendita && <span className="w-1/3">{prodotto.prezzoVendita}</span>}
-                            {prodotto.note && <span className="w-1/3">{prodotto.note}</span>}
+                            {prodotto.note ? <span className="w-1/3">{prodotto.note}</span> : <span className="w-1/3"></span>}
                         </div>
                     )
                 })
 
                 }
                 {fatturaVen &&
-                    <div className=" flex flex-col w-2/3 mx-auto text-xl px-10 py-1 text-right">
-                        <span className="">IVA: {fatturaVen.iva}%</span>
-                        <span className="">Totale ft. € {parseFloat(fatturaVen.totale).toFixed(2)}</span>
-                        {/* <span className="">Scadenza: {fatturaVen.pagamento.scadenza}</span> */}
+                    <div className=" flex  w-2/3 mx-auto text-xl py-1 justify-end">
+                        <div className="flex flex-col">
+                            <span className="me-2">IVA:</span>
+                            <span className="me-2 my-1">Totale ft. €</span>
+                            <span className="me-2">Scadenza:</span>
+                        </div>
+                        <div className="flex flex-col">
+                            <span className="px-3 bg-white border-2 border-sky-200">{fatturaVen.iva}%</span>
+                            <span className="px-3 my-1 bg-white border-2 border-sky-200">{parseFloat(fatturaVen.totale).toFixed(2)}</span>
+                            {/* <span className="px-3 bg-white border-2 border-sky-200">{fatturaVen.pagamento.scadenza}</span> */}
+                        </div>
                     </div>
                 }
             </div>

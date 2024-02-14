@@ -27,7 +27,8 @@ async function show(req, res){
             id: parseInt(id)
         },
         include:{
-            clienti: true
+            clienti: true,
+            prodotti: true
         }
     })
     

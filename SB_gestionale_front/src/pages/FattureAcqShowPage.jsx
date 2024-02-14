@@ -130,26 +130,31 @@ export default function FattureAcqShowPage() {
                     return (
                         <div key={index} className="w-2/3 flex justify-between mx-auto bg-white border-2 border-sky-200 text-center text-xl px-3 py-1 my-2">
                             <span className="w-1/3 ">{prodotto.nome}</span>
-                            {prodotto.descrizione && <span className="w-1/3">{prodotto.descrizione}</span>}
+                            {prodotto.descrizione ? <span className="w-1/3">{prodotto.descrizione}</span> : <span className="w-1/3"></span>}
                             <span className="w-1/3">{prodotto.pezzi}</span>
                             {prodotto.listino && <span className="w-1/3">{prodotto.listino}</span>}
                             {prodotto.prezzoAcquisto && <span className="w-1/3">{prodotto.prezzoAcquisto}</span>}
-                            {prodotto.note && <span className="w-1/3">{prodotto.note}</span>}
+                            {prodotto.note ? <span className="w-1/3">{prodotto.note}</span> : <span className="w-1/3"></span>}
                         </div>
                     )
                 })
 
                 }
                 {fatturaAcq &&
-                    <div className=" flex flex-col w-2/3 mx-auto text-xl px-10 py-1 text-right">
-                        <span className="">IVA: {fatturaAcq.iva}%</span>
-                        <span className="">Totale ft. € {parseFloat(fatturaAcq.totale).toFixed(2)}</span>
-                        <span className="">Scadenza: {fatturaAcq.pagamento.scadenza}</span>
+                    <div className=" flex  w-2/3 mx-auto text-xl py-1 justify-end">
+                        <div className="flex flex-col">
+                            <span className="me-2">IVA:</span>
+                            <span className="me-2 my-1">Totale ft. €</span>
+                            <span className="me-2">Scadenza:</span>
+                        </div>
+                        <div className="flex flex-col">
+                            <span className="px-3 bg-white border-2 border-sky-200">{fatturaAcq.iva}%</span>
+                            <span className="px-3 my-1 bg-white border-2 border-sky-200">{parseFloat(fatturaAcq.totale).toFixed(2)}</span>
+                            <span className="px-3 bg-white border-2 border-sky-200">{fatturaAcq.pagamento.scadenza}</span>
+                        </div>
                     </div>
                 }
-
             </div>
-
         </div>
     )
 }
