@@ -132,7 +132,7 @@ export default function NewFormFattAcq({ formFatturaAcq, setFormFatturaAcq, fatt
             return acc + parseInt(riga.pezzi || 0, 10);
         }, 0);
 
-        setTotalePezzi(totalePezzi);
+        setTotalePezzi(totalePezzi)
 
         // Calcola il totale lisitino
         const totaleListino = newFormDataProdotto.reduce((acc, riga) => {

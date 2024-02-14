@@ -102,7 +102,11 @@ export default function FormFattVen({ formFatturaVen, setFormFatturaVen, fatture
     }
 
     const [selectedOption, setSelectedOption] = useState([]);
-
+    
+    const [prezzoProdotto, setPrezzoProdotto] = useState([])
+    useEffect(()=>{
+        console.log(prezzoProdotto), [prezzoProdotto]
+    })
     const [prodottiSelezionati, setProdottiSelezionati] = useState([])
     useEffect(()=>{
         console.log(prodottiSelezionati), [prodottiSelezionati]
@@ -120,15 +124,24 @@ export default function FormFattVen({ formFatturaVen, setFormFatturaVen, fatture
     const prodottiArray = Object.values(prodottiUnici);
 
     // Crea le opzioni per il componente Select
-    const options = prodottiArray.map(prodotto => ({ value: prodotto.id, label: prodotto.nome }));
+    const options = prodottiArray.map(prodotto => ({ value: prodotto.id, label: prodotto.nome, prezzo: prodotto.prezzoVendita }));
 
     const handleChange = (selectedOption, index) => {
-        setSelectedOption(prevSelectedOption =>{const updatedSelectedOption = [...prevSelectedOption];
+        setSelectedOption(prevSelectedOption => {
+            const updatedSelectedOption = [...prevSelectedOption];
             updatedSelectedOption[index] = selectedOption;
-            return updatedSelectedOption;});
-        setProdottiSelezionati([...prodottiSelezionati, selectedOption.label])
+            return updatedSelectedOption;
+        });
+    
+        setPrezzoProdotto(prevPrezzoProdotto => {
+            const updatedPrezzoProdotto = [...prevPrezzoProdotto];
+            updatedPrezzoProdotto[index] = selectedOption.prezzo;
+            return updatedPrezzoProdotto;
+        });
+    
         console.log(`Option selected:`, selectedOption);
     };
+    
 
 
     //#####TOTALE PEZZI#####
@@ -391,7 +404,7 @@ export default function FormFattVen({ formFatturaVen, setFormFatturaVen, fatture
                             {/* Prezzo vendita */}
                             <div className="flex flex-col w-1/12 mr-1">
                                 <label htmlFor="prezzoVendita">Pr. ven.</label>
-                                <input type="number" name="prezzoVendita" value={formDataProdotto[index].prezzoVendita} onChange={(e) => handleInputProdottoChange(e, 'prezzoVendita', index)} />
+                                <input type="number" placeholder={prezzoProdotto[index]} name="prezzoVendita" value={formDataProdotto[index].prezzoVendita} onChange={(e) => handleInputProdottoChange(e, 'prezzoVendita', index)} />
                             </div>
 
                             {/* note */}
