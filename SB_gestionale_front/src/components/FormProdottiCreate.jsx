@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { ClipLoader } from "react-spinners";
 
 
-export default function FormProdottiCreate({ formProdotto, setFormProdotto, prodotti }) {
+export default function FormProdottiCreate({ formProdotto, setFormProdotto }) {
 
     useEffect(fornitoriList, [])
 

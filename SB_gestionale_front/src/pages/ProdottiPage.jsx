@@ -143,7 +143,7 @@ export default function ProdottiPage() {
 
 
 
-            {formProdotto && <FormProdottiCreate formProdotto={formProdotto} setFormProdotto={setFormProdotto} prodotti={prodotti} />}
+            {formProdotto && <FormProdottiCreate formProdotto={formProdotto} setFormProdotto={setFormProdotto} />}
 
         </div>
     )
