@@ -118,7 +118,7 @@ export default function FattureAcqPage() {
                                     <span className='w-[13%] text-center'>{fatturaAcq.listino}</span>
                                     <span className='w-[13%] text-center'>{fatturaAcq.iva}</span>
                                     <span className='w-[13%] text-center'>{fatturaAcq.totale}</span>
-                                    <span className='w-[13%] text-center'>{fatturaAcq.pagamento.scadenza}</span>
+                                    {fatturaAcq.pagamento && fatturaAcq.pagamento.scadenza ? <span className='w-[13%] text-center'>{fatturaAcq.pagamento.scadenza}</span> : <span className='w-[13%] text-center'></span>}
                                 </Link>
                             </div>
                         )

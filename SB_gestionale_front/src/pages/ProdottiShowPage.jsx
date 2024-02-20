@@ -168,43 +168,47 @@ export default function ProdottiShowPage() {
                 </div>
             </div>
 
-            <div className="w-full min-h-1/2 flex justify-around bg-sky-200 overflow-y-auto">
+            {prodotto.fattureAcquisti && prodotto.fattureAcquisti.length > 0 ? <div className="text-center">Fatture Acquisti</div> : <div className="text-center">Fatture Vendite</div>}
+
+            <div className="w-full min-h-1/2 flex justify-around overflow-y-auto">
                 {/* Tabella Fatture Acquisti */}
-                <table className="w-2/3 max-h-[20px]">
-                    <thead>
-                        <tr className="border-2 border-white bg-sky-400 text-center">
-                            <th>Numero</th>
-                            <th>Data</th>
-                            <th>IVA</th>
-                            <th>Listino</th>
-                            <th>Sconto</th>
-                            <th>Totale</th>
-                            <th>Note</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {prodotto.fattureAcquisti && prodotto.fattureAcquisti.map((fattura, index) => {
-                            return (
-                                <tr key={index} className="border-2 border-white bg-sky-200 hover:bg-sky-300 text-center">
-                                    <td>
-                                        <Link to={`/dettaglio_fattura_acquisti/${fattura.id}`}>
-                                            {fattura.numero}
-                                        </Link>
-                                    </td>
-                                    <td>{new Date(fattura.data).toLocaleDateString('it-IT')}</td>
-                                    <td>{fattura.iva}</td>
-                                    <td>{fattura.listino}</td>
-                                    <td>{fattura.sconto}</td>
-                                    <td>{fattura.totale}</td>
-                                    <td>{fattura.note}</td>
-                                </tr>
-                            )
-                        })}                        
-                    </tbody>        
-                </table>
+                {prodotto.fattureAcquisti && prodotto.fattureAcquisti.length > 0 &&
+
+                    <table className="w-2/3 max-h-[20px]">
+                        <thead>
+                            <tr className="border-2 border-white bg-sky-400 text-center">
+                                <th>Numero</th>
+                                <th>Data</th>
+                                <th>IVA</th>
+                                <th>Listino</th>
+                                <th>Sconto</th>
+                                <th>Totale</th>
+                                <th>Note</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {prodotto.fattureAcquisti.map((fattura, index) => {
+                                return (
+                                    <tr key={index} className="border-2 border-white bg-sky-200 hover:bg-sky-300 text-center">
+                                        <td>
+                                            <Link to={`/dettaglio_fattura_acquisti/${fattura.id}`}>
+                                                {fattura.numero}
+                                            </Link>
+                                        </td>
+                                        <td>{new Date(fattura.data).toLocaleDateString('it-IT')}</td>
+                                        <td>{fattura.iva}</td>
+                                        <td>{fattura.listino}</td>
+                                        <td>{fattura.sconto}</td>
+                                        <td>{fattura.totale}</td>
+                                        <td>{fattura.note}</td>
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
+                    </table>}
 
                 {/* Tabella Fatture Vendita */}
-                <table className="w-2/3 max-h-[20px]">
+                {prodotto.fattureVendita && prodotto.fattureVendita.length > 0 && <table className="w-2/3 max-h-[20px]">
                     <thead>
                         <tr className="border-2 border-white bg-sky-400 text-center">
                             <th>Data</th>
@@ -217,11 +221,15 @@ export default function ProdottiShowPage() {
                         </tr>
                     </thead>
                     <tbody>
-                        {prodotto.fattureVendita && prodotto.fattureVendita.map((fattura, index) => {
+                        {prodotto.fattureVendita.map((fattura, index) => {
                             return (
                                 <tr key={index} className="border-2 border-white bg-sky-200 text-center">
                                     <td>{new Date(fattura.data).toLocaleDateString('it-IT')}</td>
-                                    <td>{fattura.numero}</td>
+                                    <td>
+                                        <Link to={`/dettaglio_fattura_vendite/${fattura.id}`}>
+                                            {fattura.numero}
+                                        </Link>
+                                    </td>
                                     <td>{fattura.iva}</td>
                                     <td>{fattura.listino}</td>
                                     <td>{fattura.sconto}</td>
@@ -231,7 +239,7 @@ export default function ProdottiShowPage() {
                             )
                         })}
                     </tbody>
-                </table>
+                </table>}
             </div>
         </div>
     )

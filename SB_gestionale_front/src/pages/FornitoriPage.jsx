@@ -69,7 +69,7 @@ export default function FornitoriPage() {
                     {
                         risultatiRicerca.map((fornitore) => {
                             return (
-                                <Link key={fornitore.id} to={`/dettaglio_fornitore/${fornitore.id}`} className='border bg-sky-100 hover:bg-sky-200 rounded-md shadow-lg flex flex-col m-3 w-72'>
+                                <Link key={fornitore.id} to={`/dettaglio_fornitore/${fornitore.id}`} className='border-l-2 border-[#03A9F4] bg-sky-100 hover:bg-sky-200 rounded-md shadow-lg flex flex-col m-3 w-72 ps-2'>
                                     <span className='font-bold'>{fornitore.ragioneSociale}</span>
                                     <span>P.I. {fornitore.partitaIva}</span>
                                     <span>{fornitore.indirizzo}</span>

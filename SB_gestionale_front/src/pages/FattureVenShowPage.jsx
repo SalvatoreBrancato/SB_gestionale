@@ -131,7 +131,7 @@ export default function FatturaVenShowPage() {
                         <div key={index} className="w-2/3 flex justify-between mx-auto bg-white border-2 border-sky-200 text-center text-xl px-3 py-1 my-2">
                             <span className="w-1/3 ">{prodotto.nome}</span>
                             {prodotto.descrizione ? <span className="w-1/3">{prodotto.descrizione}</span> : <span className="w-1/3"></span>}
-                            <span className="w-1/3">{prodotto.pezzi}</span>
+                            <span className="w-1/3">{-prodotto.pezzi}</span>
                             {prodotto.listino && <span className="w-1/3">{prodotto.listino}</span>}
                             {prodotto.prezzoVendita && <span className="w-1/3">{prodotto.prezzoVendita}</span>}
                             {prodotto.note ? <span className="w-1/3">{prodotto.note}</span> : <span className="w-1/3"></span>}
