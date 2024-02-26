@@ -35,7 +35,7 @@ export default function FatturaVenShowPage() {
     }
 
     function destroyFatturaVen() {
-        axios.delete(`http://localhost:3000/fattureVenditai/${id}`)
+        axios.delete(`http://localhost:3000/fattureVendita/${id}`)
             .then(response => {
                 console.log(response)
             })
@@ -129,7 +129,9 @@ export default function FatturaVenShowPage() {
                 {fatturaVen && fatturaVen.prodotti && fatturaVen.prodotti.map((prodotto, index) => {
                     return (
                         <div key={index} className="w-2/3 flex justify-between mx-auto bg-white border-2 border-sky-200 text-center text-xl px-3 py-1 my-2">
-                            <span className="w-1/3 ">{prodotto.nome}</span>
+                            <Link to={`/dettaglio_prodotto/${prodotto.id}`} className="w-1/3">
+                                <span>{prodotto.nome}</span>
+                            </Link>
                             {prodotto.descrizione ? <span className="w-1/3">{prodotto.descrizione}</span> : <span className="w-1/3"></span>}
                             <span className="w-1/3">{-prodotto.pezzi}</span>
                             {prodotto.listino && <span className="w-1/3">{prodotto.listino}</span>}

@@ -156,7 +156,11 @@ export default function HomePage() {
                             {fattureVen.map((fatturaVen, index) => {
                                 return (
                                     <tr key={index} className="border-2 border-white bg-sky-200 hover:bg-sky-300 text-center">
-                                        <td>{fatturaVen.numero}</td>
+                                        <td>
+                                            <Link to={`/dettaglio_fattura_vendite/${fatturaVen.id}`}>
+                                                {fatturaVen.numero}
+                                            </Link>
+                                        </td>
                                         <td>{new Date(fatturaVen.data).toLocaleDateString('it-IT')}</td>
                                         <td>{fatturaVen.totale}</td>
                                         {fatturaVen.clienti && <td>{fatturaVen.clienti.ragioneSociale ? fatturaVen.clienti.ragioneSociale : fatturaVen.clienti.nome + ' ' + fatturaVen.clienti.cognome}</td>}
