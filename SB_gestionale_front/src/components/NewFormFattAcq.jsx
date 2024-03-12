@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from 'react';
 import { ClipLoader } from "react-spinners";
 
-export default function NewFormFattAcq({ formFatturaAcq, setFormFatturaAcq, fattureAcq, form, setForm }) {
+export default function NewFormFattAcq({ fornitoreId, formFatturaAcq, setFormFatturaAcq, fattureAcq, form, setForm }) {
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -59,7 +59,7 @@ export default function NewFormFattAcq({ formFatturaAcq, setFormFatturaAcq, fatt
     }
 
     //estrazione valore select-option fornitore
-    const [selezioneFornitore, setSelezioneFornitore] = useState('')
+    const [selezioneFornitore, setSelezioneFornitore] = useState(fornitoreId)
 
     const handleFornitoreChange = (e) => {
         setSelezioneFornitore(Number(e.target.value))

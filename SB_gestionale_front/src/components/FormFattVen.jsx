@@ -5,7 +5,7 @@ import React from "react";
 import Select from 'react-select';
 
 
-export default function FormFattVen({ formFatturaVen, setFormFatturaVen, fattureVen, form, setForm }) {
+export default function FormFattVen({ clienteId, formFatturaVen, setFormFatturaVen, fattureVen, form, setForm }) {
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -60,7 +60,7 @@ export default function FormFattVen({ formFatturaVen, setFormFatturaVen, fatture
     }
 
     //estrazione valore select-option cliente
-    const [selezioneCliente, setSelezioneCliente] = useState('')
+    const [selezioneCliente, setSelezioneCliente] = useState(clienteId)
 
     const handleClienteChange = (e) => {
         setSelezioneCliente(Number(e.target.value))
@@ -226,7 +226,7 @@ export default function FormFattVen({ formFatturaVen, setFormFatturaVen, fatture
                 const responseProdotti = await axios.post('http://localhost:3000/prodotti/inserisci', nuovoProdotto);
                 console.log(responseProdotti.data);
         
-                // Recupero gli ID dei prodotti appena creati dalla risposta della chiamata axio
+                // Recupero gli ID dei prodotti appena creati dalla risposta della chiamata axios
                 const idProdottiCreati = responseProdotti.data.map(prodotto => prodotto.id);  
         
                 // Aggiungo gli ID dei prodotti alla fattura
