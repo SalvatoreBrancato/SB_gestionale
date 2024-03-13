@@ -21,6 +21,7 @@ model Clienti {
   email          String
   note           String?          @db.Text
   fattureVendita FattureVendita[]
+  prodotti       Prodotti[]
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @updatedAt
 }
@@ -29,7 +30,7 @@ model Clienti {
 model FattureVendita {
   id        Int        @id @default(autoincrement())
   numero    Int
-  data      DateTime
+  data      String
   pezzi     Int
   iva       Int
   listino   Float
@@ -38,6 +39,8 @@ model FattureVendita {
   note      String?    @db.Text
   clienti   Clienti?   @relation(fields: [clientiId], references: [id])
   clientiId Int?
+  pagamento   Pagamento? @relation(fields: [pagamentoId], references: [id])
+  pagamentoId Int?
   prodotti  Prodotti[]
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
@@ -63,7 +66,7 @@ model Fornitori {
 model FattureAcquisti {
   id          Int        @id @default(autoincrement())
   numero      Int
-  data        DateTime
+  data        String
   pezzi       Int
   iva         Int
   listino     Float
@@ -83,15 +86,17 @@ model FattureAcquisti {
 model Prodotti {
   id              Int               @id @default(autoincrement())
   nome            String
+  immagine        String?
   descrizione     String?           @db.Text
   pezzi           Int
-  prezzoVendita   Float
-  prezzoAcquisto  Float
+  prezzoVendita   Float?
+  prezzoAcquisto  Float?
   listino         Float?
   note            String?           @db.Text
   fattureAcquisti FattureAcquisti[]
   fattureVendita  FattureVendita[]
   fornitore       Fornitori[]
+  cliente         Clienti[]
 }
 
 model Pagamento {
@@ -99,4 +104,5 @@ model Pagamento {
   scadenza        String
   note            String?           @db.Text
   fattureAcquisti FattureAcquisti[]
+  fattureVendita  FattureVendita[]
 }

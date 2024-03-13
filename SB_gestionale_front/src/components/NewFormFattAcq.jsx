@@ -181,7 +181,7 @@ export default function NewFormFattAcq({ fornitoreId, formFatturaAcq, setFormFat
 
         const nuovaFatturaAcq = {
             numero: parseFloat(formData.numero),
-            data: new Date(formData.data),
+            data: formData.data,
             pezzi: parseFloat(totalePezzi),
             iva: parseFloat(iva),
             listino: parseFloat(totaleListino),

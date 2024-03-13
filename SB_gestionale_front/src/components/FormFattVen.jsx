@@ -194,7 +194,7 @@ export default function FormFattVen({ clienteId, formFatturaVen, setFormFatturaV
 
         const nuovaFatturaVen = {
             numero: parseFloat(formData.numero),
-            data: new Date(formData.data),
+            data: formData.data,
             pezzi: parseFloat(totalePezzi),
             iva: parseFloat(iva),
             listino: parseFloat(totaleListino),

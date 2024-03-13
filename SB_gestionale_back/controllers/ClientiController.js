@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 async function index(req, res){
 
     const query = {}
-     //filtro titolo e descrizione
+     //filtro ragione sociale, nome, cognome
      const { ragioneSociale, nome, cognome } = req.query
      if (ragioneSociale || nome || cognome) {
          query.where = {
@@ -34,7 +34,8 @@ async function show(req, res){
             id: parseInt(id)
         },
         include: {
-            fattureVendita: true
+            fattureVendita: true,
+            prodotti: true
         }
     }) 
     

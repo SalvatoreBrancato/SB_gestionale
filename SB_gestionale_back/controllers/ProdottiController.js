@@ -38,69 +38,72 @@ async function show(req, res) {
     return res.json(data)
 }
 
-//###CREATE### un prodotto alla volta
-// async function create(req, res) {
-//     const datiInIngresso = req.body
-//     const nuovoProdotto = await prisma.prodotti.create({
-//         data: {
-//             nome: datiInIngresso.nome,
-//             descrizione: datiInIngresso.descrizione,
-//             pezzi: datiInIngresso.pezzi,
-//             prezzoVendita: datiInIngresso.prezzoVendita,
-//             prezzoAcquisto: datiInIngresso.prezzoAcquisto,
-//             listino: datiInIngresso.listino,
-//             note: datiInIngresso.note,
-//             fattureAcquisti: {
-//                 connect: datiInIngresso.fattureAcquisti?.map((elem) => {
-//                     return { id: elem }
-//                 })
-//             },
-//             fattureVendita: {
-//                 connect: datiInIngresso.fattureVendita?.map((elem) => {
-//                     return { id: elem }
-//                 })
-//             },
-//             fornitore: {
-//                 connect: datiInIngresso.fornitore?.map((elem) => {
-//                     return { id: elem }
-//                 })
-//             }
-//         }
-//     })
-//     return res.json(nuovoProdotto)
-// }
-//più prodotti alla volta
 async function create(req, res) {
-    const datiInIngresso = req.body // Questo dovrebbe essere un array di oggetti prodotto
-    const nuoviProdotti = datiInIngresso.map(prodotto => prisma.prodotti.create({
-        data: {
-            nome: prodotto.nome,
-            descrizione: prodotto.descrizione,
-            pezzi: prodotto.pezzi,
-            prezzoVendita: prodotto.prezzoVendita,
-            prezzoAcquisto: prodotto.prezzoAcquisto,
-            listino: prodotto.listino,
-            note: prodotto.note,
-            fattureAcquisti: {
-                connect: prodotto.fattureAcquisti?.map((elem) => {
-                    return { id: elem }
-                })
-            },
-            fattureVendita: {
-                connect: prodotto.fattureVendita?.map((elem) => {
-                    return { id: elem }
-                })
-            },
-            fornitore: {
-                connect: prodotto.fornitore?.map((elem) => {
-                    return { id: elem }
-                })
+    const datiInIngresso = req.body;
+
+    // Se i dati in ingresso sono un array, crea più prodotti
+    if (Array.isArray(datiInIngresso)) {
+        const nuoviProdotti = datiInIngresso.map(prodotto => prisma.prodotti.create({
+            data: {
+                nome: prodotto.nome,
+                descrizione: prodotto.descrizione,
+                pezzi: prodotto.pezzi,
+                prezzoVendita: prodotto.prezzoVendita,
+                prezzoAcquisto: prodotto.prezzoAcquisto,
+                listino: prodotto.listino,
+                note: prodotto.note,
+                fattureAcquisti: {
+                    connect: prodotto.fattureAcquisti?.map((elem) => {
+                        return { id: elem }
+                    })
+                },
+                fattureVendita: {
+                    connect: prodotto.fattureVendita?.map((elem) => {
+                        return { id: elem }
+                    })
+                },
+                fornitore: {
+                    connect: prodotto.fornitore?.map((elem) => {
+                        return { id: elem }
+                    })
+                }
             }
-        }
-    }));
-    const risultato = await prisma.$transaction(nuoviProdotti);
-    return res.json(risultato);
+        }));
+        const risultato = await prisma.$transaction(nuoviProdotti);
+        return res.json(risultato);
+    } 
+    // Altrimenti, crea un singolo prodotto
+    else {
+        const nuovoProdotto = await prisma.prodotti.create({
+            data: {
+                nome: datiInIngresso.nome,
+                descrizione: datiInIngresso.descrizione,
+                pezzi: datiInIngresso.pezzi,
+                prezzoVendita: datiInIngresso.prezzoVendita,
+                prezzoAcquisto: datiInIngresso.prezzoAcquisto,
+                listino: datiInIngresso.listino,
+                note: datiInIngresso.note,
+                fattureAcquisti: {
+                    connect: datiInIngresso.fattureAcquisti?.map((elem) => {
+                        return { id: elem }
+                    })
+                },
+                fattureVendita: {
+                    connect: datiInIngresso.fattureVendita?.map((elem) => {
+                        return { id: elem }
+                    })
+                },
+                fornitore: {
+                    connect: datiInIngresso.fornitore?.map((elem) => {
+                        return { id: elem }
+                    })
+                }
+            }
+        });
+        return res.json(nuovoProdotto);
+    }
 }
+
 
 
 
