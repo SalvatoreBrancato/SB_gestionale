@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+.font-s{
+  font-family: "Noto Serif KR", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.font-t{
+    font-family: "Noto Serif KR", serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
 @keyframes gradient-x-three {
     0%, 100% {background-position: 0% 50%;}
     50% {background-position: 100% 50%;}
@@ -22,3 +34,35 @@
   .none{
     visibility: hidden;
   }
+
+  .my-tab {
+    background-color: #f9fbfc;
+    border-radius: 15px;
+    position: relative;
+  }
+  
+  .my-tab::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-top: 3px solid #7dd3fc;
+    border-left: 3px solid #7dd3fc;
+    width: 50px;
+    height: 50px;
+    border-top-left-radius: 15px;
+  }
+  
+  .my-tab::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    border-bottom: 3px solid #7dd3fc;
+    border-right: 3px solid #7dd3fc;
+    width: 50px;
+    height: 50px;
+    border-bottom-right-radius: 15px;
+  }
+
+  

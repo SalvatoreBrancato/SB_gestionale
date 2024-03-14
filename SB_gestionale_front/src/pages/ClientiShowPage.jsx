@@ -173,7 +173,7 @@ export default function DettaglioClientePage() {
                         {cliente && cliente.fattureVendita.map((fattura, index) => {
                             return (
                                 <tr key={index} className="border-2 border-white bg-sky-200 hover:bg-sky-300">
-                                    <td className="text-center">{new Date(fattura.data).toLocaleDateString('it-IT')}</td>
+                                    <td className="text-center">{fattura.data}</td>
                                     <td className="text-center">
                                         <Link to={`/dettaglio_fattura_vendite/${fattura.id}`}>
                                             {fattura.numero}
