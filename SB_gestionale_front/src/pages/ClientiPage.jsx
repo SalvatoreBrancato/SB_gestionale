@@ -53,9 +53,9 @@ export default function ClientiPage() {
             {/* sfondo in trasparenza quando si apre il form */}
             {form && <div className={`absolute inset-x-0 top-0 bottom-0 bg-white z-10 ${form ? 'bg-opacity-80' : 'bg-opacity-0'}`} onClick={()=>apriForm()}></div>}
             
-            <div className='mx-5 flex justify-between items-center'>
+            <div className='mx-5 my-3 flex justify-between items-center'>
                 <div>
-                    <label htmlFor="ricercaCliente">Ricerca cliente: </label>
+                    <label htmlFor="ricercaCliente" className='font-t'>Ricerca cliente: </label>
                     <input name='ricercaCliente' type="text" className='border-4 border-sky-100 mt-5' value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />
                 </div>
                 <div className='flex justify-center items-center'>
@@ -72,16 +72,18 @@ export default function ClientiPage() {
                     {
                         risultatiRicerca.map((cliente, index) => {
                             return (
-                                <Link key={index} to={`/dettaglio_cliente/${cliente.id}`} className='border-l-2 border-[#03A9F4] bg-sky-100 hover:bg-sky-200 rounded-md shadow-lg flex flex-col m-3 w-72 ps-2'>
+                                <Link key={index} to={`/dettaglio_cliente/${cliente.id}`} className='border-l-2 border-[#03A9F4] bg-sky-100 hover:bg-sky-200 rounded-md shadow-lg flex flex-col m-3 w-80 p-2'>
 
-                                    {cliente.ragioneSociale && <span className='font-bold'>{cliente.ragioneSociale}</span>}
-                                    {cliente.nome && <span className='font-bold'>{cliente.nome}</span>}
-                                    {cliente.cognome && <span className='font-bold'>{cliente.cognome}</span>}
-                                    {cliente.partitaIva && <span>P.I. {cliente.partitaIva}</span>}
-                                    <span>{cliente.indirizzo}</span>
-                                    <span>Tel: {cliente.telefono}</span>
-                                    <span>email: {cliente.email}</span>
-                                    <span>Note: {cliente.note}</span>
+                                    {cliente.ragioneSociale && <span className='font-t'>{cliente.ragioneSociale}</span>}
+                                    <div>
+                                        {cliente.nome && <span className='font-t mr-1'>{cliente.nome}</span>}
+                                        {cliente.cognome && <span className='font-t'>{cliente.cognome}</span>}
+                                    </div>
+                                    {cliente.partitaIva && <span>{cliente.partitaIva}</span>}
+                                    <span className='font-s'>{cliente.indirizzo}</span>
+                                    <span className='font-s'>{cliente.telefono}</span>
+                                    <span className='font-s'>{cliente.email}</span>
+                                    <span className='font-s'>{cliente.note}</span>
 
                                 </Link>
                             )

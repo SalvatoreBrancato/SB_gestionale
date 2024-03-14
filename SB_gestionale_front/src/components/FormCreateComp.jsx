@@ -1,19 +1,19 @@
 import axios from "axios";
-import {useState} from 'react';
+import { useState } from 'react';
 import { ClipLoader } from "react-spinners";
 
 
-export default function FormCreateComp({form, setForm, fornitori}){
+export default function FormCreateComp({ form, setForm, fornitori }) {
 
     //estaggo valore input radio cliente/fornitore
-    const [clienteFornitore, setClienteFornitore] = useState(fornitori ? 'fornitore':'cliente')
-    
-    const handleClienteForntioreChange = (e) =>{
+    const [clienteFornitore, setClienteFornitore] = useState(fornitori ? 'fornitore' : 'cliente')
+
+    const handleClienteForntioreChange = (e) => {
         setClienteFornitore(e.target.value)
     }
 
     //estraggo valore input radio forma giuridica
-    const [formaGiuridica, setFormaGiuridica] = useState('personaGiuridica') 
+    const [formaGiuridica, setFormaGiuridica] = useState('personaGiuridica')
 
     const handleFormaGiuridicaChange = (e) => {
         setFormaGiuridica(e.target.value)
@@ -62,25 +62,25 @@ export default function FormCreateComp({form, setForm, fornitori}){
         const inviaDati = async () => {
             try {
 
-                if(clienteFornitore == 'cliente'){
+                if (clienteFornitore == 'cliente') {
                     const response = await axios.post('http://localhost:3000/clienti/inserisci', nuovaAnagrafica);
                     console.log(response.data);
-                }else{
+                } else {
                     const response = await axios.post('http://localhost:3000/fornitori/inserisci', nuovaAnagrafica);
                     console.log(response.data);
                 }
 
-              setIsLoading(false);
-              setIsSuccess(true);
-              setTimeout(() => {
-                setForm(false)
-                //ricarica l pagina dopo aver eliminato l'elemento
-                window.location.reload()
-              }, 2000);
+                setIsLoading(false);
+                setIsSuccess(true);
+                setTimeout(() => {
+                    setForm(false)
+                    //ricarica l pagina dopo aver eliminato l'elemento
+                    window.location.reload()
+                }, 2000);
 
             } catch (error) {
-              console.error(error);
-              setIsLoading(false);
+                console.error(error);
+                setIsLoading(false);
             }
         };
 
@@ -91,14 +91,14 @@ export default function FormCreateComp({form, setForm, fornitori}){
 
     const [isSuccess, setIsSuccess] = useState(false);
 
-    
 
-    return(
+
+    return (
         <>
             <div className="absolute w-1/2 min-h-[450px] bg-sky-100 rounded-lg top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30">
                 {/* CHIUDI FORM */}
                 <div className="absolute top-5 right-5">
-                    <button onClick={()=>setForm(false)}>
+                    <button onClick={() => setForm(false)}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 hover:scale-125">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
                         </svg>
@@ -107,75 +107,75 @@ export default function FormCreateComp({form, setForm, fornitori}){
 
                 {/* INPUT RADIO */}
                 <div className="flex mx-6 my-6">
-                    <div className={`flex items-center me-3 p-2 rounded-md ${clienteFornitore === 'cliente' ? 'bg-sky-400 text-white font-bold':''}`}>
+                    <div className={`flex items-center me-3 p-2 rounded-md font-s ${clienteFornitore === 'cliente' ? 'bg-sky-400 text-white font-t' : ''}`}>
                         <label htmlFor="cliente-fornitore" className='me-1' >Cliente</label>
-                        <input type="radio" name="cliente-fornitore" value="cliente" checked={clienteFornitore === 'cliente'} onChange={handleClienteForntioreChange}/>
+                        <input type="radio" name="cliente-fornitore" value="cliente" checked={clienteFornitore === 'cliente'} onChange={handleClienteForntioreChange} />
                     </div>
-                    <div className={`flex items-center p-2 rounded-md ${clienteFornitore === 'fornitore' ? 'bg-sky-400 text-white font-bold':''}`}>
-                        <label htmlFor="cliente-fornitore" className="me-1">Fornitore</label>
-                        <input type="radio" name="cliente-fornitore" value="fornitore" checked={clienteFornitore === 'fornitore'} onChange={handleClienteForntioreChange}/>                            
+                    <div className={`flex items-center p-2 rounded-md font-s ${clienteFornitore === 'fornitore' ? 'bg-sky-400 text-white font-t' : ''}`}>
+                        <label htmlFor="cliente-fornitore" className="me-1 ">Fornitore</label>
+                        <input type="radio" name="cliente-fornitore" value="fornitore" checked={clienteFornitore === 'fornitore'} onChange={handleClienteForntioreChange} />
                     </div>
-                    <div className={`flex items-center mx-3 p-2 rounded-md ${formaGiuridica === 'personaFisica' ? 'bg-sky-400 text-white font-bold':''}`}>
+                    <div className={`flex items-center mx-3 p-2 rounded-md font-s ${formaGiuridica === 'personaFisica' ? 'bg-sky-400 text-white font-t' : ''}`}>
                         <label htmlFor="formaGiuridica" className="me-1">Persona fisica</label>
-                        <input type="radio" name="formaGiuridica" value="personaFisica" checked={formaGiuridica === 'personaFisica'} onChange={handleFormaGiuridicaChange}/>                            
+                        <input type="radio" name="formaGiuridica" value="personaFisica" checked={formaGiuridica === 'personaFisica'} onChange={handleFormaGiuridicaChange} />
                     </div>
-                    <div className={`flex items-center p-2 rounded-md ${formaGiuridica === 'personaGiuridica' ? 'bg-sky-400 text-white font-bold':''}`}>
+                    <div className={`flex items-center p-2 rounded-md font-s ${formaGiuridica === 'personaGiuridica' ? 'bg-sky-400 text-white font-t' : ''}`}>
                         <label htmlFor="formaGiuridica" className="me-1">Persona giuridica</label>
-                        <input type="radio" name="formaGiuridica" value="personaGiuridica" checked={formaGiuridica === 'personaGiuridica'} onChange={handleFormaGiuridicaChange}/>                            
+                        <input type="radio" name="formaGiuridica" value="personaGiuridica" checked={formaGiuridica === 'personaGiuridica'} onChange={handleFormaGiuridicaChange} />
                     </div>
                 </div>
 
                 {/* FORM */}
                 <form className="mx-6 my-6" onSubmit={handleSubmit}>
 
-                   {formaGiuridica == 'personaGiuridica' && 
-                   <div className="flex flex-col">
-                        <label htmlFor="ragioneSociale">Ragione sociale: </label>
-                        <input className="border-2 rounded-md w-full" type="text" name="ragioneSociale" value={formData.ragioneSociale} onChange={handleInputChange} />
-                    </div>
+                    {formaGiuridica == 'personaGiuridica' &&
+                        <div className="flex flex-col font-s">
+                            <label htmlFor="ragioneSociale" className="">Ragione sociale</label>
+                            <input required className="border-2 rounded-md w-full" type="text" name="ragioneSociale" value={formData.ragioneSociale} onChange={handleInputChange} />
+                        </div>
                     }
 
 
-                    {formaGiuridica == 'personaFisica' && 
-                        <div className="flex flex-col">
-                        <label htmlFor="nome">Nome: </label>
-                        <input className="border-2 rounded-md w-full" type="text" name="nome" value={formData.nome} onChange={handleInputChange}/>
-                    </div>
+                    {formaGiuridica == 'personaFisica' &&
+                        <div className="flex flex-col font-s">
+                            <label htmlFor="nome">Nome</label>
+                            <input required className="border-2 rounded-md w-full" type="text" name="nome" value={formData.nome} onChange={handleInputChange} />
+                        </div>
                     }
 
                     {formaGiuridica == 'personaFisica' &&
-                        <div className="flex flex-col">
-                        <label htmlFor="cognome">Cognome: </label>
-                        <input className="border-2 rounded-md w-full" type="text" name="cognome" value={formData.cognome} onChange={handleInputChange}/>
-                    </div>
+                        <div className="flex flex-col font-s">
+                            <label htmlFor="cognome">Cognome</label>
+                            <input required className="border-2 rounded-md w-full" type="text" name="cognome" value={formData.cognome} onChange={handleInputChange} />
+                        </div>
                     }
 
-                    {formaGiuridica == 'personaGiuridica' && 
-                        <div className="flex flex-col">
-                        <label htmlFor="partitaIva">Partita IVA: </label>
-                        <input className="border-2 rounded-md w-full" type="number" name="partitaIva" value={formData.partitaIva} onChange={handleInputChange}/>
-                    </div>
+                    {formaGiuridica == 'personaGiuridica' &&
+                        <div className="flex flex-col font-s">
+                            <label htmlFor="partitaIva">Partita IVA</label>
+                            <input required className="border-2 rounded-md w-full" type="number" name="partitaIva" value={formData.partitaIva} onChange={handleInputChange}/>
+                        </div>
                     }
-                    <div className="flex flex-col">
-                        <label htmlFor="indirizzo">Indirizzo: </label>
-                        <input className="border-2 rounded-md w-full" type="text" name="indirizzo" value={formData.indirizzo} onChange={handleInputChange}/>
+                    <div className="flex flex-col font-s">
+                        <label htmlFor="indirizzo">Indirizzo</label>
+                        <input required className="border-2 rounded-md w-full" type="text" name="indirizzo" value={formData.indirizzo} onChange={handleInputChange} />
                     </div>
-                    <div className="flex flex-col">
-                        <label htmlFor="telefono">Telefono: </label>
-                        <input className="border-2 rounded-md w-full" type="number" name="telefono" value={formData.telefono} onChange={handleInputChange}/>
+                    <div className="flex flex-col font-s">
+                        <label htmlFor="telefono">Telefono</label>
+                        <input  className="border-2 rounded-md w-full" type="number" name="telefono" value={formData.telefono} onChange={handleInputChange} />
                     </div>
-                    <div className="flex flex-col">
-                        <label htmlFor="email">Email: </label>
-                        <input className="border-2 rounded-md w-full" type="email" name="email" value={formData.email} onChange={handleInputChange}/>
+                    <div className="flex flex-col font-s">
+                        <label htmlFor="email">Email</label>
+                        <input className="border-2 rounded-md w-full" type="email" name="email" value={formData.email} onChange={handleInputChange} />
                     </div>
-                    <div className="flex flex-col">
-                        <label htmlFor="note">Note: </label>
-                        <input className="border-2 rounded-md w-full" type="text" name="note" value={formData.note} onChange={handleInputChange}/>
+                    <div className="flex flex-col font-s">
+                        <label htmlFor="note">Note</label>
+                        <input className="border-2 rounded-md w-full" type="text" name="note" value={formData.note} onChange={handleInputChange} />
                     </div>
                     <div className="flex justify-center">
-                        {isLoading ? <ClipLoader /> : <button type="submit" className="p-1 bg-sky-400 mt-3 rounded-md text-white hover:bg-sky-500">{clienteFornitore == 'cliente' ? 'Inserisci nuovo cliente': 'Inserisci nuovo fornitore'}</button>}
+                        {isLoading ? <ClipLoader /> : <button type="submit" className="p-1 bg-sky-400 mt-3 rounded-md text-white hover:bg-sky-500 font-t">{clienteFornitore == 'cliente' ? 'Inserisci nuovo cliente' : 'Inserisci nuovo fornitore'}</button>}
                     </div>
-                    {isSuccess && <p className="text-center">{clienteFornitore == 'cliente' ? 'Nuovo cliente caricato':'Nuovo fornitore caricato'}</p>}
+                    {isSuccess && <p className="text-center font-t">{clienteFornitore == 'cliente' ? '✔ Nuovo cliente caricato' : '✔ Nuovo fornitore caricato'}</p>}
                 </form>
             </div>
         </>
