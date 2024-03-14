@@ -16,7 +16,7 @@ export default function DettaglioClientePage() {
 
     const [form, setForm] = useState(false)
 
-    const [formFatturaVen, setFormFatturaVen] = useState(false) 
+    const [formFatturaVen, setFormFatturaVen] = useState(false)
 
     const [formDestroy, setFormDestroy] = useState(false)
 
@@ -72,12 +72,10 @@ export default function DettaglioClientePage() {
         if (form == true) {
             setForm(false)
         }
-        else if (formDestroy == true)
-        {
+        else if (formDestroy == true) {
             setFormDestroy(false)
-        } 
-        else if(formFatturaVen == true)
-        {
+        }
+        else if (formFatturaVen == true) {
             setFormFatturaVen(false)
         }
     }
@@ -105,7 +103,7 @@ export default function DettaglioClientePage() {
             {form && <FormUpdateComp form={form} setForm={setForm} anagraficaClienteFornitore={cliente} setAnagraficaClienteFornitore={setCliente} tipoAnagrafica={tipoAnagrafica}></FormUpdateComp>}
 
             {/* FORM FATTURA VEN */}
-            {formFatturaVen && <FormFattVen clienteId={cliente.id} formFatturaVen={formFatturaVen} setFormFatturaVen={setFormFatturaVen} form={form} setForm={setForm}/> }
+            {formFatturaVen && <FormFattVen clienteId={cliente.id} formFatturaVen={formFatturaVen} setFormFatturaVen={setFormFatturaVen} form={form} setForm={setForm} />}
 
             <div className="flex justify-between m-3">
                 <div>
@@ -136,9 +134,9 @@ export default function DettaglioClientePage() {
             </div>
 
             {/* Conferma eliminazione? */}
-            {formDestroy && <div className="flex flex-col items-center justify-around absolute w-1/4 h-1/4 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-sky-100 rounded-lg z-20">
-                <span className="text-2xl px-2">Sei sicuro di volere eliminare l'anagrafica?</span>
-                <div className="flex justify-center items-center">
+            {formDestroy && <div className="flex flex-col items-center justify-around absolute w-1/3 h-1/4 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-sky-100 border-2 border-sky-400 rounded-lg z-20">
+                <span className="text-2xl px-2 font-t">Sei sicuro di volere eliminare l'anagrafica?</span>
+                <div className="flex justify-center items-center font-t text-white">
                     <button onClick={() => destroyAnagrafica()} className="bg-green-400 p-3 mr-5 rounded-md">Conferma</button>
                     <button onClick={() => eliminaAnagrafica()} className="bg-red-500 p-3 rounded-md">Annulla</button>
                 </div>
@@ -151,43 +149,60 @@ export default function DettaglioClientePage() {
                 {cliente && cliente.nome && <span className="text-3xl px-3 py-1 font-t">{cliente.nome}</span>}
                 {cliente && cliente.cognome && <span className="text-3xl px-3 py-1 font-t">{cliente.cognome}</span>}
                 {cliente && <span className="text-xl px-3 py-1 font-s">{cliente.indirizzo}</span>}
-                {cliente && cliente.telefono &&  <span className="text-xl px-3 py-1 font-s">Tel: {cliente.telefono}</span>}
+                {cliente && cliente.telefono && <span className="text-xl px-3 py-1 font-s">Tel: {cliente.telefono}</span>}
                 {cliente && <span className="text-xl px-3 py-1 font-s">email: {cliente.email}</span>}
                 {cliente && cliente.note && <span className="text-xl px-3 py-1 font-s">Note: {cliente.note}</span>}
             </div>
-
-            <div className="w-1/2 min-h-1/2 mx-auto bg-sky-200 overflow-y-auto">
+            <div className="flex justify-around w-full h-1/2 p-5">
                 {/* Tabella Fatture */}
-                <table className="w-full max-h-[20px]">
-                    <thead>
-                        <tr className="border-2 border-white bg-sky-400">
-                            <th className="text-center">Data</th>
-                            <th className="text-center">Numero</th>
-                            <th className="text-center">IVA</th>
-                            <th className="text-center">Listino</th>
-                            <th className="text-center">Totale</th>
-                            <th className="text-center">Note</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {cliente && cliente.fattureVendita.map((fattura, index) => {
-                            return (
-                                <tr key={index} className="border-2 border-white bg-sky-200 hover:bg-sky-300">
-                                    <td className="text-center">{fattura.data}</td>
-                                    <td className="text-center">
-                                        <Link to={`/dettaglio_fattura_vendite/${fattura.id}`}>
-                                            {fattura.numero}
-                                        </Link>
-                                    </td>
-                                    <td className="text-center">{fattura.iva}</td>
-                                    <td className="text-center">{fattura.listino}</td>
-                                    <td className="text-center">{fattura.totale}</td>
-                                    <td className="text-center">{fattura.note}</td>
-                                </tr>
-                            )
-                        })}
-                    </tbody>
-                </table>
+                <div className="w-1/2 h-full overflow-y-auto my-tab">
+                    <div className="p-2 flex text-center border-b-2 border-sky-200 mx-4 font-t">
+                        <span className="w-1/6">Data</span>
+                        <span className="w-1/6">Numero</span>
+                        <span className="w-1/6">IVA</span>
+                        <span className="w-1/6">Totale</span>
+                        <span className="w-2/6">Note</span>
+                    </div>
+                    {cliente && cliente.fattureVendita.map((fattura, index) => {
+                        return (
+                            <div key={index} className="p-2 flex text-center border-b-2 hover:bg-sky-200 rounded-sm border-sky-200 mx-4 font-s">
+                                <span className="w-1/6">{fattura.data}</span>
+                                <span className="w-1/6">
+                                    <Link to={`/dettaglio_fattura_vendite/${fattura.id}`}>
+                                        {fattura.numero}
+                                    </Link>
+                                </span>
+                                <span className="w-1/6">{fattura.iva}%</span>
+                                <span className="w-1/6">€ {fattura.totale}</span>
+                                <span className="w-2/6 truncate">{fattura.note}</span>
+                            </div>
+                        )
+                    })}
+                </div>
+
+                {/* Tabella Prodotti */}
+                <div className="w-1/3 h-full overflow-y-auto my-tab">
+                    <div className="p-2 flex text-center border-b-2 border-sky-200 mx-4 font-t">
+                        <span className="w-1/4">Prodotto</span>
+                        <span className="w-1/4">Descrizione</span>
+                        <span className="w-1/4">Pezzi</span>
+                        <span className="w-1/4">Prezzo ven.</span>
+                    </div>
+                    {cliente && cliente.prodotti.map((prodotto, index) => {
+                        return (
+                            <div key={index} className="p-2 flex text-center border-b-2 hover:bg-sky-200 rounded-sm border-sky-200 mx-4 font-s">
+                                <span className="w-1/4">
+                                    <Link to={`/dettaglio_prodotto/${prodotto.id}`}>
+                                        {prodotto.nome}
+                                    </Link>
+                                </span>
+                                <span className="w-1/4">{prodotto.descrizione}</span>
+                                <span className="w-1/4">{- prodotto.pezzi}</span>
+                                <span className="w-1/4">{prodotto.prezzoVendita}</span>
+                            </div>
+                        )
+                    })}
+                </div>
             </div>
         </div>
     )

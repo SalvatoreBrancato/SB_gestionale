@@ -95,7 +95,7 @@ export default function FormCreateComp({ form, setForm, fornitori }) {
 
     return (
         <>
-            <div className="absolute w-1/2 min-h-[450px] bg-sky-100 rounded-lg top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30">
+            <div className="absolute w-1/2 min-h-[450px] bg-sky-50 border-2 border-sky-400 rounded-lg top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30">
                 {/* CHIUDI FORM */}
                 <div className="absolute top-5 right-5">
                     <button onClick={() => setForm(false)}>
@@ -129,48 +129,48 @@ export default function FormCreateComp({ form, setForm, fornitori }) {
                 <form className="mx-6 my-6" onSubmit={handleSubmit}>
 
                     {formaGiuridica == 'personaGiuridica' &&
-                        <div className="flex flex-col font-s">
-                            <label htmlFor="ragioneSociale" className="">Ragione sociale</label>
-                            <input required className="border-2 rounded-md w-full" type="text" name="ragioneSociale" value={formData.ragioneSociale} onChange={handleInputChange} />
+                        <div className="flex flex-col">
+                            <label htmlFor="ragioneSociale" className='font-t'>Ragione sociale</label>
+                            <input required className="bg-sky-50 border-b-2 border-sky-300 w-full font-s mb-3" type="text" name="ragioneSociale" value={formData.ragioneSociale} onChange={handleInputChange} />
                         </div>
                     }
 
 
                     {formaGiuridica == 'personaFisica' &&
-                        <div className="flex flex-col font-s">
-                            <label htmlFor="nome">Nome</label>
-                            <input required className="border-2 rounded-md w-full" type="text" name="nome" value={formData.nome} onChange={handleInputChange} />
+                        <div className="flex flex-col">
+                            <label htmlFor="nome" className='font-t'>Nome</label>
+                            <input required className="bg-sky-50 border-b-2 border-sky-300 w-full font-s mb-3" type="text" name="nome" value={formData.nome} onChange={handleInputChange} />
                         </div>
                     }
 
                     {formaGiuridica == 'personaFisica' &&
-                        <div className="flex flex-col font-s">
-                            <label htmlFor="cognome">Cognome</label>
-                            <input required className="border-2 rounded-md w-full" type="text" name="cognome" value={formData.cognome} onChange={handleInputChange} />
+                        <div className="flex flex-col">
+                            <label htmlFor="cognome" className='font-t'>Cognome</label>
+                            <input required className="bg-sky-50 border-b-2 border-sky-300 w-full font-s mb-3" type="text" name="cognome" value={formData.cognome} onChange={handleInputChange} />
                         </div>
                     }
 
                     {formaGiuridica == 'personaGiuridica' &&
-                        <div className="flex flex-col font-s">
-                            <label htmlFor="partitaIva">Partita IVA</label>
-                            <input required className="border-2 rounded-md w-full" type="number" name="partitaIva" value={formData.partitaIva} onChange={handleInputChange}/>
+                        <div className="flex flex-col">
+                            <label htmlFor="partitaIva" className='font-t'>Partita IVA</label>
+                            <input required className="bg-sky-50 border-b-2 border-sky-300 w-full font-s mb-3" type="number" name="partitaIva" value={formData.partitaIva} onChange={handleInputChange}/>
                         </div>
                     }
-                    <div className="flex flex-col font-s">
-                        <label htmlFor="indirizzo">Indirizzo</label>
-                        <input required className="border-2 rounded-md w-full" type="text" name="indirizzo" value={formData.indirizzo} onChange={handleInputChange} />
+                    <div className="flex flex-col">
+                        <label htmlFor="indirizzo" className='font-t'>Indirizzo</label>
+                        <input required className="bg-sky-50 border-b-2 border-sky-300 w-full font-s mb-3" type="text" name="indirizzo" value={formData.indirizzo} onChange={handleInputChange} />
                     </div>
-                    <div className="flex flex-col font-s">
-                        <label htmlFor="telefono">Telefono</label>
-                        <input  className="border-2 rounded-md w-full" type="number" name="telefono" value={formData.telefono} onChange={handleInputChange} />
+                    <div className="flex flex-col">
+                        <label htmlFor="telefono" className='font-t'>Telefono</label>
+                        <input  className="bg-sky-50 border-b-2 border-sky-300 w-full font-s mb-3" type="number" name="telefono" value={formData.telefono} onChange={handleInputChange} />
                     </div>
-                    <div className="flex flex-col font-s">
-                        <label htmlFor="email">Email</label>
-                        <input className="border-2 rounded-md w-full" type="email" name="email" value={formData.email} onChange={handleInputChange} />
+                    <div className="flex flex-col">
+                        <label htmlFor="email" className='font-t'>Email</label>
+                        <input className="bg-sky-50 border-b-2 border-sky-300 w-full font-s mb-3" type="email" name="email" value={formData.email} onChange={handleInputChange} />
                     </div>
-                    <div className="flex flex-col font-s">
-                        <label htmlFor="note">Note</label>
-                        <input className="border-2 rounded-md w-full" type="text" name="note" value={formData.note} onChange={handleInputChange} />
+                    <div className="flex flex-col">
+                        <label htmlFor="note" className='font-t'>Note</label>
+                        <input className="bg-sky-50 border-b-2 border-sky-300 w-full font-s mb-3" type="text" name="note" value={formData.note} onChange={handleInputChange} />
                     </div>
                     <div className="flex justify-center">
                         {isLoading ? <ClipLoader /> : <button type="submit" className="p-1 bg-sky-400 mt-3 rounded-md text-white hover:bg-sky-500 font-t">{clienteFornitore == 'cliente' ? 'Inserisci nuovo cliente' : 'Inserisci nuovo fornitore'}</button>}

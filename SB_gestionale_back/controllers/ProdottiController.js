@@ -66,6 +66,11 @@ async function create(req, res) {
                     connect: prodotto.fornitore?.map((elem) => {
                         return { id: elem }
                     })
+                },
+                cliente: {
+                    connect: prodotto.cliente?.map((elem) => {
+                        return { id: elem }
+                    })
                 }
             }
         }));
@@ -95,6 +100,11 @@ async function create(req, res) {
                 },
                 fornitore: {
                     connect: datiInIngresso.fornitore?.map((elem) => {
+                        return { id: elem }
+                    })
+                },
+                cliente: {
+                    connect: prodotto.cliente?.map((elem) => {
                         return { id: elem }
                     })
                 }

@@ -83,7 +83,7 @@ export default function ClientiPage() {
                                     <span className='font-s'>{cliente.indirizzo}</span>
                                     <span className='font-s'>{cliente.telefono}</span>
                                     <span className='font-s'>{cliente.email}</span>
-                                    <span className='font-s'>{cliente.note}</span>
+                                    <span className='font-s truncate'>{cliente.note}</span>
 
                                 </Link>
                             )
