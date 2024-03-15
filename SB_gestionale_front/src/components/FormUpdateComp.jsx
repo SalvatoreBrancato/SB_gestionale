@@ -119,7 +119,7 @@ export default function FormUpdateComp({ form, setForm, anagraficaClienteFornito
                     {formaGiuridica == 'personaGiuridica' &&
                         <div className="flex flex-col">
                             <label htmlFor="ragioneSociale" className='font-t'>Ragione sociale</label>
-                            <input required className="bg-sky-50 border-b-2 border-sky-300 w-full font-s mb-3 mb-3" type="text" name="ragioneSociale" value={anagraficaClienteFornitore.ragioneSociale} onChange={handleInputChange} />
+                            <input required className="bg-sky-50 border-b-2 border-sky-300 w-full font-s mb-3" type="text" name="ragioneSociale" value={anagraficaClienteFornitore.ragioneSociale} onChange={handleInputChange} />
                         </div>
                     }
 

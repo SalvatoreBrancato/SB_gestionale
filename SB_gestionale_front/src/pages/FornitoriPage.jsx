@@ -51,9 +51,9 @@ export default function FornitoriPage() {
             {/* sfondo in trasparenza quando si apre il form */}
             {form && <div className={`absolute inset-x-0 top-0 bottom-0 bg-white z-10 ${form ? 'bg-opacity-80' : 'bg-opacity-0'}`} onClick={()=>apriForm()}></div>}
 
-            <div className='mx-5 flex justify-between '>
+            <div className='mx-5 my-3 flex justify-between items-center '>
                 <div>
-                    <label htmlFor="ricercaFornitore">Ricerca fornitore: </label>
+                    <label htmlFor="ricercaFornitore" className='font-t'>Ricerca fornitore: </label>
                     <input name='ricercaFornitore' type="text" className='border-4 border-sky-100 mt-5' value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />
                 </div>
                 <div className='flex justify-center items-center'>
@@ -64,18 +64,18 @@ export default function FornitoriPage() {
                     </button>
                 </div>
             </div>
-            {isLoading ? <div className='h-full w-full flex justify-center'><ClipLoader /></div> :
+            {isLoading ? <div className='h-full w-full flex justify-center items-center'><ClipLoader /></div> :
                 <div className="flex flex-wrap px-auto overflow-y-auto">
                     {
                         risultatiRicerca.map((fornitore) => {
                             return (
-                                <Link key={fornitore.id} to={`/dettaglio_fornitore/${fornitore.id}`} className='border-l-2 border-[#03A9F4] bg-sky-100 hover:bg-sky-200 rounded-md shadow-lg flex flex-col m-3 w-72 ps-2'>
-                                    <span className='font-bold'>{fornitore.ragioneSociale}</span>
-                                    <span>P.I. {fornitore.partitaIva}</span>
-                                    <span>{fornitore.indirizzo}</span>
-                                    <span>Tel: {fornitore.telefono}</span>
-                                    <span>email: {fornitore.email}</span>
-                                    <span>Note: {fornitore.note}</span>
+                                <Link key={fornitore.id} to={`/dettaglio_fornitore/${fornitore.id}`} className='border-l-2 border-[#03A9F4] bg-sky-100 hover:bg-sky-200 rounded-md shadow-lg flex flex-col m-3 w-72 p-2'>
+                                    <span className='font-t'>{fornitore.ragioneSociale}</span>
+                                    <span className='font-s'>{fornitore.partitaIva}</span>
+                                    <span className='font-s'>{fornitore.indirizzo}</span>
+                                    <span className='font-s'>{fornitore.telefono}</span>
+                                    <span className='font-s'>{fornitore.email}</span>
+                                    <span className='font-s truncate'>{fornitore.note}</span>
                                 </Link>
                             )
                         })

@@ -67,12 +67,13 @@ export default function ClientiPage() {
                 </div>
             </div>
 
-            {isLoading ? <div className='h-full w-full flex justify-center'><ClipLoader /></div> :
-                <div className="flex flex-wrap px-auto overflow-y-auto">
+            {isLoading ? <div className='h-full w-full flex justify-center items-center'><ClipLoader /></div> :
+            
+                <div className="flex flex-wrap overflow-y-auto">
                     {
                         risultatiRicerca.map((cliente, index) => {
                             return (
-                                <Link key={index} to={`/dettaglio_cliente/${cliente.id}`} className='border-l-2 border-[#03A9F4] bg-sky-100 hover:bg-sky-200 rounded-md shadow-lg flex flex-col m-3 w-80 p-2'>
+                                <Link key={index} to={`/dettaglio_cliente/${cliente.id}`} className='border-l-2 border-[#03A9F4] bg-sky-100 hover:bg-sky-200 rounded-md shadow-lg flex flex-col m-3 w-72 p-2'>
 
                                     {cliente.ragioneSociale && <span className='font-t'>{cliente.ragioneSociale}</span>}
                                     <div>
@@ -92,6 +93,7 @@ export default function ClientiPage() {
                     {form && <FormCreateComp form={form} setForm={setForm}></FormCreateComp>}
 
                 </div>
+            
             }
 
         </div>
