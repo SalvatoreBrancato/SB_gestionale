@@ -17,17 +17,7 @@ async function show(req, res){
         },
         include: {
             fattureAcquisti: true,
-            prodotti:{
-                select: {
-                    id:true,
-                    nome: true,
-                    pezzi: true,
-                    prezzoAcquisto: true,
-                    prezzoVendita: true,
-                    listino: true,
-                    note: true  
-                }
-            }
+            prodotti:true
         }
         
         

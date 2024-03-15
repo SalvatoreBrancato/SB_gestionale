@@ -69,7 +69,7 @@ export default function FornitoriPage() {
                     {
                         risultatiRicerca.map((fornitore) => {
                             return (
-                                <Link key={fornitore.id} to={`/dettaglio_fornitore/${fornitore.id}`} className='border-l-2 border-[#03A9F4] bg-sky-100 hover:bg-sky-200 rounded-md shadow-lg flex flex-col m-3 w-72 p-2'>
+                                <Link key={fornitore.id} to={`/dettaglio_fornitore/${fornitore.id}`} className='border-l-2 border-b-2 border-[#03A9F4] bg-sky-100 hover:bg-sky-200 rounded-md shadow-lg flex flex-col m-3 w-72 p-2'>
                                     <span className='font-t'>{fornitore.ragioneSociale}</span>
                                     <span className='font-s'>{fornitore.partitaIva}</span>
                                     <span className='font-s'>{fornitore.indirizzo}</span>

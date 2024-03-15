@@ -139,80 +139,74 @@ export default function FornitoriShowPage() {
 
 
             <div className="flex flex-col mb-10">
-                {fornitore && fornitore.ragioneSociale && <span className="text-3xl p-3">{fornitore.ragioneSociale}</span>}
-                {fornitore && fornitore.partitaIva && <span className="text-xl px-3 py-1">P.I. {fornitore.partitaIva}</span>}
-                {fornitore && fornitore.nome && <span className="text-xl px-3 py-1">{fornitore.nome}</span>}
-                {fornitore && fornitore.cognome && <span className="text-xl px-3 py-1">{fornitore.cognome}</span>}
-                {fornitore && <span className="text-xl px-3 py-1">{fornitore.indirizzo}</span>}
-                {fornitore && <span className="text-xl px-3 py-1">Tel: {fornitore.telefono}</span>}
-                {fornitore && <span className="text-xl px-3 py-1">email: {fornitore.email}</span>}
-                {fornitore && <span className="text-xl px-3 py-1">Note: {fornitore.note}</span>}
+                {fornitore && fornitore.ragioneSociale && <span className="text-3xl p-3 font-t">{fornitore.ragioneSociale}</span>}
+                {fornitore && fornitore.partitaIva && <span className="text-xl px-3 py-1 font-s">P.I. {fornitore.partitaIva}</span>}
+                {fornitore && fornitore.nome && <span className="text-xl px-3 py-1 font-t">{fornitore.nome}</span>}
+                {fornitore && fornitore.cognome && <span className="text-xl px-3 py-1 font-t">{fornitore.cognome}</span>}
+                {fornitore && <span className="text-xl px-3 py-1 font-s">{fornitore.indirizzo}</span>}
+                {fornitore && <span className="text-xl px-3 py-1 font-s">Tel: {fornitore.telefono}</span>}
+                {fornitore && <span className="text-xl px-3 py-1 font-s">email: {fornitore.email}</span>}
+                {fornitore && <span className="text-xl px-3 py-1 font-s">Note: {fornitore.note}</span>}
             </div>
 
-            <div className="w-full min-h-1/2 flex justify-around bg-sky-200 overflow-y-auto">
+            <div className="flex justify-around w-full h-1/2 p-5">
                 {/* Tabella Fatture */}
-                <table className="w-2/3 max-h-[20px]">
-                    <thead>
-                        <tr className="border-2 border-white bg-sky-400 text-center">
-                            <th>Data</th>
-                            <th>Numero</th>
-                            <th>IVA</th>
-                            <th>Listino</th>
-                            <th>Totale</th>
-                            <th>Note</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                <div className="w-1/2 h-full overflow-y-auto my-tab">
+                    
+                        <div className="p-2 flex text-center border-b-2 border-sky-200 mx-4 font-t">
+                            <span className="w-1/6">Data</span>
+                            <span className="w-1/6">Numero</span>
+                            <span className="w-1/6">IVA</span>
+                            <span className="w-1/6">Totale</span>
+                            <span className="w-2/6">Note</span>
+                        </div>
+                    
+                    
                         {fornitore && fornitore.fattureAcquisti.map((fattura, index) => {
                             return (
-                                <tr key={index} className="border-2 border-white bg-sky-200 hover:bg-sky-300 text-center">
-                                    <td>{new Date(fattura.data).toLocaleDateString('it-IT')}</td>
-                                    <td>
+                                <div key={index} className="p-2 flex text-center border-b-2 hover:bg-sky-200 rounded-sm border-sky-200 mx-4 font-s">
+                                    <span className="w-1/6">{fattura.data}</span>
+                                    <span className="w-1/6">
                                         <Link to={`/dettaglio_fattura_acquisti/${fattura.id}`}>
                                             {fattura.numero}
                                         </Link>
-                                    </td>
-                                    <td>{fattura.iva}</td>
-                                    <td>{fattura.listino}</td>
-                                    <td>{fattura.totale}</td>
-                                    <td>{fattura.note}</td>
-                                </tr>
+                                    </span>
+                                    <span className="w-1/6">{fattura.iva}</span>
+                                    <span className="w-1/6">{fattura.totale}</span>
+                                    <span className="w-2/6 truncate">{fattura.note}</span>
+                                </div>
                             )
                         })}
-                    </tbody>
-                </table>
+                   
+                </div>
 
                 {/* Tabella Prodotti Acquistati */}
-                <table className="w-2/3 max-h-[20px] overflow-y-auto">
-                    <thead>
-                        <tr className="border-2 border-white bg-sky-400 text-center">
-                            <th>Prodotto acq.</th>
-                            <th>Pezzi</th>
-                            <th>Prezzo Acquisto</th>
-                            <th>Prezzo Vendita</th>
-                            <th>Listino</th>
-                            <th>Note</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                <div className="w-1/3 h-full overflow-y-auto my-tab">
+                    
+                        <div className="p-2 flex text-center border-b-2 border-sky-200 mx-4 font-t">
+                            <span className="w-1/4">Prodotto</span>
+                            <span className="w-1/4">Descrizione</span>
+                            <span className="w-1/4">Pezzi</span>
+                            <span className="w-1/4">Prezzo acq.</span>
+                        </div>
+                    
+                    
                         {fornitore && fornitore.prodotti.map((prodotto, index) => {
                             return (
-                                <tr key={index} className="border-2 border-white bg-sky-200 hover:bg-sky-300 text-center">
-                                    <td>
+                                <div key={index} className="p-2 flex text-center border-b-2 hover:bg-sky-200 rounded-sm border-sky-200 mx-4 font-s">
+                                    <span className="w-1/4">
                                         <Link to={`/dettaglio_prodotto/${prodotto.id}`}>
                                             {prodotto.nome}
                                         </Link>
-                                    </td>
-                                    <td>{prodotto.pezzi}</td>
-                                    <td>{prodotto.prezzoAcquisto}</td>
-                                    <td>{prodotto.prezzoVendita}</td>
-                                    <td>{prodotto.listino}</td>
-                                    <td>{prodotto.note}</td>
-                                </tr>
+                                    </span>
+                                    <span className="w-1/4">{prodotto.descrizione}</span>
+                                    <span className="w-1/4">{prodotto.pezzi}</span>
+                                    <span className="w-1/4">{prodotto.prezzoAcquisto}</span>
+                                </div>
                             )
                         })}
-                    </tbody>
-                </table>
+                    
+                </div>
             </div>
         </div>
     )
