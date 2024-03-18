@@ -129,9 +129,9 @@ export default function FornitoriShowPage() {
             </div>
 
             {/* Conferma eliminazione? */}
-            {formDestroy && <div className="flex flex-col items-center justify-around absolute w-1/4 h-1/4 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-sky-100 rounded-lg z-20">
-                <span className="text-2xl px-2">Sei sicuro di volere eliminare l'anagrafica?</span>
-                <div className="flex justify-center items-center">
+            {formDestroy && <div className="flex flex-col items-center justify-around absolute w-1/3 h-1/4 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-sky-100 border-2 border-sky-400 rounded-lg z-20">
+                <span className="text-2xl px-2 font-t">Sei sicuro di volere eliminare l'anagrafica?</span>
+                <div className="flex justify-center items-center font-t text-white">
                     <button onClick={() => destroyAnagrafica()} className="bg-green-400 p-3 mr-5 rounded-md">Conferma</button>
                     <button onClick={() => eliminaAnagrafica()} className="bg-red-500 p-3 rounded-md">Annulla</button>
                 </div>
