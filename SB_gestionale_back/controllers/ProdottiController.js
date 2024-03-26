@@ -106,7 +106,7 @@ async function create(req, res) {
                     })
                 },
                 cliente: {
-                    connect: prodotto.cliente?.map((elem) => {
+                    connect: datiInIngresso.cliente?.map((elem) => {
                         return { id: elem }
                     })
                 }

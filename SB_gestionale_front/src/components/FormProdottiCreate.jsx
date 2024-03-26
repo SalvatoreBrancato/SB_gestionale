@@ -97,7 +97,7 @@ export default function FormProdottiCreate({ formProdotto, setFormProdotto }) {
 
 
     return (
-        <div className="absolute w-1/2 min-h-[450px] bg-sky-100 rounded-lg top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
+        <div className="absolute w-1/2 min-h-[450px] bg-sky-50 border-2 border-sky-400 rounded-lg top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
 
             {/* CHIUDI FORM */}
             <div className="absolute top-5 right-5">
@@ -110,45 +110,45 @@ export default function FormProdottiCreate({ formProdotto, setFormProdotto }) {
 
             <form className="mx-6 my-6" onSubmit={handleSubmit}>
                 {/* Nome prodotto */}
-                <div className="flex flex-col">
+                <div className="flex flex-col font-t">
                     <label htmlFor="nome">Nome prodotto: </label>
-                    <input className="border-2 rounded-md w-full" type="text" name="nome" value={formData.nome} onChange={handleInputChange} />
+                    <input required className="bg-sky-50 border-b-2 border-sky-300 w-full font-s mb-3" type="text" name="nome" value={formData.nome} onChange={handleInputChange} />
                 </div>
                 {/* Descrizione */}
-                <div className="flex flex-col">
+                <div className="flex flex-col font-t">
                     <label htmlFor="descrizione">Descrizione: </label>
-                    <input className="border-2 rounded-md w-full" type="text" name="descrizione" value={formData.descrizione} onChange={handleInputChange} />
+                    <input required className="bg-sky-50 border-b-2 border-sky-300 w-full font-s mb-3" type="text" name="descrizione" value={formData.descrizione} onChange={handleInputChange} />
                 </div>
                 {/* Prezzo di vendita */}
-                <div className="flex flex-col">
+                <div className="flex flex-col font-t">
                     <label htmlFor="prezzoVendita">Prezzo di vendita: </label>
-                    <input className="border-2 rounded-md w-full" type="number" name="prezzoVendita" value={formData.prezzoVendita} onChange={handleInputChange} />
+                    <input required className="bg-sky-50 border-b-2 border-sky-300 w-full font-s mb-3" type="number" name="prezzoVendita" value={formData.prezzoVendita} onChange={handleInputChange} />
                 </div>
                 {/* Pezzi */}
-                <div className="flex flex-col">
+                <div className="flex flex-col font-t">
                     <label htmlFor="pezzi">Pezzi: </label>
-                    <input className="border-2 rounded-md w-full" type="number" name="pezzi" value={formData.pezzi} onChange={handleInputChange} />
+                    <input required className="bg-sky-50 border-b-2 border-sky-300 w-full font-s mb-3" type="number" name="pezzi" value={formData.pezzi} onChange={handleInputChange} />
                 </div>
                 {/* Prezzo d'acquisto */}
-                <div className="flex flex-col">
+                <div className="flex flex-col font-t">
                     <label htmlFor="prezzoAcquisto">Prezzo d'acquisto: </label>
-                    <input className="border-2 rounded-md w-full" type="number" name="prezzoAcquisto" value={formData.prezzoAcquisto} onChange={handleInputChange} />
+                    <input required className="bg-sky-50 border-b-2 border-sky-300 w-full font-s mb-3" type="number" name="prezzoAcquisto" value={formData.prezzoAcquisto} onChange={handleInputChange} />
                 </div>
                 {/* Listino */}
-                <div className="flex flex-col">
+                <div className="flex flex-col font-t">
                     <label htmlFor="listino">Listino: </label>
-                    <input className="border-2 rounded-md w-full" type="number" name="listino" value={formData.listino} onChange={handleInputChange} />
+                    <input required className="bg-sky-50 border-b-2 border-sky-300 w-full font-s mb-3" type="number" name="listino" value={formData.listino} onChange={handleInputChange} />
                 </div>
                 {/* Note */}
-                <div className="flex flex-col">
+                <div className="flex flex-col font-t">
                     <label htmlFor="note">Note: </label>
-                    <input className="border-2 rounded-md w-full" type="text" name="note" value={formData.note} onChange={handleInputChange} />
+                    <input className="bg-sky-50 border-b-2 border-sky-300 w-full font-s mb-3" type="text" name="note" value={formData.note} onChange={handleInputChange} />
                 </div>
                 {/* Fornitore */}
-                <div className="flex flex-col">
+                <div className="flex flex-col font-t">
                     <label htmlFor="fornitore">Fornitore</label>
-                    <select name="fornitore" id="fornitore" className="overflow-y-auto" value={selezioneFornitore} onChange={handleFornitoreChange}>
-                        <option value="">Seleziona fornitore...</option>
+                    <select required name="fornitore" id="fornitore" className="overflow-y-auto bg-sky-50 border-b-2 border-sky-300 w-full font-s mb-3" value={selezioneFornitore} onChange={handleFornitoreChange}>
+                        <option  value="">Seleziona fornitore...</option>
 
                         {
                             fornitori.map((fornitore) => {
@@ -163,9 +163,9 @@ export default function FormProdottiCreate({ formProdotto, setFormProdotto }) {
                     </select>
                 </div>
                 <div className="flex justify-center">
-                    {isLoading ? <ClipLoader /> : <button type="submit" className="p-1 bg-sky-400 mt-3 rounded-md text-white hover:bg-blue-400">Inserisci nuovo prodotto</button>}
+                    {isLoading ? <ClipLoader /> : <button type="submit" className="p-1 bg-sky-400 my-3 rounded-md text-white hover:bg-sky-500 font-t">Inserisci nuovo prodotto</button>}
                 </div>
-                {isSuccess && <p className="text-center">Nuovo prodotto creato</p>}
+                {isSuccess && <p className="text-center font-t">✔ Nuovo prodotto creato</p>}
 
             </form>
 
