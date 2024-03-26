@@ -46,8 +46,8 @@
     position: absolute;
     top: 0;
     left: 0;
-    border-top: 3px solid #7dd3fc;
-    border-left: 3px solid #7dd3fc;
+    border-top: 4px solid #7dd3fc;
+    border-left: 4px solid #7dd3fc;
     width: 50px;
     height: 50px;
     border-top-left-radius: 15px;
@@ -58,8 +58,8 @@
     position: absolute;
     bottom: 0;
     right: 0;
-    border-bottom: 3px solid #7dd3fc;
-    border-right: 3px solid #7dd3fc;
+    border-bottom: 4px solid #7dd3fc;
+    border-right: 4px solid #7dd3fc;
     width: 50px;
     height: 50px;
     border-bottom-right-radius: 15px;
@@ -67,7 +67,7 @@
 
   /* Stile scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 0px;
   border-radius: 10px;
 }
 

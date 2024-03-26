@@ -5,7 +5,8 @@ const prisma = new PrismaClient();
 async function index(req, res) {
     const data = await prisma.prodotti.findMany({
         include:{
-            fornitore: true
+            fornitore: true,
+            cliente: true
         }
     });
     
@@ -25,14 +26,15 @@ async function show(req, res) {
         include: {
             fattureAcquisti: true,
             fattureVendita: true,
-            fornitore: true
+            fornitore: true,
+            cliente: true
                 
             
         }
     })
 
     if (!data) {
-        throw new Error("Cliente non trovato");
+        throw new Error("Prodotto non trovato");
     }
 
     return res.json(data)
