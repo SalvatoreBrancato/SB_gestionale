@@ -83,38 +83,38 @@ export default function FormProdottiUpdate({form, setForm, prodotto, setProdotto
                 <form className="mx-6 my-6" onSubmit={handleSubmit}>
                     {/* Nome prodotto */}
                     <div className="flex flex-col">
-                        <label htmlFor="nome">Nome: </label>
-                        <input className="border-2 rounded-md w-full" type="text" name="nome" value={prodotto.nome} onChange={handleInputChange}/>
+                        <label htmlFor="nome" className='font-t'>Nome: </label>
+                        <input required className="bg-sky-50 border-b-2 border-sky-300 w-full font-s mb-3" type="text" name="nome" value={prodotto.nome} onChange={handleInputChange}/>
                     </div>
                     {/* Descrizione */}
                     <div className="flex flex-col">
-                        <label htmlFor="descrizione">Descrizione: </label>
-                        <input className="border-2 rounded-md w-full" type="text" name="descrizione" value={prodotto.descrizione} onChange={handleInputChange}/>
+                        <label htmlFor="descrizione" className='font-t'>Descrizione: </label>
+                        <input className="bg-sky-50 border-b-2 border-sky-300 w-full font-s mb-3" type="text" name="descrizione" value={prodotto.descrizione} onChange={handleInputChange}/>
                     </div>
                     {/* Prezzo di vendita */}
                     <div className="flex flex-col">
-                        <label htmlFor="prezzoVendita">Prezzo di vendita: </label>
-                        <input className="border-2 rounded-md w-full" type="number" name="prezzoVendita" value={prodotto.prezzoVendita} onChange={handleInputChange}/>
+                        <label htmlFor="prezzoVendita" className='font-t'>Prezzo di vendita: </label>
+                        <input required className="bg-sky-50 border-b-2 border-sky-300 w-full font-s mb-3" type="number" name="prezzoVendita" value={prodotto.prezzoVendita} onChange={handleInputChange}/>
                     </div>
                     {/* Pezzi */}
                     <div className="flex flex-col">
-                        <label htmlFor="pezzi">Pezzi: </label>
-                        <input className="border-2 rounded-md w-full" type="number" name="pezzi" value={prodotto.pezzi} onChange={handleInputChange}/>
+                        <label htmlFor="pezzi" className='font-t'>Pezzi: </label>
+                        <input required className="bg-sky-50 border-b-2 border-sky-300 w-full font-s mb-3" type="number" name="pezzi" value={prodotto.pezzi} onChange={handleInputChange}/>
                     </div>
                     {/* prezzo d'acquisto */}
                     <div className="flex flex-col">
-                        <label htmlFor="prezzoAcquisto">Prezzo d'acquisto: </label>
-                        <input className="border-2 rounded-md w-full" type="number" name="prezzoAcquisto" value={prodotto.prezzoAcquisto} onChange={handleInputChange}/>
+                        <label htmlFor="prezzoAcquisto" className='font-t'>Prezzo d'acquisto: </label>
+                        <input required className="bg-sky-50 border-b-2 border-sky-300 w-full font-s mb-3" type="number" name="prezzoAcquisto" value={prodotto.prezzoAcquisto} onChange={handleInputChange}/>
                     </div>
                     {/* Listino */}
                     <div className="flex flex-col">
-                        <label htmlFor="listino">Listino: </label>
-                        <input className="border-2 rounded-md w-full" type="number" name="listino" value={prodotto.listino} onChange={handleInputChange}/>
+                        <label htmlFor="listino" className='font-t'>Listino: </label>
+                        <input required className="bg-sky-50 border-b-2 border-sky-300 w-full font-s mb-3" type="number" name="listino" value={prodotto.listino} onChange={handleInputChange}/>
                     </div>
                     {/* Note */}
                     <div className="flex flex-col">
-                        <label htmlFor="note">Note: </label>
-                        <input className="border-2 rounded-md w-full" type="text" name="note" value={prodotto.note} onChange={handleInputChange}/>
+                        <label htmlFor="note" className='font-t'>Note: </label>
+                        <input className="bg-sky-50 border-b-2 border-sky-300 w-full font-s mb-3" type="text" name="note" value={prodotto.note} onChange={handleInputChange}/>
                     </div>
                     <div className="flex justify-center">
                         {isLoading ? <ClipLoader /> : <button type="submit" className="p-1 bg-sky-400 mt-3 rounded-md text-white hover:bg-blue-400">Modifica prodotto</button>}

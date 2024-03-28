@@ -141,7 +141,7 @@ export default function FormUpdateComp({ form, setForm, anagraficaClienteFornito
                     {formaGiuridica == 'personaGiuridica' &&
                         <div className="flex flex-col">
                             <label htmlFor="partitaIva" className='font-t'>Partita IVA</label>
-                            <input require className="bg-sky-50 border-b-2 border-sky-300 w-full font-s mb-3" type="number" name="partitaIva" value={anagraficaClienteFornitore.partitaIva} onChange={handleInputChange} />
+                            <input required className="bg-sky-50 border-b-2 border-sky-300 w-full font-s mb-3" type="number" name="partitaIva" value={anagraficaClienteFornitore.partitaIva} onChange={handleInputChange} />
                         </div>
                     }
                     <div className="flex flex-col">

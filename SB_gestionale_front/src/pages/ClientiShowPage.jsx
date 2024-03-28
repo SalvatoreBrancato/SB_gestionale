@@ -145,7 +145,7 @@ export default function DettaglioClientePage() {
 
             <div className="flex flex-col mb-10 ">
                 {cliente && cliente.ragioneSociale && <span className="text-3xl p-3 font-t">{cliente.ragioneSociale}</span>}
-                {cliente && cliente.partitaIva && <span className="text-xl px-3 py- font-s">P.I. {cliente.partitaIva}</span>}
+                {cliente && cliente.partitaIva && <span className="text-xl px-3 py-1 font-s">P.I. {cliente.partitaIva}</span>}
                 {cliente && cliente.nome && <span className="text-3xl px-3 py-1 font-t">{cliente.nome}</span>}
                 {cliente && cliente.cognome && <span className="text-3xl px-3 py-1 font-t">{cliente.cognome}</span>}
                 {cliente && <span className="text-xl px-3 py-1 font-s">{cliente.indirizzo}</span>}

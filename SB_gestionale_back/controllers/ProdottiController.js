@@ -24,12 +24,18 @@ async function show(req, res) {
             id: parseInt(id)
         },
         include: {
-            fattureAcquisti: true,
-            fattureVendita: true,
+            fattureAcquisti: {
+                include: {
+                    prodotti: true
+                }
+            },
+            fattureVendita: {
+                include: {
+                    prodotti: true
+                }
+            },
             fornitore: true,
             cliente: true
-                
-            
         }
     })
 
@@ -37,8 +43,23 @@ async function show(req, res) {
         throw new Error("Prodotto non trovato");
     }
 
+    // Accedi al prezzo di acquisto dei prodotti nelle fatture di acquisto
+    data.fattureAcquisti.forEach(fattura => {
+        fattura.prodotti.forEach(prodotto => {
+            console.log(prodotto.prezzoAcquisto);
+        });
+    });
+
+    // Accedi al prezzo di acquisto dei prodotti nelle fatture di vendita
+    data.fattureVendita.forEach(fattura => {
+        fattura.prodotti.forEach(prodotto => {
+            console.log(prodotto.prezzoAcquisto);
+        });
+    });
+
     return res.json(data)
 }
+
 
 async function create(req, res) {
     const datiInIngresso = req.body;
