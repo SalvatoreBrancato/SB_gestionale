@@ -91,7 +91,7 @@ export default function ProdottiPage() {
                 </div>
                 <div>
                     {isLoading ? <div className='h-full w-full flex justify-center'><ClipLoader /></div> :
-                        <div>
+                        <div className='overflow-y-auto font-s'>
                             {risultatiRicercaPositivi.map((prodotto, index) => {
                                 return (
                                     <Link key={index} to={`/dettaglio_prodotto/${prodotto.id}`} className='w-full flex justify-between p-5 hover:bg-sky-100 border-b-2 border-sky-200'>
@@ -122,7 +122,7 @@ export default function ProdottiPage() {
                 </div>
                 <div>
                     {isLoading ? <div className='h-full w-full flex justify-center'><ClipLoader /></div> :
-                        <div>
+                        <div className='overflow-y-auto font-s'>
                             {risultatiRicercaNegativi.map((prodotto, index) => {
                                 return (
                                     <Link key={index} to={`/dettaglio_prodotto/${prodotto.id}`} className='w-full flex justify-between p-5 hover:bg-sky-100 border-b-2 border-sky-200'>

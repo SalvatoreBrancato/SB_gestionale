@@ -69,38 +69,40 @@ export default function MagazzinoPage() {
 
     return (
         <div className="h-full bg-sky-50 relative">
-            <div className='w-full flex justify-between items-center p-5 '>
+            <div className='mx-2 my-3 flex justify-between items-center '>
                 <div>
-                    <label htmlFor="ricercaFornitore">Ricerca prodotto: </label>
-                    <input name='ricercaFornitore' type="text" className='border-4 border-sky-100' value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />
+                    <label htmlFor="ricercaFornitore" className='font-t'>Ricerca prodotto: </label>
+                    <input name='ricercaFornitore' type="text" className='border-4 border-sky-100 mt-5' value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />
                 </div>
             </div>
-            <div className='w-full flex justify-between p-5 bg-sky-300 font-bold text-center'>
-                <span className='w-[13%]'>Nome</span>
-                <span className='w-[13%]'>Descrizione</span>
-                <span className='w-[13%]'>pr. d'acq. medio</span>
-                <span className='w-[13%]'>pr. di ven. medio</span>
-                <span className='w-[13%]'>listino medio</span>
-                <span className='w-[13%]'>Pezzi disponibili</span>
-                <span className='w-[13%]'>Note</span>
-            </div>
-            {isLoading ? <div className='h-full w-full flex justify-center'><ClipLoader /></div> :
-                <div className='overflow-y-auto'>
-                    {risultatiRicerca.map((prodotto, index) => {
-                        return (
-                            <div key={index} className='w-full flex justify-between p-5 bg-sky-200 hover:bg-sky-100 border-2 border-y-white'>
-                                <span className='w-[13%] text-center'>{prodotto.nome}</span>
-                                <span className='w-[13%] text-center'>{prodotto.descrizione}</span>
-                                <span className='w-[13%] text-center'>{prodotto.prezzoAcquisto}</span>
-                                <span className='w-[13%] text-center'>{prodotto.prezzoVendita}</span>
-                                <span className='w-[13%] text-center'>{prodotto.listino}</span>
-                                <span className='w-[13%] text-center'>{prodotto.pezzi}</span>
-                                <span className='w-[13%] text-center'>{prodotto.note}</span>
-                            </div>
-                        )
-                    })}
+            <div className='max-h-[90%] overflow-auto mb-14 my-tab'>
+                <div className='w-full flex justify-between p-5 font-t text-center border-b-2 border-sky-200'>
+                    <span className='w-[13%]'>Nome</span>
+                    <span className='w-[13%]'>Descrizione</span>
+                    <span className='w-[13%]'>Prezzo acq. medio</span>
+                    <span className='w-[13%]'>Prezzo ven. medio</span>
+                    <span className='w-[13%]'>Listino medio</span>
+                    <span className='w-[13%]'>Pezzi disponibili</span>
+                    <span className='w-[13%]'>Note</span>
                 </div>
-            }
+                {isLoading ? <div className='h-full w-full flex justify-center'><ClipLoader /></div> :
+                    <div className='overflow-y-auto font-s'>
+                        {risultatiRicerca.map((prodotto, index) => {
+                            return (
+                                <div key={index} className='w-full flex justify-between p-5 hover:bg-sky-100 border-b-2 border-sky-200'>
+                                    <span className='w-[13%] text-center'>{prodotto.nome}</span>
+                                    <span className='w-[13%] text-center'>{prodotto.descrizione}</span>
+                                    <span className='w-[13%] text-center'>{prodotto.prezzoAcquisto}</span>
+                                    <span className='w-[13%] text-center'>{prodotto.prezzoVendita}</span>
+                                    <span className='w-[13%] text-center'>{prodotto.listino}</span>
+                                    <span className='w-[13%] text-center'>{prodotto.pezzi}</span>
+                                    <span className='w-[13%] text-center'>{prodotto.note}</span>
+                                </div>
+                            )
+                        })}
+                    </div>
+                }
+            </div>
         </div>
 
     )
