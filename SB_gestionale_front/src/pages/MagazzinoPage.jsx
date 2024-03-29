@@ -83,7 +83,6 @@ export default function MagazzinoPage() {
                     <span className='w-[13%]'>Prezzo ven. medio</span>
                     <span className='w-[13%]'>Listino medio</span>
                     <span className='w-[13%]'>Pezzi disponibili</span>
-                    <span className='w-[13%]'>Note</span>
                 </div>
                 {isLoading ? <div className='h-full w-full flex justify-center'><ClipLoader /></div> :
                     <div className='overflow-y-auto font-s'>
@@ -96,7 +95,6 @@ export default function MagazzinoPage() {
                                     <span className='w-[13%] text-center'>{prodotto.prezzoVendita}</span>
                                     <span className='w-[13%] text-center'>{prodotto.listino}</span>
                                     <span className='w-[13%] text-center'>{prodotto.pezzi}</span>
-                                    <span className='w-[13%] text-center'>{prodotto.note}</span>
                                 </div>
                             )
                         })}
