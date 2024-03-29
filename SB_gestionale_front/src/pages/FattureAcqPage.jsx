@@ -73,10 +73,10 @@ export default function FattureAcqPage() {
             {/* sfondo in trasparenza quando si apre il form */}
             {(formFatturaAcq || form) && <div className={`absolute inset-x-0 top-0 bottom-0 bg-white z-10 ${formFatturaAcq || form ? 'bg-opacity-80' : 'bg-opacity-0'}`} onClick={() => chiudiFormTrasparenza()}></div>}
 
-            <div className='w-full flex justify-between items-center p-5 '>
+            <div className='mx-2 my-3 flex justify-between items-center'>
                 <div>
-                    <label htmlFor="ricercaFatturaAcq">Ricerca per denominazione: </label>
-                    <input name='ricercaFatturaAcq' type="text" className='border-4 border-sky-100' value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />
+                    <label htmlFor="ricercaFatturaAcq" className='font-t'>Ricerca per denominazione: </label>
+                    <input name='ricercaFatturaAcq' type="text" className='border-4 border-sky-100 mt-5' value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />
                 </div>
                 <div className='flex'>
                     <button className='flex flex-col justify-center items-center' onClick={() => apriChiudiForm()}>
@@ -91,39 +91,39 @@ export default function FattureAcqPage() {
                     </button>
                 </div>
             </div>
+            <div className='max-h-[90%] overflow-auto mb-14 my-tab'>
+                <div className='w-full flex justify-between p-5 font-t text-center border-b-2 border-sky-200'>
+                    <span className='w-[13%]'>Denominazione</span>
+                    <span className='w-[13%]'>Numero ft.</span>
+                    <span className='w-[13%]'>Data</span>
+                    <span className='w-[13%]'>Pezzi</span>
+                    <span className='w-[13%]'>Listino</span>
+                    <span className='w-[13%]'>IVA</span>
+                    <span className='w-[13%]'>Totale</span>
+                    <span className='w-[13%]'>Scadenza</span>
+                </div>
 
-            <div className='w-full flex justify-between p-5 bg-sky-300 font-bold text-center'>
-                <span className='w-[13%]'>Denominazione</span>
-                <span className='w-[13%]'>Numero ft.</span>
-                <span className='w-[13%]'>Data</span>
-                <span className='w-[13%]'>Pezzi</span>
-                <span className='w-[13%]'>Listino</span>
-                <span className='w-[13%]'>IVA</span>
-                <span className='w-[13%]'>Totale</span>
-                <span className='w-[13%]'>Scadenza</span>
+                {isLoading ? <div className='h-full w-full flex justify-center'><ClipLoader /></div> :
+                    <div className='overflow-y-auto font-s'>
+                        {risultatiRicerca.map((fatturaAcq, index) => {
+                            return (
+                                <div key={index}>
+                                    <Link to={`/dettaglio_fattura_acquisti/${fatturaAcq.id}`} className='w-full flex justify-between p-5 hover:bg-sky-100 border-b-2 border-sky-200'>
+                                        <span className='w-[13%] text-center'>{fatturaAcq.fornitori.ragioneSociale}</span>
+                                        <span className='w-[13%] text-center'>{fatturaAcq.numero}</span>
+                                        <span className='w-[13%] text-center'>{fatturaAcq.data}</span>
+                                        <span className='w-[13%] text-center'>{fatturaAcq.pezzi}</span>
+                                        <span className='w-[13%] text-center'>{fatturaAcq.listino}</span>
+                                        <span className='w-[13%] text-center'>{fatturaAcq.iva}</span>
+                                        <span className='w-[13%] text-center'>{fatturaAcq.totale}</span>
+                                        {fatturaAcq.pagamento && fatturaAcq.pagamento.scadenza ? <span className='w-[13%] text-center'>{fatturaAcq.pagamento.scadenza}</span> : <span className='w-[13%] text-center'></span>}
+                                    </Link>
+                                </div>
+                            )
+                        })}
+                    </div>
+                }
             </div>
-
-            {isLoading ? <div className='h-full w-full flex justify-center'><ClipLoader /></div> :
-                <div className='overflow-y-auto'>
-                    {risultatiRicerca.map((fatturaAcq, index) => {
-                        return (
-                            <div key={index}>
-                                <Link to={`/dettaglio_fattura_acquisti/${fatturaAcq.id}`} className='fw-full flex justify-between p-5 bg-sky-200 hover:bg-sky-100 border-2 border-y-white'>
-                                    <span className='w-[13%] text-center'>{fatturaAcq.fornitori.ragioneSociale}</span>
-                                    <span className='w-[13%] text-center'>{fatturaAcq.numero}</span>
-                                    <span className='w-[13%] text-center'>
-                                        {new Date(fatturaAcq.data).toLocaleDateString('it-IT')}
-                                    </span>
-                                    <span className='w-[13%] text-center'>{fatturaAcq.pezzi}</span>
-                                    <span className='w-[13%] text-center'>{fatturaAcq.listino}</span>
-                                    <span className='w-[13%] text-center'>{fatturaAcq.iva}</span>
-                                    <span className='w-[13%] text-center'>{fatturaAcq.totale}</span>
-                                    {fatturaAcq.pagamento && fatturaAcq.pagamento.scadenza ? <span className='w-[13%] text-center'>{fatturaAcq.pagamento.scadenza}</span> : <span className='w-[13%] text-center'></span>}
-                                </Link>
-                            </div>
-                        )
-                    })}
-                </div>}
 
             {/* {formFatturaAcq && <FormFattAcqComp formFatturaAcq={formFatturaAcq} setFormFatturaAcq={setFormFatturaAcq} fattureAcq={fattureAcq} form={form} setForm={setForm}/>} */}
             {formFatturaAcq && <NewFormFattAcq formFatturaAcq={formFatturaAcq} setFormFatturaAcq={setFormFatturaAcq} fattureAcq={fattureAcq} form={form} setForm={setForm} />}
