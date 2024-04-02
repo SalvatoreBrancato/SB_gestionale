@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import FormProdottiCreate from '../components/FormProdottiCreate';
 
@@ -88,14 +89,14 @@ export default function MagazzinoPage() {
                     <div className='overflow-y-auto font-s'>
                         {risultatiRicerca.map((prodotto, index) => {
                             return (
-                                <div key={index} className='w-full flex justify-between p-5 hover:bg-sky-100 border-b-2 border-sky-200'>
+                                <Link key={index} to={`/statistiche_prodotto/${prodotto.nome}`} className='w-full flex justify-between p-5 hover:bg-sky-100 border-b-2 border-sky-200'>
                                     <span className='w-[13%] text-center'>{prodotto.nome}</span>
                                     <span className='w-[13%] text-center'>{prodotto.descrizione}</span>
                                     <span className='w-[13%] text-center'>{prodotto.prezzoAcquisto}</span>
                                     <span className='w-[13%] text-center'>{prodotto.prezzoVendita}</span>
                                     <span className='w-[13%] text-center'>{prodotto.listino}</span>
                                     <span className='w-[13%] text-center'>{prodotto.pezzi}</span>
-                                </div>
+                                </Link>
                             )
                         })}
                     </div>

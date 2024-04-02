@@ -3,12 +3,32 @@ const prisma = new PrismaClient();
 
 //###INDEX###
 async function index(req, res) {
-    const data = await prisma.prodotti.findMany({
-        include:{
+    const query = {}
+    //filtro nome prodotto
+    
+    const{nome} = req.query
+    if(nome){
+        query.where = {
+            nome: {
+                contains: nome
+            }
+        },
+        query.include = {
+            fattureAcquisti: true,
+            fattureVendita: true,
             fornitore: true,
             cliente: true
-        }
-    });
+        } 
+    }
+
+    const data = await prisma.prodotti.findMany(query)
+    
+    // const data = await prisma.prodotti.findMany({
+    //     include:{
+    //         fornitore: true,
+    //         cliente: true
+    //     }
+    // });
     
 
     return res.json(data);
