@@ -36,7 +36,7 @@ export default function MagazzinoShowPage() {
 
             <div className="w-full flex flex-wrap h-5/6 gap-4 justify-center">
 
-                {/* TABBELLA FORNITORI */}
+                {/* TABELLA FORNITORI */}
                 <div className="my-tab w-[48%] h-2/4 overflow-auto">
                     <div className='w-full flex justify-between p-5 font-t text-center border-b-2 border-sky-200'>
                         <span className='w-1/5'>Fornitore</span>
@@ -70,7 +70,7 @@ export default function MagazzinoShowPage() {
 
 
 
-                {/* TABBELLA CLIENTI */}
+                {/* TABELLA CLIENTI */}
                 <div className="my-tab w-[48%] h-2/4 overflow-auto">
                     <div className='w-full flex justify-between p-5 font-t text-center border-b-2 border-sky-200'>
                         <span className='w-1/5'>Cliente</span>
@@ -102,12 +102,64 @@ export default function MagazzinoShowPage() {
                     }
                 </div>
 
+                {/* TABELLA FATTURA ACQUISTI */}
                 <div className="my-tab w-[48%] h-2/4 overflow-auto">
-                    <span>TAB FATT.ACQUISTO</span>
+                    <div className='w-full flex justify-between p-5 font-t text-center border-b-2 border-sky-200'>
+                        <span className='w-1/4'>Data</span>
+                        <span className='w-1/4'>Numero</span>
+                        <span className='w-1/4'>Totale</span>
+                        <span className='w-1/4'>Note</span>
+                    </div>
+                    {
+                        prodotto.map((elem, index) => {
+                            if (elem.fattureAcquisti && elem.fattureAcquisti.length > 0) {
+                                return (
+                                    <div key={index} className="w-full flex justify-between p-5 font-s text-center border-b-2 border-sky-200">
+                                        {elem.fattureAcquisti.map((fatturaAcquisti, indexAcq) => {
+                                            return (
+                                                <div key={indexAcq} className="w-full flex justify-between">
+                                                    <span className="w-1/4">{fatturaAcquisti.data}</span>
+                                                    <span className="w-1/4 truncate">{fatturaAcquisti.numero}</span>
+                                                    <span className="w-1/4">{fatturaAcquisti.totale}</span>
+                                                    <span className="w-1/4">{fatturaAcquisti.note}</span>
+                                                </div>
+                                            )
+                                        })}
+                                    </div>
+                                )
+                            }
+                        })
+                    }
                 </div>
 
+                {/* TABELLA FATTURA VENDITE */}
                 <div className="my-tab w-[48%] h-2/4 overflow-auto">
-                    <span>TAB FATT.VENDITA</span>
+                    <div className='w-full flex justify-between p-5 font-t text-center border-b-2 border-sky-200'>
+                        <span className='w-1/4'>Data</span>
+                        <span className='w-1/4'>Numero</span>
+                        <span className='w-1/4'>Totale</span>
+                        <span className='w-1/4'>Note</span>
+                    </div>
+                    {
+                        prodotto.map((elem, index) => {
+                            if (elem.fattureVendita && elem.fattureVendita.length > 0) {
+                                return (
+                                    <div key={index} className="w-full flex justify-between p-5 font-s text-center border-b-2 border-sky-200">
+                                        {elem.fattureVendita.map((fatturaVendita, indexVen) => {
+                                            return (
+                                                <div key={indexVen} className="w-full flex justify-between">
+                                                    <span className="w-1/4">{fatturaVendita.data}</span>
+                                                    <span className="w-1/4 truncate">{fatturaVendita.numero}</span>
+                                                    <span className="w-1/4">{fatturaVendita.totale}</span>
+                                                    <span className="w-1/4">{fatturaVendita.note}</span>
+                                                </div>
+                                            )
+                                        })}
+                                    </div>
+                                )
+                            }
+                        })
+                    }
                 </div>
             </div>
         </>
