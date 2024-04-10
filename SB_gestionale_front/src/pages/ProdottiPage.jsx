@@ -31,7 +31,7 @@ export default function ProdottiPage() {
 
     function listaProdottiApi() {
         setIsLoading(true);
-        axios.get('http://localhost:3000/prodotti')
+        axios.get('http://localhost:3000/prodotti/storico')
             .then(response => {
                 const prodottiConPezziPositivi = response.data.filter(prodotto => prodotto.pezzi > 0);
                 const prodottiConPezziNegativi = response.data.filter(prodotto => prodotto.pezzi <= 0);

@@ -34,6 +34,17 @@ async function index(req, res) {
     return res.json(data);
 }
 
+async function indexStoricoProdotti(req, res){
+    const data = await prisma.prodotti.findMany({
+        include:{
+            fornitore: true,
+            cliente: true
+        }
+    });
+
+    return res.json(data);
+}
+
 
 //###SHOW###
 async function show(req, res) {
@@ -217,6 +228,7 @@ async function destroy(req, res) {
 
 module.exports = {
     index,
+    indexStoricoProdotti,
     show,
     create,
     update,
