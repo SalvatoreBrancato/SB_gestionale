@@ -95,36 +95,39 @@ export default function FattureVenPage(){
                 </div>
             </div>
 
-            <div className='w-full flex justify-between p-5 bg-sky-300 font-bold text-center'>
-                <span className='w-[13%]'>Denominazione</span>
-                <span className='w-[13%]'>Numero ft.</span>
-                <span className='w-[13%]'>Data</span>
-                <span className='w-[13%]'>Pezzi</span>
-                <span className='w-[13%]'>Listino</span>
-                <span className='w-[13%]'>IVA</span>
-                <span className='w-[13%]'>Totale</span>
-            </div>
+            <div className='max-h-[90%] overflow-auto mb-14 my-tab'>
+                <div className='w-full flex justify-between p-5 font-t text-center border-b-2 border-sky-200'>
+                    <span className='w-[13%]'>Denominazione</span>
+                    <span className='w-[13%]'>Numero ft.</span>
+                    <span className='w-[13%]'>Data</span>
+                    <span className='w-[13%]'>Pezzi</span>
+                    <span className='w-[13%]'>Listino</span>
+                    <span className='w-[13%]'>IVA</span>
+                    <span className='w-[13%]'>Totale</span>
+                    <span className='w-[13%]'>Scadenza</span>
+                </div>
 
-            {isLoading ? <div className='h-full w-full flex justify-center'><ClipLoader /></div> :
-                <div className='overflow-y-auto'>
-                    {risultatiRicerca.map((fatturaVen, index) => {
-                        return (
-                            <div key={index}>
-                                <Link to={`/dettaglio_fattura_vendite/${fatturaVen.id}`} className='fw-full flex justify-between p-5 bg-sky-200 hover:bg-sky-100 border-2 border-y-white'>
-                                    <span className='w-[13%] text-center'>{fatturaVen.clienti.ragioneSociale ? fatturaVen.clienti.ragioneSociale : fatturaVen.clienti.nome + ' ' + fatturaVen.clienti.cognome}</span>
-                                    <span className='w-[13%] text-center'>{fatturaVen.numero}</span>
-                                    <span className='w-[13%] text-center'>
-                                        {new Date(fatturaVen.data).toLocaleDateString('it-IT')}
-                                    </span>
-                                    <span className='w-[13%] text-center'>{fatturaVen.pezzi}</span>
-                                    <span className='w-[13%] text-center'>{fatturaVen.listino}</span>
-                                    <span className='w-[13%] text-center'>{fatturaVen.iva}</span>
-                                    <span className='w-[13%] text-center'>{fatturaVen.totale}</span>
-                                </Link>
-                            </div>
-                        )
-                    })}
-                </div>}
+                {isLoading ? <div className='h-full w-full flex justify-center'><ClipLoader /></div> :
+                    <div className='overflow-y-auto font-s'>
+                        {risultatiRicerca.map((fatturaVen, index) => {
+                            return (
+                                <div key={index}>
+                                    <Link to={`/dettaglio_fattura_vendite/${fatturaVen.id}`} className='w-full flex justify-between p-5 hover:bg-sky-100 border-b-2 border-sky-200'>
+                                        <span className='w-[13%] text-center'>{fatturaVen.clienti.ragioneSociale ? fatturaVen.clienti.ragioneSociale : fatturaVen.clienti.nome + ' ' + fatturaVen.clienti.cognome}</span>
+                                        <span className='w-[13%] text-center'>{fatturaVen.numero}</span>
+                                        <span className='w-[13%] text-center'>{fatturaVen.data}</span>
+                                        <span className='w-[13%] text-center'>{fatturaVen.pezzi}</span>
+                                        <span className='w-[13%] text-center'>{fatturaVen.listino}</span>
+                                        <span className='w-[13%] text-center'>{fatturaVen.iva}</span>
+                                        <span className='w-[13%] text-center'>{fatturaVen.totale}</span>
+                                        {fatturaVen.pagamento && fatturaVen.pagamento.scadenza ? <span className='w-[13%] text-center'>{fatturaVen.pagamento.scadenza}</span> : <span className='w-[13%] text-center'></span>}
+                                    </Link>
+                                </div>
+                            )
+                        })}
+                    </div>
+                    }
+            </div>
             {formFatturaVen && <FormFattVen formFatturaVen={formFatturaVen} setFormFatturaVen={setFormFatturaVen} fattureVen={fattureVen} form={form} setForm={setForm} />}
                 
                 {form && <FormCreateComp form={form} setForm={setForm} fornitori={fornitori}></FormCreateComp>}

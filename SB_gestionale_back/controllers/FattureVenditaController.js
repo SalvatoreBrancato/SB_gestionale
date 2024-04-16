@@ -11,7 +11,8 @@ async function index(req, res){
                     nome: true,
                     cognome: true
                 }
-            }
+            },
+            pagamento: true
         }
     })
 
