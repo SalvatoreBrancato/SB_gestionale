@@ -51,9 +51,9 @@ export default function MagazzinoPage() {
 
         return acc;
     }, []).map(prodotto => {
-        prodotto.prezzoAcquisto /= prodotto.count;
-        prodotto.prezzoVendita /= prodotto.count;
-        prodotto.listino /= prodotto.count;
+        prodotto.prezzoAcquisto = parseFloat(prodotto.prezzoAcquisto / prodotto.count).toFixed(2);
+        prodotto.prezzoVendita = parseFloat(prodotto.prezzoVendita / prodotto.count).toFixed(2);
+        prodotto.listino = parseFloat(prodotto.listino / prodotto.count).toFixed(2);
         return prodotto;
     });
 
@@ -92,9 +92,9 @@ export default function MagazzinoPage() {
                                 <Link key={index} to={`/statistiche_prodotto/${prodotto.nome}`} className='w-full flex justify-between p-5 hover:bg-sky-100 border-b-2 border-sky-200'>
                                     <span className='w-[13%] text-center'>{prodotto.nome}</span>
                                     <span className='w-[13%] text-center'>{prodotto.descrizione}</span>
-                                    <span className='w-[13%] text-center'>{prodotto.prezzoAcquisto}</span>
-                                    <span className='w-[13%] text-center'>{prodotto.prezzoVendita}</span>
-                                    <span className='w-[13%] text-center'>{prodotto.listino}</span>
+                                    <span className='w-[13%] text-center'>€ {prodotto.prezzoAcquisto}</span>
+                                    <span className='w-[13%] text-center'>€ {prodotto.prezzoVendita}</span>
+                                    <span className='w-[13%] text-center'>€ {prodotto.listino}</span>
                                     <span className='w-[13%] text-center'>{prodotto.pezzi}</span>
                                 </Link>
                             )

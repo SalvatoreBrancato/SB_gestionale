@@ -151,7 +151,7 @@ export default function HomePage() {
                                         </Link>
                                     </span>
                                     <span className="w-1/4">{fatturaVen.data}</span>
-                                    <span className="w-1/4">€ {fatturaVen.totale}</span>
+                                    <span className="w-1/4">€ {parseFloat(fatturaVen.totale).toFixed(2)}</span>
                                     {fatturaVen.clienti && <span className="w-1/4 truncate">{fatturaVen.clienti.ragioneSociale ? fatturaVen.clienti.ragioneSociale : fatturaVen.clienti.nome + ' ' + fatturaVen.clienti.cognome}</span>}
                                 </div>
                             )
@@ -178,7 +178,7 @@ export default function HomePage() {
                                         </Link>
                                     </span>
                                     <span className="w-1/4">{fatturaAcq.data}</span>
-                                    <span className="w-1/4">€ {fatturaAcq.totale}</span>
+                                    <span className="w-1/4">€ {parseFloat(fatturaAcq.totale).toFixed(2)}</span>
                                     <span className="w-1/4 truncate">{fatturaAcq.fornitori.ragioneSociale}</span>
                                 </div>
                             )

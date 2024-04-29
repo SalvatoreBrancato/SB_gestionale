@@ -110,7 +110,7 @@ export default function FormFattAcqComp({ formFatturaAcq, setFormFatturaAcq, fat
             data: new Date(formData.data),
             pezzi: parseFloat(totalePezzi),
             iva: parseFloat(iva),
-            listino: parseFloat(totaleListino),
+            listino: parseFloat(totaleListino).toFixed(2),
             sconto: parseFloat(formData.sconto.replace(',', '.')),
             totale: parseFloat(totaleNetti),
             note: formData.note,

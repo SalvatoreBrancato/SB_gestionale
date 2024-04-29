@@ -140,7 +140,7 @@ export default function NewFormFattAcq({ fornitoreId, formFatturaAcq, setFormFat
             return acc + parseInt(riga.listino || 0, 10);
         }, 0);
 
-        setTotaleListino(totaleListino);
+        setTotaleListino(parseFloat(totaleListino).toFixed(2));
 
         // Calcola imponibile
         const totaleImponibile = newFormDataProdotto.reduce((acc, riga) => {
@@ -148,7 +148,7 @@ export default function NewFormFattAcq({ fornitoreId, formFatturaAcq, setFormFat
             return acc + parseInt(riga.prezzoAcquisto || 0, 10);
         }, 0);
 
-        setTotaleImponibile(totaleImponibile);
+        setTotaleImponibile(parseFloat(totaleImponibile).toFixed(2));
 
     }
 
@@ -162,7 +162,7 @@ export default function NewFormFattAcq({ fornitoreId, formFatturaAcq, setFormFat
     const [totaleFattura, setTotaleFattura] = useState(0);
     useEffect(() => {
         const calcolaTotaleFattura = totaleImponibile + (totaleImponibile * iva / 100);
-        setTotaleFattura(calcolaTotaleFattura);
+        setTotaleFattura(parseFloat(calcolaTotaleFattura).toFixed(2));
     }, [totaleImponibile, iva]);
 
     //CONTROLLO SE IL FORM PRODOTTO SI COMPILA L'OGGETTO CORRETTAMENTE
@@ -198,7 +198,7 @@ export default function NewFormFattAcq({ fornitoreId, formFatturaAcq, setFormFat
             descrizione: prodotto.descrizione,
             pezzi: parseFloat(prodotto.pezzi),
             prezzoVendita: parseFloat(prodotto.prezzoVendita),
-            prezzoAcquisto: parseFloat(prodotto.prezzoAcquisto),
+            prezzoAcquisto: parseFloat(prodotto.prezzoAcquisto).toFixed(2),
             listino: parseFloat(prodotto.listino),
             note: prodotto.note,
             fattureAcquisti: [],
@@ -314,7 +314,7 @@ export default function NewFormFattAcq({ fornitoreId, formFatturaAcq, setFormFat
                     {/* Fornitore */}
                     <div className="flex w-1/3 mr-3">
                         <label htmlFor="fornitore" className="mr-1">Fornitore: </label>
-                        <select name="fornitore" id="fornitore" className="w-full" value={selezioneFornitore} onChange={handleFornitoreChange}>
+                        <select required name="fornitore" id="fornitore" className="w-full" value={selezioneFornitore} onChange={handleFornitoreChange}>
                             <option value="">Seleziona fornitore...</option>
 
                             {
