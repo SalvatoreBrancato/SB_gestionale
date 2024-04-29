@@ -288,7 +288,7 @@ export default function NewFormFattAcq({ fornitoreId, formFatturaAcq, setFormFat
     }
 
     return (
-        <div className='absolute w-5/6 min-h-[400px] max-h-[700px] bg-sky-100 rounded-lg top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-y-scroll z-10'>
+        <div className='absolute w-5/6 min-h-[400px] max-h-[700px] bg-sky-100 border-2 border-sky-400 rounded-lg top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-y-scroll z-10 font-s'>
 
             {/* CHIUDI FORM */}
             <div className="absolute top-5 right-5">
@@ -304,12 +304,12 @@ export default function NewFormFattAcq({ fornitoreId, formFatturaAcq, setFormFat
                     {/* Numero */}
                     <div className="flex w-1/6">
                         <label htmlFor="numero" className="mr-1">Numero fattura: </label>
-                        <input className="border-2 rounded-md w-1/3" type="number" name="numero" value={formData.numero} onChange={handleInputFattAcqChange} />
+                        <input required className="border-2 rounded-md w-1/3" type="number" name="numero" value={formData.numero} onChange={handleInputFattAcqChange} />
                     </div>
                     {/* Data */}
                     <div className="flex w-1/6">
                         <label htmlFor="data" className="mr-1">Data fattura: </label>
-                        <input className="border-2 rounded-md w-1/2" type="text" name="data" value={formData.data} onChange={handleInputFattAcqChange} />
+                        <input required className="border-2 rounded-md w-1/2" type="text" name="data" value={formData.data} onChange={handleInputFattAcqChange} />
                     </div>
                     {/* Fornitore */}
                     <div className="flex w-1/3 mr-3">
@@ -367,14 +367,8 @@ export default function NewFormFattAcq({ fornitoreId, formFatturaAcq, setFormFat
 
                             {/* Prezzo acquisto */}
                             <div className="flex flex-col w-1/12 mr-1">
-                                <label htmlFor="prezzoAcquisto">Pr. acq.</label>
+                                <label htmlFor="prezzoAcquisto">Prezzo acq.</label>
                                 <input type="number" name="prezzoAcquisto" value={formDataProdotto[index].prezzoAcquisto} onChange={(e) => handleInputProdottoChange(e, 'prezzoAcquisto', index)} />
-                            </div>
-
-                            {/* Prezzo vendita */}
-                            <div className="flex flex-col w-1/12 mr-1">
-                                <label htmlFor="prezzoVendita">Pr. ven.</label>
-                                <input type="number" name="prezzoVendita" value={formDataProdotto[index].prezzoVendita} onChange={(e) => handleInputProdottoChange(e, 'prezzoVendita', index)} />
                             </div>
 
                             {/* note */}
@@ -382,7 +376,6 @@ export default function NewFormFattAcq({ fornitoreId, formFatturaAcq, setFormFat
                                 <label htmlFor="note">Note</label>
                                 <input type="text" name="note" value={formDataProdotto[index].note} onChange={(e) => handleInputProdottoChange(e, 'note', index)} />
                             </div>
-
 
                             {/* Tasto aggiungi */}
                             <div className="flex flex-col w-4 items-end ml-3">
@@ -410,22 +403,22 @@ export default function NewFormFattAcq({ fornitoreId, formFatturaAcq, setFormFat
                 <div className="flex w-full justify-end mb-5">
                     {/* Totale pezzi */}
                     <div className="flex flex-col w-1/12 me-5">
-                        <label htmlFor="totalePezzi">Tot pz.</label>
+                        <label htmlFor="totalePezzi">Tot. pezzi</label>
                         <input className="border-2 rounded-md w-full" type="number" name="totalePezzi" value={totalePezzi} onChange={handleInputFattAcqChange} />
                     </div>
                     {/* Totale listino */}
                     <div className="flex flex-col w-1/12 me-5">
-                        <label htmlFor="totaleListino">Tot lis. </label>
+                        <label htmlFor="totaleListino">Tot. listino</label>
                         <input className="border-2 rounded-md w-full" type="number" name="totaleListino" value={totaleListino} onChange={handleInputFattAcqChange} />
                     </div>
                     {/* Totale netto*/}
                     <div className="flex flex-col w-1/12 me-5">
-                        <label htmlFor="totaleImponibile">Totale imponibile: </label>
+                        <label htmlFor="totaleImponibile">Imponibile</label>
                         <input className="border-2 rounded-md w-full" type="number" name="totaleImponibile" value={totaleImponibile} onChange={handleInputFattAcqChange} />
                     </div>
                     {/* IVA */}
                     <div className="me-5">
-                        <label htmlFor="iva" className="flex flex-col">IVA: </label>
+                        <label htmlFor="iva" className="flex flex-col">IVA</label>
                         <select name="iva" id="iva" value={iva} onChange={handleIvaChange}>
                             <option value=""></option>
                             <option value="4">4%</option>
@@ -435,7 +428,7 @@ export default function NewFormFattAcq({ fornitoreId, formFatturaAcq, setFormFat
                     </div>
                     {/* Totale fattura*/}
                     <div className="flex flex-col w-1/12 ">
-                        <label htmlFor="totale">Totale fattura: </label>
+                        <label htmlFor="totale">Totale fattura</label>
                         <input className="border-2 rounded-md w-full" type="number" name="totale" value={totaleFattura} />
                     </div>
                 </div>
@@ -443,7 +436,7 @@ export default function NewFormFattAcq({ fornitoreId, formFatturaAcq, setFormFat
                 <div className="flex">
                     {/* Note */}
                     <div className="flex flex-col w-2/3  mr-5 mb-20">
-                        <label htmlFor="note">Note: </label>
+                        <label htmlFor="note">Note</label>
                         <input className="border-2 rounded-md w-full" type="text" name="note" value={formData.note} onChange={handleInputFattAcqChange} />
                     </div>
                     {/* Pagamento */}
@@ -466,7 +459,7 @@ export default function NewFormFattAcq({ fornitoreId, formFatturaAcq, setFormFat
                     </div>
                 </div>
                 <div className="flex justify-center">
-                    {isLoading ? <ClipLoader /> : <button type="submit" className="p-1 bg-sky-400 mt-3 rounded-md text-white hover:bg-blue-400">Registra nuova fattura acq.</button>}
+                    {isLoading ? <ClipLoader /> : <button type="submit" className="p-2 bg-sky-400 mt-3 rounded-md text-white hover:bg-blue-400">Registra nuova fattura acquisto</button>}
                 </div>
                 {isSuccessProdotti && <div className="text-center"><p>✔ Prodotti caricati</p><p>✔ Magazzino aggiornato</p></div>}
                 {isSuccess && <p className="text-center">✔ Nuova fattura acquisti registrata</p>}
